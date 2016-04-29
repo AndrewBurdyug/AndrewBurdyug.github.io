@@ -30,4 +30,30 @@
     <content type="html">&lt;p&gt;See &lt;a class=&quot;reference external&quot; href=&quot;https://docs.docker.com/engine/userguide/networking/dockernetworks/#user-defined-networks&quot;&gt;User-defined networks&lt;/a&gt;.&lt;/p&gt;
 </content>
   </entry>
+  <entry xml:base="True/blog/atom.xml">
+    <title type="text">Сборка Nginx в Debian/Ubuntu</title>
+    <id>True/nginx-build-own-package_ru/</id>
+    <updated>2014-02-17T00:00:00Z</updated>
+    <published>2014-02-17T00:00:00Z</published>
+    <link href="True/nginx-build-own-package_ru/" />
+    <author>
+      <name>Andrew Burdyug</name>
+    </author>
+    <content type="html">&lt;p&gt;Заходим на &lt;a class=&quot;reference external&quot; href=&quot;http://nginx.org/ru/linux_packages.html&quot;&gt;nginx.org/ru/linux_packages.html&lt;/a&gt;
+и следуя инструкциям добавляем реп Сысоева И.В., например для Ubuntu 14.04:&lt;/p&gt;
+</content>
+  </entry>
+  <entry xml:base="True/blog/atom.xml">
+    <title type="text">Смена кодировки в MySQL</title>
+    <id>True/mysql-character-set_ru/</id>
+    <updated>2013-09-25T00:00:00Z</updated>
+    <published>2013-09-25T00:00:00Z</published>
+    <link href="True/mysql-character-set_ru/" />
+    <author>
+      <name>Andrew Burdyug</name>
+    </author>
+    <content type="html">&lt;p&gt;Чтобы переключить кодировку на &lt;em&gt;utf-8&lt;/em&gt;, создайте файлик &lt;em&gt;charset.cnf&lt;/em&gt; в &lt;em&gt;/etc/mysql/conf.d/&lt;/em&gt;
+и добавьте в него следующее:&lt;/p&gt;
+</content>
+  </entry>
 </feed>

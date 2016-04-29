@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 Welcome to Andrew Burdyug's Blog!
-================================
+=================================
 
 Hello World! Find more about me here: :ref:`about`
 

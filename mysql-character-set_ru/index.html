@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Manage container /etc/hosts &mdash; Blog  documentation</title>
+    <title>Смена кодировки в MySQL &mdash; Blog  documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -53,19 +53,29 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="manage-container-etc-hosts">
-<h1>Manage container /etc/hosts<a class="headerlink" href="#manage-container-etc-hosts" title="Permalink to this headline">¶</a></h1>
-<p>See section <a class="reference external" href="https://docs.docker.com/engine/reference/run/">Managing /etc/hosts</a>.</p>
-<p>Example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ docker run -it --add-host db-static:86.75.30.9 ubuntu cat /etc/hosts
-127.0.0.1   localhost
-::1 localhost ip6-localhost ip6-loopback
-fe00::0 ip6-localnet
-ff00::0 ip6-mcastprefix
-ff02::1 ip6-allnodes
-ff02::2 ip6-allrouters
-86.75.30.9  db-static
-172.17.0.2  f0ab12b0b544
+  <div class="section" id="mysql">
+<h1>Смена кодировки в MySQL<a class="headerlink" href="#mysql" title="Permalink to this headline">¶</a></h1>
+<p>Чтобы переключить кодировку на <em>utf-8</em>, создайте файлик <em>charset.cnf</em> в <em>/etc/mysql/conf.d/</em>
+и добавьте в него следующее:</p>
+<div class="highlight-ini"><div class="highlight"><pre><span></span><span class="k">[client]</span>
+<span class="na">default-character-set</span>   <span class="o">=</span> <span class="s">utf8</span>
+
+<span class="k">[mysqld]</span>
+<span class="na">collation-server</span>        <span class="o">=</span> <span class="s">utf8_general_ci</span>
+<span class="na">init-connect</span>            <span class="o">=</span> <span class="s">&#39;SET NAMES utf8&#39;</span>
+<span class="na">character-set-server</span>    <span class="o">=</span> <span class="s">utf8</span>
+
+<span class="k">[mysql]</span>
+<span class="na">default-character-set</span>   <span class="o">=</span> <span class="s">utf8</span>
+</pre></div>
+</div>
+<p>Проверить кодировки таблиц перед переключением на utf8_general_ci можно так:</p>
+<div class="highlight-sql"><div class="highlight"><pre><span></span><span class="k">SHOW</span> <span class="k">TABLE</span> <span class="n">STATUS</span> <span class="k">from</span> <span class="n">databasename</span> <span class="k">WHERE</span> <span class="k">Collation</span><span class="o">!=</span><span class="s1">&#39;utf8_general_ci&#39;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Поменять кодировку в текущей базе можно так:</p>
+<div class="highlight-sql"><div class="highlight"><pre><span></span><span class="k">ALTER</span> <span class="k">DATABASE</span> <span class="n">databasename</span> <span class="nb">CHARACTER</span> <span class="k">SET</span> <span class="n">utf8</span> <span class="k">COLLATE</span> <span class="n">utf8_general_ci</span><span class="p">;</span>
+<span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">tablename</span> <span class="k">CONVERT</span> <span class="k">TO</span> <span class="nb">CHARACTER</span> <span class="k">SET</span> <span class="n">utf8</span> <span class="k">COLLATE</span> <span class="n">utf8_general_ci</span><span class="p">;</span>
 </pre></div>
 </div>
 </div>
@@ -78,15 +88,16 @@ ff02::2 ip6-allrouters
 <div class="section">
   <span style="float: left;">
   
-  
-  <a href="../docker-user-defined-networks/">
-    <i class="fa fa-arrow-circle-left"></i>
-    User defined networks
-  </a>
-  
   </span>
   <span>&nbsp;</span>
   <span style="float: right;">
+  
+  
+  <a href="../nginx-build-own-package_ru/">
+    Сборка Nginx в Debian/Ubuntu
+    <i class="fa fa-arrow-circle-right"></i>
+  </a>
+  </span>
   
 </div>
 
@@ -114,7 +125,7 @@ ff02::2 ip6-allrouters
   <h2>
   
   <i class="fa fa-calendar"></i>
-    Apr 29, 2016
+    Sep 25, 2013
   
   </h2>
 
@@ -133,14 +144,26 @@ ff02::2 ip6-allrouters
   
 
   
-
-  
-
-  
-  <li><i class="fa-fw fa fa-tag"></i>
+  <li><i class="fa-fw fa fa-language"></i>
     
       
-      <a href="../blog/tag/docker/">docker</a>
+      <a href="../blog/language/ru/">ru</a>
+      
+    </li>
+  
+
+  
+
+  
+  <li><i class="fa-fw fa fa-tags"></i>
+      
+    
+      
+      <a href="../blog/tag/mysql/">mysql</a>,
+      
+    
+      
+      <a href="../blog/tag/utf-8/">utf-8</a>
       
     </li>
   
@@ -158,11 +181,11 @@ ff02::2 ip6-allrouters
   <ul>
     
     
+      <li><a href="../docker-manage-container-etc-hosts/">Apr 29 - Manage container /etc/hosts</a></li>
+    
       <li><a href="../docker-user-defined-networks/">Apr 28 - User defined networks</a></li>
     
       <li><a href="../nginx-build-own-package_ru/">Feb 17 - Сборка Nginx в Debian/Ubuntu</a></li>
-    
-      <li><a href="../mysql-character-set_ru/">Sep 25 - Смена кодировки в MySQL</a></li>
     
   </ul>
 
@@ -254,7 +277,7 @@ ff02::2 ip6-allrouters
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
       
       |
-      <a href="../_sources/docker-manage-container-etc-hosts.txt"
+      <a href="../_sources/mysql-character-set_ru.txt"
           rel="nofollow">Page source</a>
     </div>
 
