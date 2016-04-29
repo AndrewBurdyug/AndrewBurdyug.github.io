@@ -1,0 +1,37 @@
+.. post:: Sep 02, 2013
+   :tags: git
+   :author: Andrew Burdyug
+   :language: ru
+
+Git: советы и приёмы
+====================
+Пушнуть текущую локальную ветку в новую удалённую:
+
+.. code-block:: shell-session
+
+    git push <remote-name> <local-branch-name>:<remote-branch-name>
+
+Стянуть удалённую ветку в локальную и перейти в неё::
+
+    git fetch origin <remote-branch-name>:<local-branch-name>
+    git checkout <local-branch-name>
+
+или сокращённый вариант::
+
+    git checkout -b local_branch_name origin/remote_branch_name
+
+Чтобы пушило автоматом на удалённый сервер в текущую ветку::
+
+    git config push.default current
+
+Поменять url репозитория в локальной рабочей копии проекта::
+
+    git remote set-url origin git://new.url.here
+
+Удалить ветку на удалённом репозитории::
+
+    git push origin --delete branch_name
+
+Удалить(локально) мёртвые ветки, которых на удалённом сервере уже нет::
+
+    git fetch -p

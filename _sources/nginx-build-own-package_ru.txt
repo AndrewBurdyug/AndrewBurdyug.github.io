@@ -8,9 +8,7 @@
 Сборка Nginx в Debian/Ubuntu
 ============================
 Заходим на `nginx.org/ru/linux_packages.html <http://nginx.org/ru/linux_packages.html>`_
-и следуя инструкциям добавляем реп Сысоева И.В., например для Ubuntu 14.04:
-
-.. code-block:: console
+и следуя инструкциям добавляем реп Сысоева И.В., например для Ubuntu 14.04::
 
     deb http://nginx.org/packages/ubuntu/ trusty nginx
     deb-src http://nginx.org/packages/ubuntu/ trusty nginx

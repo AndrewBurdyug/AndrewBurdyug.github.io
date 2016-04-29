@@ -56,4 +56,16 @@
 и добавьте в него следующее:&lt;/p&gt;
 </content>
   </entry>
+  <entry xml:base="True/blog/atom.xml">
+    <title type="text">Git: советы и приёмы</title>
+    <id>True/git-tips-and-tricks_ru/</id>
+    <updated>2013-09-02T00:00:00Z</updated>
+    <published>2013-09-02T00:00:00Z</published>
+    <link href="True/git-tips-and-tricks_ru/" />
+    <author>
+      <name>Andrew Burdyug</name>
+    </author>
+    <content type="html">&lt;p&gt;Пушнуть текущую локальную ветку в новую удалённую:&lt;/p&gt;
+</content>
+  </entry>
 </feed>
