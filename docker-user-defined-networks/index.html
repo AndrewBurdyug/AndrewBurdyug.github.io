@@ -1,0 +1,296 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>User defined networks &mdash; Blog  documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about/" />
+    <link rel="top" title="Blog  documentation" href="../" />
+  
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  
+  <link rel="alternate" type="application/atom+xml"  href="../blog/atom.xml" title="Blog Blog">
+  
+  
+  <link href="True" rel="stylesheet">
+  
+  <style type="text/css">
+    ul.ablog-archive {list-style: none; overflow: auto; margin-left: 0px}
+    ul.ablog-archive li {float: left; margin-right: 5px; font-size: 80%}
+    ul.postlist a {font-style: italic;}
+    ul.postlist-style-disc {list-style-type: disc;}
+    ul.postlist-style-none {list-style-type: none;}
+    ul.postlist-style-circle {list-style-type: circle;}
+  </style>
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="user-defined-networks">
+<h1>User defined networks<a class="headerlink" href="#user-defined-networks" title="Permalink to this headline">¶</a></h1>
+<p>See <a class="reference external" href="https://docs.docker.com/engine/userguide/networking/dockernetworks/#user-defined-networks">User-defined networks</a>.</p>
+<p>Create a custom bridge with name <code class="docutils literal"><span class="pre">isolated_nw</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ docker network create -d bridge --subnet 172.31.0.0/16 isolated_nw
+6b598ba1534223a1595c27b0c49d42115ec7c5f3ebea6dce4e2b220f086a3dcc
+</pre></div>
+</div>
+<p>Show all docker networks:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ docker network ls
+NETWORK ID          NAME                DRIVER
+ee9f284bd4b0        bridge              bridge
+ca48e2b967ba        host                host
+6b598ba15342        isolated_nw         bridge
+a69dfefe6cf9        none                null
+</pre></div>
+</div>
+<p>Inspect <code class="docutils literal"><span class="pre">isolated_nw</span></code> bridge:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ docker network inspect isolated_nw
+[
+    {
+        &quot;Name&quot;: &quot;isolated_nw&quot;,
+        &quot;Id&quot;: &quot;6b598ba1534223a1595c27b0c49d42115ec7c5f3ebea6dce4e2b220f086a3dcc&quot;,
+        &quot;Scope&quot;: &quot;local&quot;,
+        &quot;Driver&quot;: &quot;bridge&quot;,
+        &quot;EnableIPv6&quot;: false,
+        &quot;IPAM&quot;: {
+            &quot;Driver&quot;: &quot;default&quot;,
+            &quot;Options&quot;: {},
+            &quot;Config&quot;: [
+                {
+                    &quot;Subnet&quot;: &quot;172.31.0.0/16&quot;
+                }
+            ]
+        },
+        &quot;Internal&quot;: false,
+        &quot;Containers&quot;: {},
+        &quot;Options&quot;: {},
+        &quot;Labels&quot;: {}
+    }
+]
+</pre></div>
+</div>
+<p>Create a new container with IP from our network:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ docker run --net=isolated_nw --ip=172.31.1.1 -itd ubuntu bash
+e7fd3a525d804c5d08d8b5fdb2d971705c83877c2c4b420a140203766b6a0f2e
+
+$ docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+e7fd3a525d80        ubuntu              &quot;bash&quot;              2 seconds ago       Up 2 seconds                            evil_almeida
+</pre></div>
+</div>
+<p>Inspect again our <code class="docutils literal"><span class="pre">isolated_nw</span></code> bridge:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ docker network inspect isolated_nw
+[
+    {
+        &quot;Name&quot;: &quot;isolated_nw&quot;,
+        &quot;Id&quot;: &quot;6b598ba1534223a1595c27b0c49d42115ec7c5f3ebea6dce4e2b220f086a3dcc&quot;,
+        &quot;Scope&quot;: &quot;local&quot;,
+        &quot;Driver&quot;: &quot;bridge&quot;,
+        &quot;EnableIPv6&quot;: false,
+        &quot;IPAM&quot;: {
+            &quot;Driver&quot;: &quot;default&quot;,
+            &quot;Options&quot;: {},
+            &quot;Config&quot;: [
+                {
+                    &quot;Subnet&quot;: &quot;172.31.0.0/16&quot;
+                }
+            ]
+        },
+        &quot;Internal&quot;: false,
+        &quot;Containers&quot;: {
+            &quot;e7fd3a525d804c5d08d8b5fdb2d971705c83877c2c4b420a140203766b6a0f2e&quot;: {
+                &quot;Name&quot;: &quot;evil_almeida&quot;,
+                &quot;EndpointID&quot;: &quot;6e5b4f3a3603de5f2e8e132603e7edc6f046158fb7892a9545ef8a188a95e618&quot;,
+                &quot;MacAddress&quot;: &quot;02:42:ac:1f:01:01&quot;,
+                &quot;IPv4Address&quot;: &quot;172.31.1.1/16&quot;,
+                &quot;IPv6Address&quot;: &quot;&quot;
+            }
+        },
+        &quot;Options&quot;: {},
+        &quot;Labels&quot;: {}
+    }
+]
+</pre></div>
+</div>
+</div>
+
+  <div class="section">
+  
+    
+
+
+<div class="section">
+  <span style="float: left;">
+  
+  </span>
+  <span>&nbsp;</span>
+  <span style="float: right;">
+  
+  
+  <a href="../docker-manage-container-etc-hosts/">
+    Manage container /etc/hosts
+    <i class="fa fa-arrow-circle-right"></i>
+  </a>
+  </span>
+  
+</div>
+
+  
+  
+  </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../">Blog</a></h1>
+
+
+
+
+
+
+
+
+
+  
+  
+  <h2>
+  
+  <i class="fa fa-calendar"></i>
+    Apr 28, 2016
+  
+  </h2>
+
+  <ul>
+    
+
+  
+  <li><i class="fa-fw fa fa-user"></i>
+    
+      
+      <a href="../blog/author/andrew-burdyug/">Andrew Burdyug</a>
+      
+    </li>
+  
+
+  
+
+  
+
+  
+
+  
+  <li><i class="fa-fw fa fa-tag"></i>
+    
+      
+      <a href="../blog/tag/docker/">docker</a>
+      
+    </li>
+  
+  
+  </ul>
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about/">About me</a></li>
+</ul>
+
+
+  <h3><a href="../blog/">Recent Posts</a></h3>
+  <ul>
+    
+    
+      <li><a href="../docker-manage-container-etc-hosts/">Apr 29 - Manage container /etc/hosts</a></li>
+    
+  </ul>
+
+  <h3><a href="../blog/tag/">Tags</a></h3>
+  <style type="text/css">
+    ul.ablog-cloud {list-style: none; overflow: auto;}
+    ul.ablog-cloud li {float: left; height: 20pt; line-height: 18pt; margin-right: 5px;}
+    ul.ablog-cloud a {text-decoration: none; vertical-align: middle;}
+    li.ablog-cloud-1{font-size: 80%;}
+    li.ablog-cloud-2{font-size: 95%;}
+    li.ablog-cloud-3{font-size: 110%;}
+    li.ablog-cloud-4{font-size: 125%;}
+    li.ablog-cloud-5{font-size: 140%;}
+  </style>
+  <ul class="ablog-cloud">
+    
+      
+      <li class="ablog-cloud ablog-cloud-3">
+        <a href="../blog/tag/docker/">docker</a></li>
+      
+    
+  </ul>
+
+  <h3><a href="../blog/archive/">Archives</a></h3>
+  <ul>
+  
+    
+    <li><a href="../blog/2016/">2016 (2)</a></li>
+    
+  
+  </ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search/" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Andrew Burdyug.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      
+      |
+      <a href="../_sources/docker-user-defined-networks.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

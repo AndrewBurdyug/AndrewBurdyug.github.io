@@ -6,32 +6,32 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Authors &mdash; Blog  documentation</title>
+    <title>Manage container /etc/hosts &mdash; Blog  documentation</title>
     
-    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
+        URL_ROOT:    '../',
         VERSION:     '',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '',
         HAS_SOURCE:  true
       };
     </script>
-    <script type="text/javascript" src="../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="author" title="About these documents" href="../../about/" />
-    <link rel="top" title="Blog  documentation" href="../../" />
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about/" />
+    <link rel="top" title="Blog  documentation" href="../" />
   
    
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   
-  <link rel="alternate" type="application/atom+xml"  href="../../blog/atom.xml" title="Blog Blog">
+  <link rel="alternate" type="application/atom+xml"  href="../blog/atom.xml" title="Blog Blog">
   
   
   <link href="True" rel="stylesheet">
@@ -53,47 +53,54 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  
-  
-  <div class="section">
+  <div class="section" id="manage-container-etc-hosts">
+<h1>Manage container /etc/hosts<a class="headerlink" href="#manage-container-etc-hosts" title="Permalink to this headline">¶</a></h1>
+<p>See section <a class="reference external" href="https://docs.docker.com/engine/reference/run/">Managing /etc/hosts</a>.</p>
+<p>Example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ docker run -it --add-host db-static:86.75.30.9 ubuntu cat /etc/hosts
+127.0.0.1   localhost
+::1 localhost ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+86.75.30.9  db-static
+172.17.0.2  f0ab12b0b544
+</pre></div>
+</div>
+</div>
 
-    <h2>
-      Posts by
-      <a href="andrew-burdyug/">Andrew Burdyug</a>
-    </h2>
+  <div class="section">
+  
     
-    <div class="section">
-      <p>
-      
-      
-        Apr 29, 2016
-      
-      - <a href="../../docker-manage-container-etc-hosts/">Manage container /etc/hosts</a>
-      </p>
-      
-    </div>
-    
-    <div class="section">
-      <p>
-      
-      
-        Apr 28, 2016
-      
-      - <a href="../../docker-user-defined-networks/">User defined networks</a>
-      </p>
-      
-    </div>
-    
+
+
+<div class="section">
+  <span style="float: left;">
+  
+  </span>
+  <span>&nbsp;</span>
+  <span style="float: right;">
+  
+  
+  <a href="../docker-user-defined-networks/">
+    User defined networks
+    <i class="fa fa-arrow-circle-right"></i>
+  </a>
+  </span>
+  
+</div>
+
+  
+  
   </div>
-  
-  
 
           </div>
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="../../">Blog</a></h1>
+<h1 class="logo"><a href="../">Blog</a></h1>
 
 
 
@@ -102,25 +109,61 @@
 
 
 
+
+  
+  
+  <h2>
+  
+  <i class="fa fa-calendar"></i>
+    Apr 29, 2016
+  
+  </h2>
+
+  <ul>
+    
+
+  
+  <li><i class="fa-fw fa fa-user"></i>
+    
+      
+      <a href="../blog/author/andrew-burdyug/">Andrew Burdyug</a>
+      
+    </li>
+  
+
+  
+
+  
+
+  
+
+  
+  <li><i class="fa-fw fa fa-tag"></i>
+    
+      
+      <a href="../blog/tag/docker/">docker</a>
+      
+    </li>
+  
+  
+  </ul>
 
 
 <h3>Navigation</h3>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../about/">About me</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about/">About me</a></li>
 </ul>
 
 
-  <h3><a href="../">Recent Posts</a></h3>
+  <h3><a href="../blog/">Recent Posts</a></h3>
   <ul>
     
     
-      <li><a href="../../docker-manage-container-etc-hosts/">Apr 29 - Manage container /etc/hosts</a></li>
-    
-      <li><a href="../../docker-user-defined-networks/">Apr 28 - User defined networks</a></li>
+      <li><a href="../docker-user-defined-networks/">Apr 29 - User defined networks</a></li>
     
   </ul>
 
-  <h3><a href="../tag/">Tags</a></h3>
+  <h3><a href="../blog/tag/">Tags</a></h3>
   <style type="text/css">
     ul.ablog-cloud {list-style: none; overflow: auto;}
     ul.ablog-cloud li {float: left; height: 20pt; line-height: 18pt; margin-right: 5px;}
@@ -135,23 +178,23 @@
     
       
       <li class="ablog-cloud ablog-cloud-3">
-        <a href="../tag/docker/">docker</a></li>
+        <a href="../blog/tag/docker/">docker</a></li>
       
     
   </ul>
 
-  <h3><a href="../archive/">Archives</a></h3>
+  <h3><a href="../blog/archive/">Archives</a></h3>
   <ul>
   
     
-    <li><a href="../2016/">2016 (2)</a></li>
+    <li><a href="../blog/2016/">2016 (2)</a></li>
     
   
   </ul>
 
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
-    <form class="search" action="../../search/" method="get">
+    <form class="search" action="../search/" method="get">
       <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
@@ -170,6 +213,9 @@
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
       
+      |
+      <a href="../_sources/docker-manage-container-etc-hosts.txt"
+          rel="nofollow">Page source</a>
     </div>
 
     

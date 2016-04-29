@@ -7,15 +7,27 @@
   <link href="True/blog/atom.xml" rel="self" />
   <generator uri="http://ablog.readthedocs.org" version="0.8.3">ABlog</generator>
   <entry xml:base="True/blog/atom.xml">
-    <title type="text">Add to /etc/hosts</title>
-    <id>True/docker/</id>
+    <title type="text">Manage container /etc/hosts</title>
+    <id>True/docker-manage-container-etc-hosts/</id>
     <updated>2016-04-29T00:00:00Z</updated>
     <published>2016-04-29T00:00:00Z</published>
-    <link href="True/docker/" />
+    <link href="True/docker-manage-container-etc-hosts/" />
     <author>
       <name>Andrew Burdyug</name>
     </author>
     <content type="html">&lt;p&gt;See section &lt;a class=&quot;reference external&quot; href=&quot;https://docs.docker.com/engine/reference/run/&quot;&gt;Managing /etc/hosts&lt;/a&gt;.&lt;/p&gt;
+</content>
+  </entry>
+  <entry xml:base="True/blog/atom.xml">
+    <title type="text">User defined networks</title>
+    <id>True/docker-user-defined-networks/</id>
+    <updated>2016-04-28T00:00:00Z</updated>
+    <published>2016-04-28T00:00:00Z</published>
+    <link href="True/docker-user-defined-networks/" />
+    <author>
+      <name>Andrew Burdyug</name>
+    </author>
+    <content type="html">&lt;p&gt;See &lt;a class=&quot;reference external&quot; href=&quot;https://docs.docker.com/engine/userguide/networking/dockernetworks/#user-defined-networks&quot;&gt;User-defined networks&lt;/a&gt;.&lt;/p&gt;
 </content>
   </entry>
 </feed>
