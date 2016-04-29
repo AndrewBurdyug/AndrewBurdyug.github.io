@@ -1,0 +1,78 @@
+
+.. _about:
+
+About me
+========
+My name is Andrew Burdyug and I'm a Python developer/sysadmin, below are some
+of the milestones of my biography.
+
+Good start
+----------
+In 2008 year I began to work in a small hosting company, It was a great start
+to gain experience with:
+
+* bash scripting
+* web servers(Apache, Nginx)
+* mail servers(Postfix, Exim, Dovecot)
+* database servers(MySQL, PostrgeSQL)
+* dns servers(Bind, PowerDNS, Unbound, NSD)
+* jabber servers(Ejabberd, Prosody)
+* monitoring systems(MRTG, RRDtool, Nagios, Icinga)
+* etc
+
+At that time I began to learn Perl because I wanted to rewrite my old bash scripts
+to something more readable/supported, basically these were scripts of automatization
+of admin tasks and monitoring checks. I loved perl, thanks to him my scripts
+began to better, they grew and became doing more additional things, good things.
+It was cool, I began to feel myself like a real 'programmer' and I realized
+what exactly I want doing: programming.
+
+Disappointment
+--------------
+As time went on and I began to notice that my perl scripts become to very complicated
+and less supported due to the absence of strict syntax of perl and other things,
+at that time I became interested in web programming, but then perl didn't had any
+popular/stable web framework, many hours which I spent to dive into perl,
+researching the ecosystem of perl, did not lead to satisfaction:
+there was no clear syntax rules, there was a lot of magic, lot of CPAN modules,
+which may good working today, but not work tomorrow or not working with other
+minor version of perl. I was upset. I became interested in other programming languages,
+I wanted to try something other instead of Perl, switch from perl programming.
+
+Find yourself or second start
+-----------------------------
+I saw the two ways: become a ruby developer or python developer. Both languages
+actively developed in that time, but I saw that many ex perl developers
+switched to Python and they did not regret it, also Python seemed more simple
+and expressive for me than Ruby. I started to learn Python and write some scripts
+of automatization of my everyday admin tasks, but would like a something more,
+then script, sysadmin tasks became a tedious and not interesting for me.
+
+Python
+------
+In 2013 year I began to work in a small IT company on the position ``python developer``.
+The python project, in which I involved, used *Django 1.4.3, Jinja, Fabric, AngularJs,
+Git and Agile software development*. I quickly became a *full-stack developer* and *DevOps*.
+But I wanted more Python and web technologies, I dived into them in personal
+projects and freelance job.
+
+For three years, I became acquainted with many things, here some of them:
+
+* NoSQL databases(MongoDB, Redis, Elasticsearch, ArangoDb)
+* Docker ecosystem
+* Python web frameworks(Django, Bottle, Flask, Pyramid)
+* Python ORM(SQLAlchemy, Pony ORM, Peewee ORM)
+* Messaging and task queues(RabbitMq, Celery, Gearman)
+* css frameworks(Bootstrap, Pure Css, Kube Css, Semantic UI)
+* javascript frameworks(JQuery, AngularJS, Backbone)
+* site parsing, crawling, multithreading, asynchronous programming
+
+and many many others cool stuff. And yes, I have never regretted that I've chosen
+python and web development.
+
+These days
+----------
+Now I'm interested in: open source and startups. I have a couple ideas for personal startups,
+and wanna focus on them, make something good, something cool, ordinary dreams
+of ordinary developer =) I hope you will find something useful for yourself on my blog,
+have a nice reading!
