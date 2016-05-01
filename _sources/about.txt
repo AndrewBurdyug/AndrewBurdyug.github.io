@@ -17,7 +17,8 @@ to gain experience with:
 * database servers(MySQL, PostrgeSQL)
 * dns servers(Bind, PowerDNS, Unbound, NSD)
 * jabber servers(Ejabberd, Prosody)
-* monitoring systems(MRTG, RRDtool, Nagios, Icinga)
+* monitoring systems(MRTG, RRDtool, Nagios, Icinga, Monit)
+* backups(BackupPC, Bacula)
 * etc
 
 At that time I began to learn Perl because I wanted to rewrite my old bash scripts

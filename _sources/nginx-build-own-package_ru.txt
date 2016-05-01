@@ -8,58 +8,42 @@
 Сборка Nginx в Debian/Ubuntu
 ============================
 Заходим на `nginx.org/ru/linux_packages.html <http://nginx.org/ru/linux_packages.html>`_
-и следуя инструкциям добавляем реп Сысоева И.В., например для Ubuntu 14.04:
-
-.. code-block:: console
+и следуя инструкциям добавляем реп Сысоева И.В., например для Ubuntu 14.04::
 
     deb http://nginx.org/packages/ubuntu/ trusty nginx
     deb-src http://nginx.org/packages/ubuntu/ trusty nginx
 
 
-Качаем и импортируем ключ, которым подписаны пакеты с репа Сысоева И.В.:
-
-.. code-block:: console
+Качаем и импортируем ключ, которым подписаны пакеты с репа Сысоева И.В.::
 
     wget http://nginx.org/keys/nginx_signing.key
     apt-key add nginx_signing.key
 
-Обновляем список пакетов:
-
-.. code-block:: console
+Обновляем список пакетов::
 
     apt-get update
 
-Ставим нужное для сборки:
-
-.. code-block:: console
+Ставим нужное для сборки::
 
     apt-get install -y dpkg-dev devscripts build-essential fakeroot debhelper libssl-dev libpcre3-dev zlib1g-dev
 
-Получаем исходники пакета:
-
-.. code-block:: console
+Получаем исходники пакета::
 
     cd /usr/src/ && apt-get source nginx
 
 Переходим в директорию файлов nginx'а (зависит от версии),
-например у меня на момент написания этого мануала:
-
-.. code-block:: console
+например у меня на момент написания этого мануала::
 
     cd nginx-1.6.1/
 
 Редактируем *debian/rules*: добавляем то, что надо и удаляем лишнее - то что Вам явно не надо,
 например поддержку ipv6, стриминг и т.д.
 
-Собираем пакет:
-
-.. code-block:: console
+Собираем пакет::
 
     debuild -us -uc
 
-Переходим в родительскую папку и ставим пакет:
-
-.. code-block:: console
+Переходим в родительскую папку и ставим пакет::
 
     cd ..
     dpkg -i nginx_1.6.1-1~trusty_amd64.deb

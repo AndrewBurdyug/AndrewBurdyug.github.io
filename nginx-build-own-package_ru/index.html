@@ -44,9 +44,6 @@
     ul.postlist-style-none {list-style-type: none;}
     ul.postlist-style-circle {list-style-type: circle;}
   </style>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/default.min.css" type="text/css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
-
 
   </head>
   <body role="document">  
@@ -60,41 +57,41 @@
 <h1>Сборка Nginx в Debian/Ubuntu<a class="headerlink" href="#nginx-debian-ubuntu" title="Permalink to this headline">¶</a></h1>
 <p>Заходим на <a class="reference external" href="http://nginx.org/ru/linux_packages.html">nginx.org/ru/linux_packages.html</a>
 и следуя инструкциям добавляем реп Сысоева И.В., например для Ubuntu 14.04:</p>
-<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">deb http://nginx.org/packages/ubuntu/ trusty nginx</span>
-<span class="go">deb-src http://nginx.org/packages/ubuntu/ trusty nginx</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">deb</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">nginx</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">packages</span><span class="o">/</span><span class="n">ubuntu</span><span class="o">/</span> <span class="n">trusty</span> <span class="n">nginx</span>
+<span class="n">deb</span><span class="o">-</span><span class="n">src</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">nginx</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">packages</span><span class="o">/</span><span class="n">ubuntu</span><span class="o">/</span> <span class="n">trusty</span> <span class="n">nginx</span>
 </pre></div>
 </div>
 <p>Качаем и импортируем ключ, которым подписаны пакеты с репа Сысоева И.В.:</p>
-<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">wget http://nginx.org/keys/nginx_signing.key</span>
-<span class="go">apt-key add nginx_signing.key</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">nginx</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">keys</span><span class="o">/</span><span class="n">nginx_signing</span><span class="o">.</span><span class="n">key</span>
+<span class="n">apt</span><span class="o">-</span><span class="n">key</span> <span class="n">add</span> <span class="n">nginx_signing</span><span class="o">.</span><span class="n">key</span>
 </pre></div>
 </div>
 <p>Обновляем список пакетов:</p>
-<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">apt-get update</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span>
 </pre></div>
 </div>
 <p>Ставим нужное для сборки:</p>
-<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">apt-get install -y dpkg-dev devscripts build-essential fakeroot debhelper libssl-dev libpcre3-dev zlib1g-dev</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">dpkg</span><span class="o">-</span><span class="n">dev</span> <span class="n">devscripts</span> <span class="n">build</span><span class="o">-</span><span class="n">essential</span> <span class="n">fakeroot</span> <span class="n">debhelper</span> <span class="n">libssl</span><span class="o">-</span><span class="n">dev</span> <span class="n">libpcre3</span><span class="o">-</span><span class="n">dev</span> <span class="n">zlib1g</span><span class="o">-</span><span class="n">dev</span>
 </pre></div>
 </div>
 <p>Получаем исходники пакета:</p>
-<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">cd /usr/src/ &amp;&amp; apt-get source nginx</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">src</span><span class="o">/</span> <span class="o">&amp;&amp;</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">source</span> <span class="n">nginx</span>
 </pre></div>
 </div>
 <p>Переходим в директорию файлов nginx&#8217;а (зависит от версии),
 например у меня на момент написания этого мануала:</p>
-<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">cd nginx-1.6.1/</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">nginx</span><span class="o">-</span><span class="mf">1.6</span><span class="o">.</span><span class="mi">1</span><span class="o">/</span>
 </pre></div>
 </div>
 <p>Редактируем <em>debian/rules</em>: добавляем то, что надо и удаляем лишнее - то что Вам явно не надо,
 например поддержку ipv6, стриминг и т.д.</p>
 <p>Собираем пакет:</p>
-<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">debuild -us -uc</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">debuild</span> <span class="o">-</span><span class="n">us</span> <span class="o">-</span><span class="n">uc</span>
 </pre></div>
 </div>
 <p>Переходим в родительскую папку и ставим пакет:</p>
-<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">cd ..</span>
-<span class="go">dpkg -i nginx_1.6.1-1~trusty_amd64.deb</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">..</span>
+<span class="n">dpkg</span> <span class="o">-</span><span class="n">i</span> <span class="n">nginx_1</span><span class="o">.</span><span class="mf">6.1</span><span class="o">-</span><span class="mi">1</span><span class="o">~</span><span class="n">trusty_amd64</span><span class="o">.</span><span class="n">deb</span>
 </pre></div>
 </div>
 </div>
@@ -129,13 +126,6 @@
   
   
   </div>
-  <script>
-    $(document).ready(function() {
-      $('.highlight pre').each(function(i, block) {
-        hljs.highlightBlock(block);
-      });
-    });
-  </script>
 
           </div>
         </div>
