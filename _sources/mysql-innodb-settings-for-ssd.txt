@@ -36,6 +36,10 @@ here what about it says mysql docs:
     When dirty pages are flushed, the innodb_io_capacity limit is divided equally
     among buffer pool instances.
 
+    As of MySQL 5.7.2, the innodb_io_capacity setting is also used to limit
+    the number of buffer pool load operations per second when there is other I/O
+    activity being performed by InnoDB background tasks.
+
     For systems with individual 5400 RPM or 7200 RPM drives, you might lower the
     value to the former default of 100.
 
@@ -55,3 +59,7 @@ during the converting big database(180 millions of rows) to InnoDb:
         ALTER TABLE table_name ENGINE=InnoDB;
 
 .. _Linode: https://www.linode.com/
+
+.. update:: May 01, 2016
+
+    Added notes about MySQL 5.7.2

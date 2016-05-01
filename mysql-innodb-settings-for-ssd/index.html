@@ -79,6 +79,9 @@ associated with a high rate of row changes.</p>
 <p>The innodb_io_capacity limit is a total limit for all buffer pool instances.
 When dirty pages are flushed, the innodb_io_capacity limit is divided equally
 among buffer pool instances.</p>
+<p>As of MySQL 5.7.2, the innodb_io_capacity setting is also used to limit
+the number of buffer pool load operations per second when there is other I/O
+activity being performed by InnoDB background tasks.</p>
 <p>For systems with individual 5400 RPM or 7200 RPM drives, you might lower the
 value to the former default of 100.</p>
 </div></blockquote>
@@ -94,6 +97,10 @@ during the converting big database(180 millions of rows) to InnoDb:</p>
 <div class="last highlight-sql"><div class="highlight"><pre><span></span><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="k">table_name</span> <span class="n">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span><span class="p">;</span>
 </pre></div>
 </div>
+</div>
+<div class="note update admonition">
+<p class="first admonition-title">Updated on May 01, 2016</p>
+<p class="last">Added notes about MySQL 5.7.2</p>
 </div>
 </div>
 
@@ -173,6 +180,9 @@ during the converting big database(180 millions of rows) to InnoDb:</p>
 
   <ul>
     
+  <li><i class="fa fa-pencil-square-o"></i>
+    May 01, 2016</li>
+  
 
   
   <li><i class="fa-fw fa fa-user"></i>
