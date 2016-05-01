@@ -44,6 +44,8 @@
     ul.postlist-style-none {list-style-type: none;}
     ul.postlist-style-circle {list-style-type: circle;}
   </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/default.min.css" type="text/css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
 
   </head>
   <body role="document">  
@@ -150,9 +152,9 @@ e7fd3a525d80        ubuntu              &quot;bash&quot;              2 seconds 
   <span style="float: left;">
   
   
-  <a href="../mysql-innodb-settings-for-ssd/">
+  <a href="../nginx-try-files-tricks/">
     <i class="fa fa-arrow-circle-left"></i>
-    Mysql Innodb Settings For SSD
+    Nginx Try Files Tricks
   </a>
   
   </span>
@@ -190,6 +192,14 @@ e7fd3a525d80        ubuntu              &quot;bash&quot;              2 seconds 
     </div>
   
   </div>
+  <script>
+    $(document).ready(function() {
+      $('.highlight pre').each(function(i, block) {
+        block.removeClasse('')
+        hljs.highlightBlock(block);
+      });
+    });
+  </script>
 
           </div>
         </div>
@@ -272,9 +282,9 @@ e7fd3a525d80        ubuntu              &quot;bash&quot;              2 seconds 
   <ul>
     
     
-      <li><a href="../nginx-try-files-tricks/">May 01 - Nginx Try Files Tricks</a></li>
-    
       <li><a href="../docker-manage-container-etc-hosts/">Apr 29 - Manage container /etc/hosts</a></li>
+    
+      <li><a href="../nginx-try-files-tricks/">Mar 15 - Nginx Try Files Tricks</a></li>
     
       <li><a href="../mysql-innodb-settings-for-ssd/">Sep 28 - Mysql Innodb Settings For SSD</a></li>
     

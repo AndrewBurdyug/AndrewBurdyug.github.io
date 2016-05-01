@@ -44,6 +44,8 @@
     ul.postlist-style-none {list-style-type: none;}
     ul.postlist-style-circle {list-style-type: circle;}
   </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/default.min.css" type="text/css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
 
   </head>
   <body role="document">  
@@ -63,59 +65,6 @@
       
     </h1>
     
-    
-
-    <div class="section">
-      <h2><a href="../../../nginx-try-files-tricks/">Nginx Try Files Tricks</a></h2>
-
-      <ul class="ablog-archive">
-      <li>
-      <i class="fa fa-calendar"></i>
-        May 01, 2016
-      
-      </li>
-        
-
-  
-  <li><i class="fa-fw fa fa-user"></i>
-    
-      
-      <a href="#">Andrew Burdyug</a>
-      
-    </li>
-  
-
-  
-
-  
-
-  
-  <li><i class="fa-fw fa fa-folder-open"></i>
-    
-      
-      <a href="../../category/tricks/">tricks</a>
-      
-    </li>
-  
-
-  
-  <li><i class="fa-fw fa fa-tag"></i>
-    
-      
-      <a href="../../tag/nginx/">nginx</a>
-      
-    </li>
-  
-  </ul>
-      <p>Nginx has many good things, the most interesting what I recently done with him,
-it is configure him for serving content, which can have different paths: <code class="docutils literal"><span class="pre">default</span></code>
-and <code class="docutils literal"><span class="pre">custom</span></code>. The <code class="docutils literal"><span class="pre">custom</span></code> files should override <code class="docutils literal"><span class="pre">default</span></code> files, but if
-requested file does not exists in the <code class="docutils literal"><span class="pre">custom</span></code> directory, then nginx should return
-a <code class="docutils literal"><span class="pre">default</span></code> file. Here is an example of such nginx configuration:</p>
-
-      <p><a href="../../../nginx-try-files-tricks/">Read more ...</a></p>
-      <hr>
-    </div>
     
 
     <div class="section">
@@ -198,6 +147,57 @@ a <code class="docutils literal"><span class="pre">default</span></code> file. H
       <p>See <a class="reference external" href="https://docs.docker.com/engine/userguide/networking/dockernetworks/#user-defined-networks">User-defined networks</a>.</p>
 
       <p><a href="../../../docker-user-defined-networks/">Read more ...</a></p>
+      <hr>
+    </div>
+    
+
+    <div class="section">
+      <h2><a href="../../../nginx-try-files-tricks/">Nginx Try Files Tricks</a></h2>
+
+      <ul class="ablog-archive">
+      <li>
+      <i class="fa fa-calendar"></i>
+        Mar 15, 2016
+      
+      </li>
+        
+
+  
+  <li><i class="fa-fw fa fa-user"></i>
+    
+      
+      <a href="#">Andrew Burdyug</a>
+      
+    </li>
+  
+
+  
+
+  
+
+  
+  <li><i class="fa-fw fa fa-folder-open"></i>
+    
+      
+      <a href="../../category/tricks/">tricks</a>
+      
+    </li>
+  
+
+  
+  <li><i class="fa-fw fa fa-tag"></i>
+    
+      
+      <a href="../../tag/nginx/">nginx</a>
+      
+    </li>
+  
+  </ul>
+      <p>Nginx has many good things, the most interesting what I recently done with him,
+it is configure him for serving content, which may be in different places: <code class="docutils literal"><span class="pre">default</span></code>
+and <code class="docutils literal"><span class="pre">custom</span></code>.</p>
+
+      <p><a href="../../../nginx-try-files-tricks/">Read more ...</a></p>
       <hr>
     </div>
     
@@ -458,11 +458,11 @@ writes, help these settings adjustment:</p>
   <ul>
     
     
-      <li><a href="../../../nginx-try-files-tricks/">May 01 - Nginx Try Files Tricks</a></li>
-    
       <li><a href="../../../docker-manage-container-etc-hosts/">Apr 29 - Manage container /etc/hosts</a></li>
     
       <li><a href="../../../docker-user-defined-networks/">Apr 28 - User defined networks</a></li>
+    
+      <li><a href="../../../nginx-try-files-tricks/">Mar 15 - Nginx Try Files Tricks</a></li>
     
       <li><a href="../../../mysql-innodb-settings-for-ssd/">Sep 28 - Mysql Innodb Settings For SSD</a></li>
     

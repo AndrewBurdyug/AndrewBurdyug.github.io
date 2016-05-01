@@ -44,6 +44,8 @@
     ul.postlist-style-none {list-style-type: none;}
     ul.postlist-style-circle {list-style-type: circle;}
   </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/default.min.css" type="text/css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
 
   </head>
   <body role="document">  
@@ -123,8 +125,8 @@ during the converting big database(180 millions of rows) to InnoDb:</p>
   <span style="float: right;">
   
   
-  <a href="../docker-user-defined-networks/">
-    User defined networks
+  <a href="../nginx-try-files-tricks/">
+    Nginx Try Files Tricks
     <i class="fa fa-arrow-circle-right"></i>
   </a>
   </span>
@@ -153,6 +155,14 @@ during the converting big database(180 millions of rows) to InnoDb:</p>
     </div>
   
   </div>
+  <script>
+    $(document).ready(function() {
+      $('.highlight pre').each(function(i, block) {
+        block.removeClasse('')
+        hljs.highlightBlock(block);
+      });
+    });
+  </script>
 
           </div>
         </div>
@@ -254,11 +264,11 @@ during the converting big database(180 millions of rows) to InnoDb:</p>
   <ul>
     
     
-      <li><a href="../nginx-try-files-tricks/">May 01 - Nginx Try Files Tricks</a></li>
-    
       <li><a href="../docker-manage-container-etc-hosts/">Apr 29 - Manage container /etc/hosts</a></li>
     
       <li><a href="../docker-user-defined-networks/">Apr 28 - User defined networks</a></li>
+    
+      <li><a href="../nginx-try-files-tricks/">Mar 15 - Nginx Try Files Tricks</a></li>
     
       <li><a href="../nginx-build-own-package_ru/">Feb 17 - Сборка Nginx в Debian/Ubuntu</a></li>
     
