@@ -1,10 +1,12 @@
+
+Git: советы и приёмы
+====================
+
 .. post:: Sep 02, 2013
    :tags: git
    :author: Andrew Burdyug
    :language: ru
 
-Git: советы и приёмы
-====================
 Пушнуть текущую локальную ветку в новую удалённую::
 
     git push <remote-name> <local-branch-name>:<remote-branch-name>

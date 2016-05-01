@@ -1,9 +1,10 @@
-.. post:: Apr 28, 2016
-   :tags: docker
-   :author: Andrew Burdyug
 
 User defined networks
 =====================
+
+.. post:: Apr 28, 2016
+   :tags: docker
+   :author: Andrew Burdyug
 
 See `User-defined networks <https://docs.docker.com/engine/userguide/networking/dockernetworks/#user-defined-networks>`_.
 

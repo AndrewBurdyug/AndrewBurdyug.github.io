@@ -1,9 +1,11 @@
+
+Manage container /etc/hosts
+===========================
+
 .. post:: Apr 29, 2016
    :tags: docker
    :author: Andrew Burdyug
 
-Manage container /etc/hosts
-===========================
 See section `Managing /etc/hosts <https://docs.docker.com/engine/reference/run/>`_.
 
 Example::

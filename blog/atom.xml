@@ -31,6 +31,19 @@
 </content>
   </entry>
   <entry xml:base="http://andrewburdyug.github.io/blog/atom.xml">
+    <title type="text">Mysql Innodb Settings For SSD</title>
+    <id>http://andrewburdyug.github.io/mysql-innodb-settings-for-ssd/</id>
+    <updated>2014-09-28T00:00:00Z</updated>
+    <published>2014-09-28T00:00:00Z</published>
+    <link href="http://andrewburdyug.github.io/mysql-innodb-settings-for-ssd/" />
+    <author>
+      <name>Andrew Burdyug</name>
+    </author>
+    <content type="html">&lt;p&gt;If you have server with SSD hard, you can face the fact that the MySQL very slowly
+writes, help these settings adjustment:&lt;/p&gt;
+</content>
+  </entry>
+  <entry xml:base="http://andrewburdyug.github.io/blog/atom.xml">
     <title type="text">Сборка Nginx в Debian/Ubuntu</title>
     <id>http://andrewburdyug.github.io/nginx-build-own-package_ru/</id>
     <updated>2014-02-17T00:00:00Z</updated>

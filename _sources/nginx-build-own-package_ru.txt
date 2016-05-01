@@ -1,12 +1,13 @@
+
+Сборка Nginx в Debian/Ubuntu
+============================
+
 .. post:: Feb 17, 2014
    :tags: nginx, debian
    :category: build package
    :author: Andrew Burdyug
    :language: ru
 
-
-Сборка Nginx в Debian/Ubuntu
-============================
 Заходим на `nginx.org/ru/linux_packages.html <http://nginx.org/ru/linux_packages.html>`_
 и следуя инструкциям добавляем реп Сысоева И.В., например для Ubuntu 14.04::
 
