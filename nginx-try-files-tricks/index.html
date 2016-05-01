@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Git: советы и приёмы &mdash; Blog  documentation</title>
+    <title>Nginx Try Files Tricks &mdash; Blog  documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -53,35 +53,38 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="git">
-<h1>Git: советы и приёмы<a class="headerlink" href="#git" title="Permalink to this headline">¶</a></h1>
-<p>Пушнуть текущую локальную ветку в новую удалённую:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">push</span> <span class="o">&lt;</span><span class="n">remote</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">local</span><span class="o">-</span><span class="n">branch</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;</span><span class="p">:</span><span class="o">&lt;</span><span class="n">remote</span><span class="o">-</span><span class="n">branch</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;</span>
-</pre></div>
-</div>
-<p>Стянуть удалённую ветку в локальную и перейти в неё:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">fetch</span> <span class="n">origin</span> <span class="o">&lt;</span><span class="n">remote</span><span class="o">-</span><span class="n">branch</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;</span><span class="p">:</span><span class="o">&lt;</span><span class="n">local</span><span class="o">-</span><span class="n">branch</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;</span>
-<span class="n">git</span> <span class="n">checkout</span> <span class="o">&lt;</span><span class="n">local</span><span class="o">-</span><span class="n">branch</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;</span>
-</pre></div>
-</div>
-<p>или сокращённый вариант:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">checkout</span> <span class="o">-</span><span class="n">b</span> <span class="n">local_branch_name</span> <span class="n">origin</span><span class="o">/</span><span class="n">remote_branch_name</span>
-</pre></div>
-</div>
-<p>Чтобы пушило автоматом на удалённый сервер в текущую ветку:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">config</span> <span class="n">push</span><span class="o">.</span><span class="n">default</span> <span class="n">current</span>
-</pre></div>
-</div>
-<p>Поменять url репозитория в локальной рабочей копии проекта:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">remote</span> <span class="nb">set</span><span class="o">-</span><span class="n">url</span> <span class="n">origin</span> <span class="n">git</span><span class="p">:</span><span class="o">//</span><span class="n">new</span><span class="o">.</span><span class="n">url</span><span class="o">.</span><span class="n">here</span>
-</pre></div>
-</div>
-<p>Удалить ветку на удалённом репозитории:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="o">--</span><span class="n">delete</span> <span class="n">branch_name</span>
-</pre></div>
-</div>
-<p>Удалить(локально) мёртвые ветки, которых на удалённом сервере уже нет:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">fetch</span> <span class="o">-</span><span class="n">p</span>
+  <div class="section" id="nginx-try-files-tricks">
+<h1>Nginx Try Files Tricks<a class="headerlink" href="#nginx-try-files-tricks" title="Permalink to this headline">¶</a></h1>
+<p>Nginx has many good things, the most interesting what I recently done with him,
+it is configure him for serving content, which can have different paths: <code class="docutils literal"><span class="pre">default</span></code>
+and <code class="docutils literal"><span class="pre">custom</span></code>. The <code class="docutils literal"><span class="pre">custom</span></code> files should override <code class="docutils literal"><span class="pre">default</span></code> files, but if
+requested file does not exists in the <code class="docutils literal"><span class="pre">custom</span></code> directory, then nginx should return
+a <code class="docutils literal"><span class="pre">default</span></code> file. Here is an example of such nginx configuration:</p>
+<div class="highlight-nginx"><div class="highlight"><pre><span></span><span class="k">server</span> <span class="p">{</span>
+    <span class="kn">listen</span> <span class="mi">80</span><span class="p">;</span>
+    <span class="kn">server_name</span> <span class="s">example.org</span><span class="p">;</span>
+
+    <span class="kn">location</span> <span class="s">@default_content</span> <span class="p">{</span>
+        <span class="kn">try_files</span> <span class="nv">$uri</span> <span class="nv">$uri/index.html</span> <span class="nv">$uri.html</span> <span class="p">=</span><span class="mi">404</span><span class="p">;</span>
+        <span class="kn">root</span> <span class="s">/usr/share/nginx/html/example.org/default</span><span class="p">;</span>
+        <span class="kn">internal</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kn">location</span> <span class="s">/</span> <span class="p">{</span>
+        <span class="kn">try_files</span> <span class="nv">$uri</span> <span class="nv">$uri/index.html</span> <span class="nv">$uri.html</span> <span class="s">@default_content</span><span class="p">;</span>
+        <span class="kn">root</span> <span class="s">/usr/share/nginx/html/example.org/custom</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kn">location</span> <span class="s">/api</span> <span class="p">{</span>
+        <span class="kn">proxy_redirect</span> <span class="no">off</span><span class="p">;</span>
+        <span class="kn">proxy_pass</span> <span class="s">http://localhost:8000/api</span><span class="p">;</span>
+        <span class="kn">proxy_set_header</span> <span class="s">Host</span> <span class="nv">$host</span><span class="p">;</span>
+        <span class="kn">proxy_set_header</span> <span class="s">X-Forwarded-For</span> <span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
+        <span class="kn">proxy_set_header</span> <span class="s">X-Forwarded-Proto</span> <span class="nv">$scheme</span><span class="p">;</span>
+        <span class="kn">proxy_http_version</span> <span class="mi">1</span><span class="s">.1</span><span class="p">;</span>
+        <span class="kn">proxy_intercept_errors</span> <span class="no">on</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -94,16 +97,15 @@
 <div class="section">
   <span style="float: left;">
   
+  
+  <a href="../docker-manage-container-etc-hosts/">
+    <i class="fa fa-arrow-circle-left"></i>
+    Manage container /etc/hosts
+  </a>
+  
   </span>
   <span>&nbsp;</span>
   <span style="float: right;">
-  
-  
-  <a href="../mysql-character-set_ru/">
-    Смена кодировки в MySQL
-    <i class="fa fa-arrow-circle-right"></i>
-  </a>
-  </span>
   
 </div>
 
@@ -114,9 +116,9 @@
     <div id="disqus_thread"></div>
     <script type="text/javascript">
         var disqus_shortname = 'andrewburdyugblog';
-        var disqus_identifier = '/git-tips-and-tricks_ru/';
-        var disqus_title = 'Git: советы и приёмы';
-        var disqus_url = 'http://andrewburdyug.github.io/git-tips-and-tricks_ru';
+        var disqus_identifier = '/nginx-try-files-tricks/';
+        var disqus_title = 'Nginx Try Files Tricks';
+        var disqus_url = 'http://andrewburdyug.github.io/nginx-try-files-tricks';
 
         (function() {
             var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
@@ -150,7 +152,7 @@
   <h2>
   
   <i class="fa fa-calendar"></i>
-    Sep 02, 2013
+    May 01, 2016
   
   </h2>
 
@@ -169,21 +171,21 @@
   
 
   
-  <li><i class="fa-fw fa fa-language"></i>
+
+  
+  <li><i class="fa-fw fa fa-folder-open"></i>
     
       
-      <a href="../blog/language/ru/">ru</a>
+      <a href="../blog/category/tricks/">tricks</a>
       
     </li>
-  
-
   
 
   
   <li><i class="fa-fw fa fa-tag"></i>
     
       
-      <a href="../blog/tag/git/">git</a>
+      <a href="../blog/tag/nginx/">nginx</a>
       
     </li>
   
@@ -202,7 +204,7 @@
     }());
     </script>
     <i class="fa-fw fa fa-comments"></i>
-    <a href="#disqus_thread" data-disqus-identifier="/git-tips-and-tricks_ru/"> </a>
+    <a href="#disqus_thread" data-disqus-identifier="/nginx-try-files-tricks/"> </a>
   </li>
   
   </ul>
@@ -218,8 +220,6 @@
   <ul>
     
     
-      <li><a href="../nginx-try-files-tricks/">May 01 - Nginx Try Files Tricks</a></li>
-    
       <li><a href="../docker-manage-container-etc-hosts/">Apr 29 - Manage container /etc/hosts</a></li>
     
       <li><a href="../docker-user-defined-networks/">Apr 28 - User defined networks</a></li>
@@ -227,6 +227,8 @@
       <li><a href="../mysql-innodb-settings-for-ssd/">Sep 28 - Mysql Innodb Settings For SSD</a></li>
     
       <li><a href="../nginx-build-own-package_ru/">Feb 17 - Сборка Nginx в Debian/Ubuntu</a></li>
+    
+      <li><a href="../mysql-character-set_ru/">Sep 25 - Смена кодировки в MySQL</a></li>
     
   </ul>
 
@@ -341,7 +343,7 @@
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
       
       |
-      <a href="../_sources/git-tips-and-tricks_ru.txt"
+      <a href="../_sources/nginx-try-files-tricks.txt"
           rel="nofollow">Page source</a>
     </div>
 

@@ -1,0 +1,44 @@
+
+Nginx Try Files Tricks
+======================
+
+.. post:: May 01, 2016
+   :tags: nginx
+   :category: tricks
+   :author: Andrew Burdyug
+
+Nginx has many good things, the most interesting what I recently done with him,
+it is configure him for serving content, which can have different paths: ``default``
+and ``custom``. The ``custom`` files should override ``default`` files, but if
+requested file does not exists in the ``custom`` directory, then nginx should return
+a ``default`` file. Here is an example of such nginx configuration:
+
+.. sourcecode:: nginx
+
+    server {
+        listen 80;
+        server_name example.org;
+
+        location @default_content {
+            try_files $uri $uri/index.html $uri.html =404;
+            root /usr/share/nginx/html/example.org/default;
+            internal;
+        }
+
+        location / {
+            try_files $uri $uri/index.html $uri.html @default_content;
+            root /usr/share/nginx/html/example.org/custom;
+        }
+
+        location /api {
+            proxy_redirect off;
+            proxy_pass http://localhost:8000/api;
+            proxy_set_header Host $host;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            proxy_http_version 1.1;
+            proxy_intercept_errors on;
+        }
+    }
+
+.. _try_files: http://nginx.org/ru/docs/http/ngx_http_core_module.html#try_files
