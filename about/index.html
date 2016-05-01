@@ -45,6 +45,9 @@
     ul.postlist-style-none {list-style-type: none;}
     ul.postlist-style-circle {list-style-type: circle;}
   </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/default.min.css" type="text/css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
+
 
   </head>
   <body role="document">  
@@ -134,6 +137,13 @@ have a nice reading!</p>
   
   
   </div>
+  <script>
+    $(document).ready(function() {
+      $('.highlight pre').each(function(i, block) {
+        hljs.highlightBlock(block);
+      });
+    });
+  </script>
 
           </div>
         </div>
@@ -176,7 +186,7 @@ have a nice reading!</p>
     
       <li><a href="../mysql-character-set_ru/">Sep 25 - Смена кодировки в MySQL</a></li>
     
-      <li><a href="../git-tips-and-tricks_ru/">Sep 02 - Git tips and tricks</a></li>
+      <li><a href="../git-tips-and-tricks_ru/">Sep 02 - Git: советы и приёмы</a></li>
     
   </ul>
 

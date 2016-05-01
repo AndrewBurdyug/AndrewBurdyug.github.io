@@ -44,6 +44,9 @@
     ul.postlist-style-none {list-style-type: none;}
     ul.postlist-style-circle {list-style-type: circle;}
   </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/default.min.css" type="text/css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
+
 
   </head>
   <body role="document">  
@@ -91,7 +94,7 @@
   
   <a href="../git-tips-and-tricks_ru/">
     <i class="fa fa-arrow-circle-left"></i>
-    Git tips and tricks
+    Git: советы и приёмы
   </a>
   
   </span>
@@ -110,6 +113,13 @@
   
   
   </div>
+  <script>
+    $(document).ready(function() {
+      $('.highlight pre').each(function(i, block) {
+        hljs.highlightBlock(block);
+      });
+    });
+  </script>
 
           </div>
         </div>
@@ -193,7 +203,7 @@
     
       <li><a href="../nginx-build-own-package_ru/">Feb 17 - Сборка Nginx в Debian/Ubuntu</a></li>
     
-      <li><a href="../git-tips-and-tricks_ru/">Sep 02 - Git tips and tricks</a></li>
+      <li><a href="../git-tips-and-tricks_ru/">Sep 02 - Git: советы и приёмы</a></li>
     
   </ul>
 

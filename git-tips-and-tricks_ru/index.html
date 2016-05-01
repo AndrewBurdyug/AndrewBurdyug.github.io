@@ -44,6 +44,9 @@
     ul.postlist-style-none {list-style-type: none;}
     ul.postlist-style-circle {list-style-type: circle;}
   </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/default.min.css" type="text/css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
+
 
   </head>
   <body role="document">  
@@ -56,7 +59,7 @@
   <div class="section" id="git">
 <h1>Git: советы и приёмы<a class="headerlink" href="#git" title="Permalink to this headline">¶</a></h1>
 <p>Пушнуть текущую локальную ветку в новую удалённую:</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span></span><span class="go">git push &lt;remote-name&gt; &lt;local-branch-name&gt;:&lt;remote-branch-name&gt;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">push</span> <span class="o">&lt;</span><span class="n">remote</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">local</span><span class="o">-</span><span class="n">branch</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;</span><span class="p">:</span><span class="o">&lt;</span><span class="n">remote</span><span class="o">-</span><span class="n">branch</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 <p>Стянуть удалённую ветку в локальную и перейти в неё:</p>
@@ -110,6 +113,13 @@
   
   
   </div>
+  <script>
+    $(document).ready(function() {
+      $('.highlight pre').each(function(i, block) {
+        hljs.highlightBlock(block);
+      });
+    });
+  </script>
 
           </div>
         </div>

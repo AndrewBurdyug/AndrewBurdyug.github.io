@@ -5,9 +5,7 @@
 
 Git: советы и приёмы
 ====================
-Пушнуть текущую локальную ветку в новую удалённую:
-
-.. code-block:: shell-session
+Пушнуть текущую локальную ветку в новую удалённую::
 
     git push <remote-name> <local-branch-name>:<remote-branch-name>
 
