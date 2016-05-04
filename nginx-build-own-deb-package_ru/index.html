@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Nginx Try Files Tricks &mdash; Blog  documentation</title>
+    <title>Сборка Nginx в Debian/Ubuntu &mdash; Blog  documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -53,57 +53,46 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="nginx-try-files-tricks">
-<h1>Nginx Try Files Tricks<a class="headerlink" href="#nginx-try-files-tricks" title="Permalink to this headline">¶</a></h1>
-<p>Nginx has many good things, the most interesting what I recently done with him,
-it is configure him for serving content, which may be in different places: <code class="docutils literal"><span class="pre">default</span></code>
-and <code class="docutils literal"><span class="pre">custom</span></code>.</p>
-<div class="section" id="the-idea">
-<h2>The idea<a class="headerlink" href="#the-idea" title="Permalink to this headline">¶</a></h2>
-<p>For example we have a project which will be distributed with default web theme,
-but we want also have a possibility for applying a custom web theme,
-changing everything from &#8216;css&#8217; and &#8216;js&#8217; things or even html templates.</p>
-<p>This should work in this way. For example we have two folders <code class="docutils literal"><span class="pre">/path/to/default</span></code>
-and <code class="docutils literal"><span class="pre">/path/to/custom</span></code>, then when we will request a file:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">GET</span> <span class="o">/</span><span class="n">style</span><span class="o">.</span><span class="n">css</span> <span class="n">HTTP</span><span class="o">/</span><span class="mf">1.1</span>
-<span class="n">HTTP</span><span class="o">/</span><span class="mf">1.1</span> <span class="mi">200</span> <span class="n">OK</span>
+  <div class="section" id="nginx-debian-ubuntu">
+<h1>Сборка Nginx в Debian/Ubuntu<a class="headerlink" href="#nginx-debian-ubuntu" title="Permalink to this headline">¶</a></h1>
+<p>Заходим на <a class="reference external" href="http://nginx.org/ru/linux_packages.html">nginx.org/ru/linux_packages.html</a>
+и следуя инструкциям добавляем реп Сысоева И.В., например для Ubuntu 14.04:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">deb</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">nginx</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">packages</span><span class="o">/</span><span class="n">ubuntu</span><span class="o">/</span> <span class="n">trusty</span> <span class="n">nginx</span>
+<span class="n">deb</span><span class="o">-</span><span class="n">src</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">nginx</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">packages</span><span class="o">/</span><span class="n">ubuntu</span><span class="o">/</span> <span class="n">trusty</span> <span class="n">nginx</span>
 </pre></div>
 </div>
-<p>server should return content of <code class="docutils literal"><span class="pre">style.css</span></code> if this file exists in
-<code class="docutils literal"><span class="pre">/path/to/custom</span></code> (override default content of style.css),
-otherwise it will return content of <code class="docutils literal"><span class="pre">/path/to/default/style.css</span></code>.</p>
-</div>
-<div class="section" id="implementation">
-<h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
-<p>Here is an example of such nginx configuration(we used <a class="reference external" href="http://nginx.org/ru/docs/http/ngx_http_core_module.html#try_files">try_files</a>):</p>
-<div class="highlight-nginx"><div class="highlight"><pre><span></span><span class="k">server</span> <span class="p">{</span>
-    <span class="kn">listen</span> <span class="mi">80</span><span class="p">;</span>
-    <span class="kn">server_name</span> <span class="s">example.org</span><span class="p">;</span>
-
-    <span class="kn">location</span> <span class="s">@default_content</span> <span class="p">{</span>
-        <span class="kn">try_files</span> <span class="nv">$uri</span> <span class="nv">$uri/index.html</span> <span class="nv">$uri.html</span> <span class="p">=</span><span class="mi">404</span><span class="p">;</span>
-        <span class="kn">root</span> <span class="s">/usr/share/nginx/html/example.org/default</span><span class="p">;</span>
-        <span class="kn">internal</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="kn">location</span> <span class="s">/</span> <span class="p">{</span>
-        <span class="kn">try_files</span> <span class="nv">$uri</span> <span class="nv">$uri/index.html</span> <span class="nv">$uri.html</span> <span class="s">@default_content</span><span class="p">;</span>
-        <span class="kn">root</span> <span class="s">/usr/share/nginx/html/example.org/custom</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="kn">location</span> <span class="s">/api</span> <span class="p">{</span>
-        <span class="kn">proxy_redirect</span> <span class="no">off</span><span class="p">;</span>
-        <span class="kn">proxy_pass</span> <span class="s">http://localhost:8000/api</span><span class="p">;</span>
-        <span class="kn">proxy_set_header</span> <span class="s">Host</span> <span class="nv">$host</span><span class="p">;</span>
-        <span class="kn">proxy_set_header</span> <span class="s">X-Forwarded-For</span> <span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
-        <span class="kn">proxy_set_header</span> <span class="s">X-Forwarded-Proto</span> <span class="nv">$scheme</span><span class="p">;</span>
-        <span class="kn">proxy_http_version</span> <span class="mi">1</span><span class="s">.1</span><span class="p">;</span>
-        <span class="kn">proxy_intercept_errors</span> <span class="no">on</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<p>Качаем и импортируем ключ, которым подписаны пакеты с репа Сысоева И.В.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">nginx</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">keys</span><span class="o">/</span><span class="n">nginx_signing</span><span class="o">.</span><span class="n">key</span>
+<span class="n">apt</span><span class="o">-</span><span class="n">key</span> <span class="n">add</span> <span class="n">nginx_signing</span><span class="o">.</span><span class="n">key</span>
 </pre></div>
 </div>
-<p>I used this on <a class="reference external" href="https://github.com/AndrewBurdyug/makechat">makechat</a>, works pretty well =)</p>
+<p>Обновляем список пакетов:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span>
+</pre></div>
+</div>
+<p>Ставим нужное для сборки:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">dpkg</span><span class="o">-</span><span class="n">dev</span> <span class="n">devscripts</span> <span class="n">build</span><span class="o">-</span><span class="n">essential</span> <span class="n">fakeroot</span> <span class="n">debhelper</span> <span class="n">libssl</span><span class="o">-</span><span class="n">dev</span> <span class="n">libpcre3</span><span class="o">-</span><span class="n">dev</span> <span class="n">zlib1g</span><span class="o">-</span><span class="n">dev</span>
+</pre></div>
+</div>
+<p>Получаем исходники пакета:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">src</span><span class="o">/</span> <span class="o">&amp;&amp;</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">source</span> <span class="n">nginx</span>
+</pre></div>
+</div>
+<p>Переходим в директорию файлов nginx&#8217;а (зависит от версии),
+например у меня на момент написания этого мануала:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">nginx</span><span class="o">-</span><span class="mf">1.6</span><span class="o">.</span><span class="mi">1</span><span class="o">/</span>
+</pre></div>
+</div>
+<p>Редактируем <em>debian/rules</em>: добавляем то, что надо и удаляем лишнее - то что Вам явно не надо,
+например поддержку ipv6, стриминг и т.д.</p>
+<p>Собираем пакет:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">debuild</span> <span class="o">-</span><span class="n">us</span> <span class="o">-</span><span class="n">uc</span>
+</pre></div>
+</div>
+<p>Переходим в родительскую папку и ставим пакет:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">..</span>
+<span class="n">dpkg</span> <span class="o">-</span><span class="n">i</span> <span class="n">nginx_1</span><span class="o">.</span><span class="mf">6.1</span><span class="o">-</span><span class="mi">1</span><span class="o">~</span><span class="n">trusty_amd64</span><span class="o">.</span><span class="n">deb</span>
+</pre></div>
 </div>
 </div>
 
@@ -116,9 +105,9 @@ otherwise it will return content of <code class="docutils literal"><span class="
   <span style="float: left;">
   
   
-  <a href="../mysql-innodb-settings-for-ssd/">
+  <a href="../mysql-character-set_ru/">
     <i class="fa fa-arrow-circle-left"></i>
-    Mysql Innodb Settings For SSD
+    Смена кодировки в MySQL
   </a>
   
   </span>
@@ -126,8 +115,8 @@ otherwise it will return content of <code class="docutils literal"><span class="
   <span style="float: right;">
   
   
-  <a href="../docker-user-defined-networks/">
-    User defined networks
+  <a href="../mysql-innodb-settings-for-ssd/">
+    Mysql Innodb Settings For SSD
     <i class="fa fa-arrow-circle-right"></i>
   </a>
   </span>
@@ -141,9 +130,9 @@ otherwise it will return content of <code class="docutils literal"><span class="
     <div id="disqus_thread"></div>
     <script type="text/javascript">
         var disqus_shortname = 'andrewburdyugblog';
-        var disqus_identifier = '/nginx-try-files-tricks/';
-        var disqus_title = 'Nginx Try Files Tricks';
-        var disqus_url = 'http://andrewburdyug.github.io/nginx-try-files-tricks';
+        var disqus_identifier = '/nginx-build-own-deb-package_ru/';
+        var disqus_title = 'Сборка Nginx в Debian/Ubuntu';
+        var disqus_url = 'http://andrewburdyug.github.io/nginx-build-own-deb-package_ru';
 
         (function() {
             var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
@@ -177,7 +166,7 @@ otherwise it will return content of <code class="docutils literal"><span class="
   <h2>
   
   <i class="fa fa-calendar"></i>
-    Mar 15, 2016
+    Feb 17, 2014
   
   </h2>
 
@@ -196,21 +185,33 @@ otherwise it will return content of <code class="docutils literal"><span class="
   
 
   
-
-  
-  <li><i class="fa-fw fa fa-folder-open"></i>
+  <li><i class="fa-fw fa fa-language"></i>
     
       
-      <a href="../blog/category/tricks/">tricks</a>
+      <a href="../blog/language/ru/">ru</a>
       
     </li>
   
 
   
-  <li><i class="fa-fw fa fa-tag"></i>
+  <li><i class="fa-fw fa fa-folder-open"></i>
     
       
-      <a href="../blog/tag/nginx/">nginx</a>
+      <a href="../blog/category/build-package/">build package</a>
+      
+    </li>
+  
+
+  
+  <li><i class="fa-fw fa fa-tags"></i>
+      
+    
+      
+      <a href="../blog/tag/nginx/">nginx</a>,
+      
+    
+      
+      <a href="../blog/tag/debian/">debian</a>
       
     </li>
   
@@ -229,7 +230,7 @@ otherwise it will return content of <code class="docutils literal"><span class="
     }());
     </script>
     <i class="fa-fw fa fa-comments"></i>
-    <a href="#disqus_thread" data-disqus-identifier="/nginx-try-files-tricks/"> </a>
+    <a href="#disqus_thread" data-disqus-identifier="/nginx-build-own-deb-package_ru/"> </a>
   </li>
   
   </ul>
@@ -251,9 +252,9 @@ otherwise it will return content of <code class="docutils literal"><span class="
     
       <li><a href="../docker-user-defined-networks/">Apr 28 - User defined networks</a></li>
     
-      <li><a href="../mysql-innodb-settings-for-ssd/">Sep 28 - Mysql Innodb Settings For SSD</a></li>
+      <li><a href="../nginx-try-files-tricks/">Mar 15 - Nginx Try Files Tricks</a></li>
     
-      <li><a href="../nginx-build-own-deb-package_ru/">Feb 17 - Сборка Nginx в Debian/Ubuntu</a></li>
+      <li><a href="../mysql-innodb-settings-for-ssd/">Sep 28 - Mysql Innodb Settings For SSD</a></li>
     
   </ul>
 
@@ -373,7 +374,7 @@ otherwise it will return content of <code class="docutils literal"><span class="
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
       
       |
-      <a href="../_sources/nginx-try-files-tricks.txt"
+      <a href="../_sources/nginx-build-own-deb-package_ru.txt"
           rel="nofollow">Page source</a>
     </div>
 
