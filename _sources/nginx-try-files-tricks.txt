@@ -17,17 +17,18 @@ The idea
 
 For example we have a project which will be distributed with default web theme,
 but we want also have a possibility for applying a custom web theme,
-changing everything from 'css' and 'js' things or even html templates.
+changing everything from ``css`` and ``js`` things or even ``html`` pages.
 
 This should work in this way. For example we have two folders ``/path/to/default``
-and ``/path/to/custom``, then when we will request a file::
+and ``/path/to/custom``, then when we will request a file(e.g. style.css)::
 
     GET /style.css HTTP/1.1
     HTTP/1.1 200 OK
 
 server should return content of ``style.css`` if this file exists in
 ``/path/to/custom`` (override default content of style.css),
-otherwise it will return content of ``/path/to/default/style.css``.
+otherwise it will return content of ``/path/to/default/style.css``. Likewise,
+this should work for *.js*, *.html* and other types of files, except requests to API endpoints.
 
 Implementation
 --------------

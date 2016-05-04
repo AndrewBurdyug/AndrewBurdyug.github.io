@@ -62,16 +62,17 @@ and <code class="docutils literal"><span class="pre">custom</span></code>.</p>
 <h2>The idea<a class="headerlink" href="#the-idea" title="Permalink to this headline">¶</a></h2>
 <p>For example we have a project which will be distributed with default web theme,
 but we want also have a possibility for applying a custom web theme,
-changing everything from &#8216;css&#8217; and &#8216;js&#8217; things or even html templates.</p>
+changing everything from <code class="docutils literal"><span class="pre">css</span></code> and <code class="docutils literal"><span class="pre">js</span></code> things or even <code class="docutils literal"><span class="pre">html</span></code> pages.</p>
 <p>This should work in this way. For example we have two folders <code class="docutils literal"><span class="pre">/path/to/default</span></code>
-and <code class="docutils literal"><span class="pre">/path/to/custom</span></code>, then when we will request a file:</p>
+and <code class="docutils literal"><span class="pre">/path/to/custom</span></code>, then when we will request a file(e.g. style.css):</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">GET</span> <span class="o">/</span><span class="n">style</span><span class="o">.</span><span class="n">css</span> <span class="n">HTTP</span><span class="o">/</span><span class="mf">1.1</span>
 <span class="n">HTTP</span><span class="o">/</span><span class="mf">1.1</span> <span class="mi">200</span> <span class="n">OK</span>
 </pre></div>
 </div>
 <p>server should return content of <code class="docutils literal"><span class="pre">style.css</span></code> if this file exists in
 <code class="docutils literal"><span class="pre">/path/to/custom</span></code> (override default content of style.css),
-otherwise it will return content of <code class="docutils literal"><span class="pre">/path/to/default/style.css</span></code>.</p>
+otherwise it will return content of <code class="docutils literal"><span class="pre">/path/to/default/style.css</span></code>. Likewise,
+this should work for <em>.js</em>, <em>.html</em> and other types of files, except requests to API endpoints.</p>
 </div>
 <div class="section" id="implementation">
 <h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
