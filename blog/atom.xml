@@ -83,6 +83,19 @@ writes, help these settings adjustment:&lt;/p&gt;
 </content>
   </entry>
   <entry xml:base="http://andrewburdyug.github.io/blog/atom.xml">
+    <title type="text">Udev Network Rules</title>
+    <id>http://andrewburdyug.github.io/udev-network-rules/</id>
+    <updated>2013-10-04T00:00:00Z</updated>
+    <published>2013-10-04T00:00:00Z</published>
+    <link href="http://andrewburdyug.github.io/udev-network-rules/" />
+    <author>
+      <name>Andrew Burdyug</name>
+    </author>
+    <content type="html">&lt;p&gt;For prevent wrong configuration of IPs between ethernet adapters during reboots
+you can use &lt;a class=&quot;reference external&quot; href=&quot;https://en.wikipedia.org/wiki/Udev&quot;&gt;udev&lt;/a&gt; system.&lt;/p&gt;
+</content>
+  </entry>
+  <entry xml:base="http://andrewburdyug.github.io/blog/atom.xml">
     <title type="text">Смена кодировки в MySQL</title>
     <id>http://andrewburdyug.github.io/mysql-character-set_ru/</id>
     <updated>2013-09-25T00:00:00Z</updated>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title type="text">Blog Blog - Posts tagged utf-8</title>
+  <id>http://andrewburdyug.github.io/blog/tag/utf-8/atom.xml</id>
+  <updated>2013-09-25T00:00:00Z</updated>
+  <link href="http://andrewburdyug.github.io/" />
+  <link href="http://andrewburdyug.github.io/blog/tag/utf-8/atom.xml" rel="self" />
+  <generator uri="http://ablog.readthedocs.org" version="0.8.3">ABlog</generator>
+  <entry xml:base="http://andrewburdyug.github.io/blog/tag/utf-8/atom.xml">
+    <title type="text">Смена кодировки в MySQL</title>
+    <id>http://andrewburdyug.github.io/mysql-character-set_ru/</id>
+    <updated>2013-09-25T00:00:00Z</updated>
+    <published>2013-09-25T00:00:00Z</published>
+    <link href="http://andrewburdyug.github.io/mysql-character-set_ru/" />
+    <author>
+      <name>Andrew Burdyug</name>
+    </author>
+    <content type="html">&lt;div class=&quot;section&quot; id=&quot;mysql&quot;&gt;
+
+&lt;p&gt;Чтобы переключить кодировку на &lt;em&gt;utf-8&lt;/em&gt;, создайте файлик &lt;em&gt;charset.cnf&lt;/em&gt; в &lt;em&gt;/etc/mysql/conf.d/&lt;/em&gt;
+и добавьте в него следующее:&lt;/p&gt;
+&lt;div class=&quot;highlight-ini&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;[client]&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;default-character-set&lt;/span&gt;   &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;utf8&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;[mysqld]&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;collation-server&lt;/span&gt;        &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;utf8_general_ci&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;init-connect&lt;/span&gt;            &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;SET NAMES utf8&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;character-set-server&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;utf8&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;[mysql]&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;default-character-set&lt;/span&gt;   &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;utf8&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Проверить кодировки таблиц перед переключением на utf8_general_ci можно так:&lt;/p&gt;
+&lt;div class=&quot;highlight-sql&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;SHOW&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;TABLE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;STATUS&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;databasename&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;Collation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;utf8_general_ci&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Поменять кодировку в текущей базе можно так:&lt;/p&gt;
+&lt;div class=&quot;highlight-sql&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;ALTER&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;DATABASE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;databasename&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;CHARACTER&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;SET&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;utf8&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;COLLATE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;utf8_general_ci&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;ALTER&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;TABLE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tablename&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;CONVERT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;TO&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;CHARACTER&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;SET&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;utf8&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;COLLATE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;utf8_general_ci&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</content>
+  </entry>
+</feed>
