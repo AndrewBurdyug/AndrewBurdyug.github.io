@@ -3,9 +3,9 @@ Git: советы и приёмы
 ====================
 
 .. post:: Sep 02, 2013
-   :tags: git
-   :author: Andrew Burdyug
-   :language: ru
+    :tags: git
+    :author: Andrew Burdyug
+    :language: ru
 
 Пушнуть текущую локальную ветку в новую удалённую::
 
@@ -35,3 +35,11 @@ Git: советы и приёмы
 Удалить(локально) мёртвые ветки, которых на удалённом сервере уже нет::
 
     git fetch -p
+
+Формат лога для CHANGELOG::
+
+    git log --format="%ad %h %s" --date="short"
+
+.. update:: May 12, 2016
+
+    Добавлен пример формата git log
