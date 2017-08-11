@@ -1,0 +1,69 @@
+
+Nginx Try Files Tricks
+======================
+
+.. post:: Mar 15, 2016
+   :tags: nginx
+   :category: tricks
+   :author: Andrew Burdyug
+
+Nginx has many good things, the most interesting what I recently done with him,
+it is configure him for serving content, which may be in different places: ``default``
+and ``custom``.
+
+
+The idea
+--------
+
+For example we have a project which will be distributed with default web theme,
+but we want also have a possibility for applying a custom web theme,
+changing everything from ``css`` and ``js`` things or even ``html`` pages.
+
+This should work in this way. For example we have two folders ``/path/to/default``
+and ``/path/to/custom``, then when we will request a file(e.g. style.css)::
+
+    GET /style.css HTTP/1.1
+    HTTP/1.1 200 OK
+
+server should return content of ``style.css`` if this file exists in
+``/path/to/custom`` (override default content of style.css),
+otherwise it will return content of ``/path/to/default/style.css``. Likewise,
+this should work for *.js*, *.html* and other types of files, except requests to API endpoints.
+
+Implementation
+--------------
+
+Here is an example of such nginx configuration(we used `try_files`_):
+
+.. sourcecode:: nginx
+
+    server {
+        listen 80;
+        server_name example.org;
+
+        location @default_content {
+            try_files $uri $uri/index.html $uri.html =404;
+            root /usr/share/nginx/html/example.org/default;
+            internal;
+        }
+
+        location / {
+            try_files $uri $uri/index.html $uri.html @default_content;
+            root /usr/share/nginx/html/example.org/custom;
+        }
+
+        location /api {
+            proxy_redirect off;
+            proxy_pass http://localhost:8000/api;
+            proxy_set_header Host $host;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            proxy_http_version 1.1;
+            proxy_intercept_errors on;
+        }
+    }
+
+I used this on `makechat`_, works pretty well =)
+
+.. _try_files: http://nginx.org/ru/docs/http/ngx_http_core_module.html#try_files
+.. _makechat: https://github.com/AndrewBurdyug/makechat
