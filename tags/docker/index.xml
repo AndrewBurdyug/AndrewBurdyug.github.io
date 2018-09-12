@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Docker on Andrew&#39;s Blog</title>
+    <link>http://andrewburdyug.github.io/tags/docker/</link>
+    <description>Recent content in Docker on Andrew&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 29 Apr 2016 12:21:33 +0300</lastBuildDate>
+    
+	<atom:link href="http://andrewburdyug.github.io/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Docker Tips and Tricks</title>
+      <link>http://andrewburdyug.github.io/blog/posts/docker-tips-and-tricks/</link>
+      <pubDate>Fri, 29 Apr 2016 12:21:33 +0300</pubDate>
+      
+      <guid>http://andrewburdyug.github.io/blog/posts/docker-tips-and-tricks/</guid>
+      <description> Manage container /etc/hosts See section Managing /etc/hosts
+Example:
+$ docker run -it --add-host db-static:86.75.30.9 ubuntu cat /etc/hosts 127.0.0.1 localhost ::1 localhost ip6-localhost ip6-loopback fe00::0 ip6-localnet ff00::0 ip6-mcastprefix ff02::1 ip6-allnodes ff02::2 ip6-allrouters 86.75.30.9 db-static 172.17.0.2 f0ab12b0b544  </description>
+    </item>
+    
+    <item>
+      <title>Docker User Defined Networks</title>
+      <link>http://andrewburdyug.github.io/blog/posts/docker-user-defined-networks/</link>
+      <pubDate>Thu, 28 Apr 2016 10:47:00 +0300</pubDate>
+      
+      <guid>http://andrewburdyug.github.io/blog/posts/docker-user-defined-networks/</guid>
+      <description>Problem Docker use DHCP by default so your containers may changed their IP addresses adfter reboot, in fact, in old docker version it was after every reboot. It&amp;rsquo;s very annoying. Of course you can use docker-compose which will manage these things and links between containers will not be broken, but if you do not want to use docker-compose this may come a big problem.
+Solution Use the user defined networks.</description>
+    </item>
+    
+  </channel>
+</rss>

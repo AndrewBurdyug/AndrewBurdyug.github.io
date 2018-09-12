@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Andrew Burdyug" />
+    <meta name="description" content="Describe your website">
+    <link rel="shortcut icon" type="image/x-icon" href="http://andrewburdyug.github.io/img/favicon.ico">
+    <title>Udev Network Rules</title>
+    <meta name="generator" content="Hugo 0.48" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="http://andrewburdyug.github.io/css/main.css" />
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,200bold,400old" />
+    
+    <link rel="stylesheet" href="http://andrewburdyug.github.io/css/custom.css">
+    
+    <!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+    
+  </head>
+
+  <body>
+    <div id="wrap">
+
+      
+      <nav class="navbar navbar-default">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="http://andrewburdyug.github.io/"><i class="fa fa-home"></i></a>
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="navbar-collapse collapse" id="navbar">
+      <ul class="nav navbar-nav navbar-right">
+      
+        
+        <li><a href="/blog/">BLOG</a></li>
+        
+        <li><a href="/projects/">PROJECTS</a></li>
+        
+        <li><a href="/resume/">RESUME</a></li>
+        
+      
+      </ul>
+    </div>
+  </div>
+</nav>
+
+      
+      <div class="container">
+        <div class="blog-post">
+          <h3>
+            <strong><a href="http://andrewburdyug.github.io/blog/posts/udev-network-rules/">Udev Network Rules</a></strong>
+          </h3>
+        </div>
+        <div class="blog-title">
+          <h4>
+          October 4, 2013
+            &nbsp;&nbsp;
+            
+            <span class="label label-success">udev</span>
+            
+          </h4>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="blogpost">
+              
+
+<h1 id="problem">Problem</h1>
+
+<p>Sometimes after reboot ethernet adapters get the wrong network settings because
+they changed their names. The <a href="https://en.wikipedia.org/wiki/Udev">udev</a> system
+will help to prevent this collisions.</p>
+
+<h1 id="solution">Solution</h1>
+
+<p>The udev approach is to create a new rule (file
+<code>/etc/udev/rules.d/10-network.rules</code>):</p>
+
+<pre><code>SUBSYSTEM==&quot;net&quot;, ACTION==&quot;add&quot;, ATTR{address}==&quot;00:11:1b:87:07:01&quot;, NAME=&quot;eth0
+SUBSYSTEM==&quot;net&quot;, ACTION==&quot;add&quot;, ATTR{address}==&quot;00:e0:1c:fe:01:09&quot;, NAME=&quot;eth1
+</code></pre>
+
+<p>where <code>30:85:a9:ae:f2:03</code> is the mac address of <code>eth0</code> and
+<code>30:85:a2:ae:00:03</code> is the mac address of your second ethernet adapter.
+Now your network adapters will not change their names anymore.</p>
+
+<p>Allright, but you can go ahead and do something like this:</p>
+
+<pre><code>SUBSYSTEM==&quot;net&quot;, ACTION==&quot;add&quot;, ATTR{address}==&quot;00:11:1b:87:07:01&quot;, NAME=&quot;world&quot;
+SUBSYSTEM==&quot;net&quot;, ACTION==&quot;add&quot;, ATTR{address}==&quot;00:e0:1c:fe:01:09&quot;, NAME=&quot;lan&quot;
+</code></pre>
+
+<p>to get funny network names which realy more convinent for using than ethN.</p>
+
+<p>Now as we renamed both adapters to more meaningful names, we no needed to remember
+which of the adapters is looking out to world and which to lan:</p>
+
+<pre><code>[root@localhost:~]# ifconfig lan
+lan: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
+        inet 192.168.1.1  netmask 255.255.255.0  broadcast 192.168.1.255
+        ether 00:e0:1c:fe:01:09  txqueuelen 1000  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+[root@localhost:~]# ifconfig world
+world: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
+        inet 178.32.218.104  netmask 255.255.255.0  broadcast 178.32.218.255
+        ether 00:11:1b:87:07:01  txqueuelen 1000  (Ethernet)
+        RX packets 3462929  bytes 626938389 (597.8 MiB)
+        RX errors 0  dropped 497  overruns 0  frame 0
+        TX packets 299085  bytes 49491640 (47.1 MiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+</code></pre>
+
+<p>Also our <strong>iptables</strong> rules become to look very prettier:</p>
+
+<pre><code>-A POSTROUTING -s 192.168.1.0/24 ! -d 192.168.1.0/24 -o world -j SNAT --to-source 178.32.218.104
+</code></pre>
+
+              <hr>
+              <div class="related-posts">
+                <h5>Related Posts</h5>
+                
+              </div>
+            </div>
+          </div>
+          <hr>
+        <div class="disqus">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+
+    (function() {
+      
+      
+      if (window.location.hostname == "localhost")
+        return;
+
+      var disqus_shortname = 'andrewburdyugblog';
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+        </div>
+      </div>
+      
+    </div>
+
+    
+    <footer>
+  <div id="footer">
+    <div class="container">
+      <p class="text-muted">&copy; All rights reserved. Powered by <a href="https://gohugo.io/">Hugo</a> and
+      <a href="http://www.github.com/nurlansu/hugo-sustain/">sustain</a> with ♥</p>
+    </div>
+  </div>
+</footer>
+<div class="footer"></div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="http://andrewburdyug.github.io/js/docs.min.js"></script>
+<script src="http://andrewburdyug.github.io/js/main.js"></script>
+
+<script src="http://andrewburdyug.github.io/js/ie10-viewport-bug-workaround.js"></script>
+
+
+    
+  </body>
+</html>

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Andrew Burdyug" />
+    <meta name="description" content="Describe your website">
+    <link rel="shortcut icon" type="image/x-icon" href="http://andrewburdyug.github.io/img/favicon.ico">
+    <title>Archlinux Build Custom Nginx</title>
+    <meta name="generator" content="Hugo 0.48" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="http://andrewburdyug.github.io/css/main.css" />
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,200bold,400old" />
+    
+    <link rel="stylesheet" href="http://andrewburdyug.github.io/css/custom.css">
+    
+    <!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+    
+  </head>
+
+  <body>
+    <div id="wrap">
+
+      
+      <nav class="navbar navbar-default">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="http://andrewburdyug.github.io/"><i class="fa fa-home"></i></a>
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="navbar-collapse collapse" id="navbar">
+      <ul class="nav navbar-nav navbar-right">
+      
+        
+        <li><a href="/blog/">BLOG</a></li>
+        
+        <li><a href="/projects/">PROJECTS</a></li>
+        
+        <li><a href="/resume/">RESUME</a></li>
+        
+      
+      </ul>
+    </div>
+  </div>
+</nav>
+
+      
+      <div class="container">
+        <div class="blog-post">
+          <h3>
+            <strong><a href="http://andrewburdyug.github.io/blog/posts/archlinux-build-custom-nginx/">Archlinux Build Custom Nginx</a></strong>
+          </h3>
+        </div>
+        <div class="blog-title">
+          <h4>
+          May 4, 2016
+            &nbsp;&nbsp;
+            
+            <span class="label label-success">nginx</span>
+            
+            <span class="label label-success">ArchLinux</span>
+            
+          </h4>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="blogpost">
+              
+
+<h2 id="preparation">Preparation</h2>
+
+<p>Install <code>abs</code>:</p>
+
+<pre><code>[root@localhost:~]# pacman -S abs
+</code></pre>
+
+<p>Add non superuser account for building the arch linux package e.g. <code>src</code>:</p>
+
+<pre><code>[root@localhost:~]# mkdir /var/abs/local
+[root@localhost:~]# useradd -d /var/abs/local -s /bin/bash src
+</code></pre>
+
+<h2 id="building-the-package">Building the package</h2>
+
+<p>Sync nginx <em>abs files</em>:</p>
+
+<pre><code>[root@localhost:~]# abs sync extra/nginx
+==&gt; Starting ABS sync...
+receiving file list ... done
+./
+extra/
+extra/nginx/
+extra/nginx/PKGBUILD
+extra/nginx/logrotate
+extra/nginx/nginx.install
+extra/nginx/service
+
+sent 225 bytes  received 3,098 bytes  2,215.33 bytes/sec
+total size is 4,874  speedup is 1.47
+
+[root@localhost:~]# rm -rf /var/abs/local/nginx
+[root@localhost:~]# cp -r /var/abs/extra/nginx /var/abs/local
+[root@localhost:~]# chown -R src: /var/abs/local
+</code></pre>
+
+<p>Log in as <code>src</code> to get the user environment and edit <em>PKGBUILD</em>
+(enable what do you want and disable what you non need):</p>
+
+<pre><code>[root@localhost:~]# su - src
+[src@localhost ~]$ cd nginx
+[src@localhost nginx]$ vi PKGBUILD
+</code></pre>
+
+<p>here is the <code>diff</code> of my changes:</p>
+
+<pre><code class="language-diff">diff -urN extra/nginx/PKGBUILD local/nginx/PKGBUILD
+--- extra/nginx/PKGBUILD    2016-05-04 01:07:05.110678811 +0300
++++ local/nginx/PKGBUILD    2016-05-04 11:54:37.003589198 +0300
+@@ -9,7 +9,7 @@
+ pkgver=1.10.0
+ pkgrel=2
+ pkgdesc='Lightweight HTTP server and IMAP/POP3 proxy server'
+-arch=('i686' 'x86_64')
++arch=('x86_64')
+ url='http://nginx.org'
+ license=('custom')
+ depends=('pcre' 'zlib' 'openssl' 'geoip')
+@@ -32,28 +32,17 @@
+          '19a26a61c8afe78defb8b4544f79a9a0')
+
+ _common_flags=(
+-  --with-ipv6
+   --with-pcre-jit
+   --with-file-aio
+   --with-http_addition_module
+   --with-http_auth_request_module
+-  --with-http_dav_module
+-  --with-http_degradation_module
+-  --with-http_flv_module
+   --with-http_geoip_module
+-  --with-http_gunzip_module
+   --with-http_gzip_static_module
+-  --with-http_mp4_module
+   --with-http_realip_module
+-  --with-http_secure_link_module
+   --with-http_ssl_module
+   --with-http_stub_status_module
+   --with-http_sub_module
+   --with-http_v2_module
+-  --with-mail
+-  --with-mail_ssl_module
+-  --with-stream
+-  --with-stream_ssl_module
+   --with-threads
+ )
+</code></pre>
+
+<p>Build the package:</p>
+
+<pre><code>[src@localhost nginx]$ makepkg -cf
+==&gt; Making package: nginx 1.10.0-2 (Wed May  4 11:55:12 MSK 2016)
+==&gt; Checking runtime dependencies...
+==&gt; Checking buildtime dependencies...
+==&gt; Retrieving sources...
+  -&gt; Downloading nginx-1.10.0.tar.gz...
+** Resuming transfer from byte position 491520
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  407k  100  407k    0     0  73915      0  0:00:05  0:00:05 --:--:-- 12290
+  -&gt; Found service
+  -&gt; Found logrotate
+==&gt; Validating source files with md5sums...
+    nginx-1.10.0.tar.gz ... Passed
+    service ... Passed
+    logrotate ... Passed
+==&gt; Extracting sources...
+  -&gt; Extracting nginx-1.10.0.tar.gz with bsdtar
+==&gt; Starting build()...
+checking for OS
+ + Linux 4.5.1-1-ARCH x86_64
+checking for C compiler ... found
+ + using GNU C compiler
+checking for -Wl,-E switch ... found
+checking for gcc builtin atomic operations ... found
+checking for C99 variadic macros ... found
+checking for gcc variadic macros ... found
+... ... ... ... ... ... ... ... ... ... ... ...
+... ... ... ... ... ... ... ... ... ... ... ...
+test -d '/var/abs/local/nginx/pkg/nginx/etc/nginx/html' \
+|| cp -R html '/var/abs/local/nginx/pkg/nginx/etc/nginx'
+make[1]: Leaving directory '/var/abs/local/nginx/src/nginx-1.10.0'
+==&gt; Tidying install...
+  -&gt; Removing libtool files...
+  -&gt; Purging unwanted files...
+  -&gt; Removing static library files...
+  -&gt; Stripping unneeded symbols from binaries and libraries...
+  -&gt; Compressing man and info pages...
+==&gt; Checking for packaging issue...
+==&gt; Creating package &quot;nginx&quot;...
+  -&gt; Generating .PKGINFO file...
+  -&gt; Generating .BUILDINFO file...
+  -&gt; Adding install file...
+  -&gt; Generating .MTREE file...
+  -&gt; Compressing package...
+==&gt; Leaving fakeroot environment.
+==&gt; Finished making: nginx 1.10.0-2 (Wed May  4 11:56:05 MSK 2016)
+==&gt; Cleaning up...
+[src@localhost nginx]$ ls -l
+total 1256
+-rw-r--r-- 1 src src    179 May  4 11:52 logrotate
+-rw-r--r-- 1 src src 358316 May  4 11:56 nginx-1.10.0-2-x86_64.pkg.tar.xz
+-rw-r--r-- 1 src src 908954 May  4 11:55 nginx-1.10.0.tar.gz
+-rw-r--r-- 1 src src    945 May  4 11:52 nginx.install
+-rw-r--r-- 1 src src   3119 May  4 11:54 PKGBUILD
+-rw-r--r-- 1 src src    359 May  4 11:52 service
+[src@localhost nginx]$ logout
+</code></pre>
+
+<h2 id="install-upgarde-nginx-package">Install/Upgarde nginx package</h2>
+
+<p>To install the new one or upgrade existing nginx package:</p>
+
+<pre><code>[root@localhost:~]# pacman -U /var/abs/local/nginx/nginx-1.10.0-2-x86_64.pkg.tar.xz
+loading packages...
+resolving dependencies...
+looking for conflicting packages...
+
+Package (1)  Old Version  New Version  Net Change
+
+nginx        1.8.1-1      1.10.0-2       0.15 MiB
+
+Total Installed Size:  1.10 MiB
+Net Upgrade Size:      0.15 MiB
+
+:: Proceed with installation? [Y/n] y
+(1/1) checking keys in keyring                                                                                 [##################################################################] 100%
+(1/1) checking package integrity                                                                               [##################################################################] 100%
+(1/1) loading package files                                                                                    [##################################################################] 100%
+(1/1) checking for file conflicts                                                                              [##################################################################] 100%
+(1/1) checking available disk space                                                                            [##################################################################] 100%
+:: Processing package changes...
+(1/1) upgrading nginx                                                                                          [##################################################################] 100%
+warning: /etc/nginx/fastcgi_params installed as /etc/nginx/fastcgi_params.pacnew
+[root@localhost:~]#
+</code></pre>
+
+<p>Be notice about warning, let&rsquo;s check our changes:</p>
+
+<pre><code class="language-diff">diff -urN /etc/nginx/fastcgi_params /etc/nginx/fastcgi_params.pacnew
+--- /etc/nginx/fastcgi_params   2012-06-27 22:03:10.000000000 +0400
++++ /etc/nginx/fastcgi_params.pacnew    2016-05-04 11:56:03.000000000 +0300
+@@ -9,6 +9,7 @@
+ fastcgi_param  DOCUMENT_URI       $document_uri;
+ fastcgi_param  DOCUMENT_ROOT      $document_root;
+ fastcgi_param  SERVER_PROTOCOL    $server_protocol;
++fastcgi_param  REQUEST_SCHEME     $scheme;
+ fastcgi_param  HTTPS              $https if_not_empty;
+
+ fastcgi_param  GATEWAY_INTERFACE  CGI/1.1;
+@@ -22,19 +23,3 @@
+
+ # PHP only, required if PHP was built with --enable-force-cgi-redirect
+ fastcgi_param  REDIRECT_STATUS    200;
+-
+-# GeoIP Enabled
+-fastcgi_param GEOIP_COUNTRY_CODE $geoip_country_code;
+-fastcgi_param GEOIP_COUNTRY_NAME $geoip_country_name;
+-fastcgi_param GEOIP_CITY_COUNTRY_CODE $geoip_city_country_code;
+-fastcgi_param GEOIP_CITY_COUNTRY_CODE3 $geoip_city_country_code3;
+-fastcgi_param GEOIP_CITY_COUNTRY_NAME $geoip_city_country_name;
+-fastcgi_param GEOIP_REGION $geoip_region;
+-fastcgi_param GEOIP_CITY $geoip_city;
+-fastcgi_param GEOIP_POSTAL_CODE $geoip_postal_code;
+-fastcgi_param GEOIP_CITY_CONTINENT_CODE $geoip_city_continent_code;
+-fastcgi_param GEOIP_LATITUDE $geoip_latitude;
+-fastcgi_param GEOIP_LONGITUDE $geoip_longitude;
+-fastcgi_param GEOIP_DMA_CODE $geoip_dma_code;
+-fastcgi_param GEOIP_AREA_CODE $geoip_area_code;
+</code></pre>
+
+<p>here we see that <em>/etc/nginx/fastcgi_params.pacnew</em> doesn&rsquo;t contain
+<code>GEOIP_*</code> parameters (I added them by self) and there is a one new
+parameter <code>REQUEST_SCHEME</code> which I&rsquo;ll add to my <code>/etc/nginx/fastcgi_params</code></p>
+
+<h2 id="check-new-version-of-nginx-and-restart-the-service">Check new version of nginx and restart the service</h2>
+
+<p>Check the nginx version and it&rsquo;s configuration:</p>
+
+<pre><code>[root@localhost:~]# nginx -V
+nginx version: nginx/1.10.0
+built with OpenSSL 1.0.2g  1 Mar 2016
+TLS SNI support enabled
+configure arguments: --prefix=/etc/nginx --conf-path=/etc/nginx/nginx.conf --sbin-path=/usr/bin/nginx --pid-path=/run/nginx.pid --lock-path=/run/lock/nginx.lock --user=http --group=http --http-log-path=/var/log/nginx/access.log --error-log-path=stderr --http-client-body-temp-path=/var/lib/nginx/client-body --http-proxy-temp-path=/var/lib/nginx/proxy --http-fastcgi-temp-path=/var/lib/nginx/fastcgi --http-scgi-temp-path=/var/lib/nginx/scgi --http-uwsgi-temp-path=/var/lib/nginx/uwsgi --with-pcre-jit --with-file-aio --with-http_addition_module --with-http_auth_request_module --with-http_geoip_module --with-http_gzip_static_module --with-http_realip_module --with-http_ssl_module --with-http_stub_status_module --with-http_sub_module --with-http_v2_module --with-threads
+
+[root@localhost:~]# nginx -t
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+</code></pre>
+
+<div class="alert alert-warning" role="alert">
+  <p>WARNING: If you already have installed nginx I strongly recommended to check
+its build option before build and install the new one, because you may used
+special nginx modules which will not enabled by default and after installing the new version
+your sites will be broken!</p>
+
+</div>
+
+
+<p>Restart the service:</p>
+
+<pre><code>[root@localhost:~]# systemctl daemon-reload
+[root@localhost:~]# systemctl restart nginx
+</code></pre>
+
+<p>That&rsquo;s all!</p>
+
+              <hr>
+              <div class="related-posts">
+                <h5>Related Posts</h5>
+                
+                  <div class="row">
+                    <div class="col-sm-4 col-md-4 col-lg-4">
+                      <h6 style="text-align: right">
+                        March 15, 2016
+                      </h6>
+                    </div>
+                    <div class="col-sm-8 col-md-8 col-lg-8">
+                      <h6 style="text-align: left">
+                        <strong><a href="/blog/posts/nginx-try-files/">Nginx Try Files</a></strong>
+                      </h6>
+                    </div>
+                  </div>
+                
+                  <div class="row">
+                    <div class="col-sm-4 col-md-4 col-lg-4">
+                      <h6 style="text-align: right">
+                        February 17, 2014
+                      </h6>
+                    </div>
+                    <div class="col-sm-8 col-md-8 col-lg-8">
+                      <h6 style="text-align: left">
+                        <strong><a href="/blog/posts/nginx-custom-build/">Nginx Custom Build</a></strong>
+                      </h6>
+                    </div>
+                  </div>
+                
+              </div>
+            </div>
+          </div>
+          <hr>
+        <div class="disqus">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+
+    (function() {
+      
+      
+      if (window.location.hostname == "localhost")
+        return;
+
+      var disqus_shortname = 'andrewburdyugblog';
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+        </div>
+      </div>
+      
+    </div>
+
+    
+    <footer>
+  <div id="footer">
+    <div class="container">
+      <p class="text-muted">&copy; All rights reserved. Powered by <a href="https://gohugo.io/">Hugo</a> and
+      <a href="http://www.github.com/nurlansu/hugo-sustain/">sustain</a> with ♥</p>
+    </div>
+  </div>
+</footer>
+<div class="footer"></div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="http://andrewburdyug.github.io/js/docs.min.js"></script>
+<script src="http://andrewburdyug.github.io/js/main.js"></script>
+
+<script src="http://andrewburdyug.github.io/js/ie10-viewport-bug-workaround.js"></script>
+
+
+    
+  </body>
+</html>

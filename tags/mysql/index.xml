@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Mysql on Andrew&#39;s Blog</title>
+    <link>http://andrewburdyug.github.io/tags/mysql/</link>
+    <description>Recent content in Mysql on Andrew&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 28 Sep 2014 15:02:28 +0300</lastBuildDate>
+    
+	<atom:link href="http://andrewburdyug.github.io/tags/mysql/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>MySQL Innodb Settings for SSD</title>
+      <link>http://andrewburdyug.github.io/blog/posts/mysql-innodb-settings-for-ssd/</link>
+      <pubDate>Sun, 28 Sep 2014 15:02:28 +0300</pubDate>
+      
+      <guid>http://andrewburdyug.github.io/blog/posts/mysql-innodb-settings-for-ssd/</guid>
+      <description>If you have server with SSD hard, you can face the fact that the MySQL very slowly writes, help these settings adjustment:
+[mysqld] innodb_buffer_pool_instances = 8 innodb_read_io_threads = 8 innodb_write_io_threads = 8 innodb_buffer_pool_size = 64M innodb_io_capacity = 1000 ; innodb_file_per_table  save this into /etc/mysql/conf.d/tuning.cnf and restart MySQL server. The most important of these settings is innodb_io_capacity, here is what mysql docs says about:
+ The innodb_io_capacity parameter sets an upper limit on the I/O activity performed by the InnoDB background tasks, such as flushing pages from the buffer pool and merging data from the change buffer.</description>
+    </item>
+    
+    <item>
+      <title>MySQL Charset</title>
+      <link>http://andrewburdyug.github.io/blog/posts/mysql-charset/</link>
+      <pubDate>Wed, 25 Sep 2013 14:55:46 +0300</pubDate>
+      
+      <guid>http://andrewburdyug.github.io/blog/posts/mysql-charset/</guid>
+      <description> Changing charset in MySQL For changing charset on utf-8 you should create a file charset.cnf inside /etc/mysql/conf.d/and put this into it:
+[client] default-character-set = utf8 [mysqld] collation-server = utf8_general_ci init-connect = &#39;SET NAMES utf8&#39; character-set-server = utf8 [mysql] default-character-set = utf8  Check and change table charsets Checking the current table charset:
+SHOW TABLE STATUS from databasename WHERE Collation!=&#39;utf8_general_ci&#39;;  Changing table charset:
+ALTER DATABASE databasename CHARACTER SET utf8 COLLATE utf8_general_ci; ALTER TABLE tablename CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;  </description>
+    </item>
+    
+  </channel>
+</rss>

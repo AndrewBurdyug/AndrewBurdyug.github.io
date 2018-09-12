@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blogs on Andrew&#39;s Blog</title>
+    <link>http://andrewburdyug.github.io/blog/</link>
+    <description>Recent content in Blogs on Andrew&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 10 Sep 2018 18:26:32 +0300</lastBuildDate>
+    
+	<atom:link href="http://andrewburdyug.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Sqlalchemy Tips and Trics</title>
+      <link>http://andrewburdyug.github.io/blog/posts/sqlalchemy-tips-and-trics/</link>
+      <pubDate>Mon, 10 Sep 2018 18:26:32 +0300</pubDate>
+      
+      <guid>http://andrewburdyug.github.io/blog/posts/sqlalchemy-tips-and-trics/</guid>
+      <description>SQLAlchemy tips and tricks Here is collection of some unobvious SQLAlchemy tips and tricks.
+Split the database read/write operations over master/slave instances Let&amp;rsquo;s assume thta we have the master -&amp;gt; slave replications and want to split the database operations between master and slave: reading from slave, writing to master.
+The section Custom Vertical Partitioning of sqlalchemy docs will help us:
+from sqlalchemy import create_engine engines = { &#39;master&#39;: create_engine(&#39;postgresql://user:pass@master-host:5432/db&#39;), &#39;slave&#39;: create_engine(&#39;postgresql://user:pass@slave-host:5432/db&#39;) } class DistributedSession(Session): def get_bind(self, mapper=None, clause=None): if self.</description>
+    </item>
+    
+    <item>
+      <title>Adding attribute to python module programmatically</title>
+      <link>http://andrewburdyug.github.io/blog/posts/python-dynamic-set-module-attribute/</link>
+      <pubDate>Wed, 05 Sep 2018 18:40:12 +0300</pubDate>
+      
+      <guid>http://andrewburdyug.github.io/blog/posts/python-dynamic-set-module-attribute/</guid>
+      <description>Problem Time to time appears the need to add extra module&amp;rsquo;s attributes programmatically during the initialization of module.
+Let&amp;rsquo;s consider the something like loading raw SQL queries from some folder in project where we want just keep all raw SQL queries.
+So usally we would write in raw_sql_queries/__init__.py something like this:
+import sys import logging import os.path def load_raw_sql_query(query_name): try: file_name = os.path.join(os.path.dirname(__file__), query_name + &#39;.sql&#39;) return open(file_name).read().strip() except OSError as er: logger.</description>
+    </item>
+    
+    <item>
+      <title>Archlinux Build Custom Nginx</title>
+      <link>http://andrewburdyug.github.io/blog/posts/archlinux-build-custom-nginx/</link>
+      <pubDate>Wed, 04 May 2016 12:25:20 +0300</pubDate>
+      
+      <guid>http://andrewburdyug.github.io/blog/posts/archlinux-build-custom-nginx/</guid>
+      <description>Preparation Install abs:
+[root@localhost:~]# pacman -S abs  Add non superuser account for building the arch linux package e.g. src:
+[root@localhost:~]# mkdir /var/abs/local [root@localhost:~]# useradd -d /var/abs/local -s /bin/bash src  Building the package Sync nginx abs files:
+[root@localhost:~]# abs sync extra/nginx ==&amp;gt; Starting ABS sync... receiving file list ... done ./ extra/ extra/nginx/ extra/nginx/PKGBUILD extra/nginx/logrotate extra/nginx/nginx.install extra/nginx/service sent 225 bytes received 3,098 bytes 2,215.33 bytes/sec total size is 4,874 speedup is 1.</description>
+    </item>
+    
+    <item>
+      <title>Docker Tips and Tricks</title>
+      <link>http://andrewburdyug.github.io/blog/posts/docker-tips-and-tricks/</link>
+      <pubDate>Fri, 29 Apr 2016 12:21:33 +0300</pubDate>
+      
+      <guid>http://andrewburdyug.github.io/blog/posts/docker-tips-and-tricks/</guid>
+      <description> Manage container /etc/hosts See section Managing /etc/hosts
+Example:
+$ docker run -it --add-host db-static:86.75.30.9 ubuntu cat /etc/hosts 127.0.0.1 localhost ::1 localhost ip6-localhost ip6-loopback fe00::0 ip6-localnet ff00::0 ip6-mcastprefix ff02::1 ip6-allnodes ff02::2 ip6-allrouters 86.75.30.9 db-static 172.17.0.2 f0ab12b0b544  </description>
+    </item>
+    
+    <item>
+      <title>Docker User Defined Networks</title>
+      <link>http://andrewburdyug.github.io/blog/posts/docker-user-defined-networks/</link>
+      <pubDate>Thu, 28 Apr 2016 10:47:00 +0300</pubDate>
+      
+      <guid>http://andrewburdyug.github.io/blog/posts/docker-user-defined-networks/</guid>
+      <description>Problem Docker use DHCP by default so your containers may changed their IP addresses adfter reboot, in fact, in old docker version it was after every reboot. It&amp;rsquo;s very annoying. Of course you can use docker-compose which will manage these things and links between containers will not be broken, but if you do not want to use docker-compose this may come a big problem.
+Solution Use the user defined networks.</description>
+    </item>
+    
+    <item>
+      <title>Nginx Try Files</title>
+      <link>http://andrewburdyug.github.io/blog/posts/nginx-try-files/</link>
+      <pubDate>Tue, 15 Mar 2016 10:33:55 +0300</pubDate>
+      
+      <guid>http://andrewburdyug.github.io/blog/posts/nginx-try-files/</guid>
+      <description>Idea Let&amp;rsquo;s assume we want to get a content from two different places: default and custom. By default nginx will look at the default folder and get the content from there because we don&amp;rsquo;t have a custom folder, but if we have a custom folder, it&amp;rsquo;s content will override the default content.
+Why this needed?
+For example we have a project which will be distributed with the default web theme, but we want also have a possibility for applying a custom web theme, changing everything of css and js things or even html pages.</description>
+    </item>
+    
+    <item>
+      <title>MySQL Innodb Settings for SSD</title>
+      <link>http://andrewburdyug.github.io/blog/posts/mysql-innodb-settings-for-ssd/</link>
+      <pubDate>Sun, 28 Sep 2014 15:02:28 +0300</pubDate>
+      
+      <guid>http://andrewburdyug.github.io/blog/posts/mysql-innodb-settings-for-ssd/</guid>
+      <description>If you have server with SSD hard, you can face the fact that the MySQL very slowly writes, help these settings adjustment:
+[mysqld] innodb_buffer_pool_instances = 8 innodb_read_io_threads = 8 innodb_write_io_threads = 8 innodb_buffer_pool_size = 64M innodb_io_capacity = 1000 ; innodb_file_per_table  save this into /etc/mysql/conf.d/tuning.cnf and restart MySQL server. The most important of these settings is innodb_io_capacity, here is what mysql docs says about:
+ The innodb_io_capacity parameter sets an upper limit on the I/O activity performed by the InnoDB background tasks, such as flushing pages from the buffer pool and merging data from the change buffer.</description>
+    </item>
+    
+    <item>
+      <title>Nginx Custom Build</title>
+      <link>http://andrewburdyug.github.io/blog/posts/nginx-custom-build/</link>
+      <pubDate>Mon, 17 Feb 2014 16:37:05 +0300</pubDate>
+      
+      <guid>http://andrewburdyug.github.io/blog/posts/nginx-custom-build/</guid>
+      <description>Go to http://nginx.org/ru/linux_packages.html and, following by the Igot Sysoev instructions, add the official nginx repo e.g. for Ubuntu 14.04 you should create the file /etc/apt/sources.list.d/nginx.sources.list with such content:
+deb http://nginx.org/packages/ubuntu/ trusty nginx deb-src http://nginx.org/packages/ubuntu/ trusty nginx  Then you should import nginx signing key into apt:
+wget http://nginx.org/keys/nginx_signing.key apt-key add nginx_signing.key  Update apt cache:
+apt-get update  Install required packages:
+apt-get install -y dpkg-dev devscripts build-essential fakeroot debhelper libssl-dev libpcre3-dev zlib1g-dev  Get the nginx sources:</description>
+    </item>
+    
+    <item>
+      <title>Udev Network Rules</title>
+      <link>http://andrewburdyug.github.io/blog/posts/udev-network-rules/</link>
+      <pubDate>Fri, 04 Oct 2013 15:33:26 +0300</pubDate>
+      
+      <guid>http://andrewburdyug.github.io/blog/posts/udev-network-rules/</guid>
+      <description>Problem Sometimes after reboot ethernet adapters get the wrong network settings because they changed their names. The udev system will help to prevent this collisions.
+Solution The udev approach is to create a new rule (file /etc/udev/rules.d/10-network.rules):
+SUBSYSTEM==&amp;quot;net&amp;quot;, ACTION==&amp;quot;add&amp;quot;, ATTR{address}==&amp;quot;00:11:1b:87:07:01&amp;quot;, NAME=&amp;quot;eth0 SUBSYSTEM==&amp;quot;net&amp;quot;, ACTION==&amp;quot;add&amp;quot;, ATTR{address}==&amp;quot;00:e0:1c:fe:01:09&amp;quot;, NAME=&amp;quot;eth1  where 30:85:a9:ae:f2:03 is the mac address of eth0 and 30:85:a2:ae:00:03 is the mac address of your second ethernet adapter. Now your network adapters will not change their names anymore.</description>
+    </item>
+    
+    <item>
+      <title>MySQL Charset</title>
+      <link>http://andrewburdyug.github.io/blog/posts/mysql-charset/</link>
+      <pubDate>Wed, 25 Sep 2013 14:55:46 +0300</pubDate>
+      
+      <guid>http://andrewburdyug.github.io/blog/posts/mysql-charset/</guid>
+      <description> Changing charset in MySQL For changing charset on utf-8 you should create a file charset.cnf inside /etc/mysql/conf.d/and put this into it:
+[client] default-character-set = utf8 [mysqld] collation-server = utf8_general_ci init-connect = &#39;SET NAMES utf8&#39; character-set-server = utf8 [mysql] default-character-set = utf8  Check and change table charsets Checking the current table charset:
+SHOW TABLE STATUS from databasename WHERE Collation!=&#39;utf8_general_ci&#39;;  Changing table charset:
+ALTER DATABASE databasename CHARACTER SET utf8 COLLATE utf8_general_ci; ALTER TABLE tablename CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;  </description>
+    </item>
+    
+    <item>
+      <title>Git Tips and Tricks</title>
+      <link>http://andrewburdyug.github.io/blog/posts/git-tips-and-tricks/</link>
+      <pubDate>Mon, 02 Sep 2013 15:48:10 +0300</pubDate>
+      
+      <guid>http://andrewburdyug.github.io/blog/posts/git-tips-and-tricks/</guid>
+      <description>Push Push the local new branch into the new remote branch:
+git push &amp;lt;remote-name&amp;gt; &amp;lt;local-branch-name&amp;gt;:&amp;lt;remote-branch-name&amp;gt;  Delete remote git branch:
+git push origin --delete branch_name  Pull &amp;amp; fetch Delete local stale git branches which were alreay deleted on the remote server:
+git fetch -p  Fetch the new git branch and checkout into it:
+git fetch origin &amp;lt;remote-branch-name&amp;gt;:&amp;lt;local-branch-name&amp;gt; git checkout &amp;lt;local-branch-name&amp;gt;  or the shortest variant:
+git checkout -b local_branch_name origin/remote_branch_name  Config Custom format for CHANGELOG:</description>
+    </item>
+    
+  </channel>
+</rss>

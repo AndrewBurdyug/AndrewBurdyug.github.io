@@ -1,0 +1,8 @@
+ul > li.extra-padding-top {
+    padding-top: 2em;
+}
+
+.thin-label {
+    font-weight: 400;
+    background-color: #8395a7;
+}

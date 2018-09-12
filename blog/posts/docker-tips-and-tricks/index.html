@@ -7,7 +7,7 @@
     <meta name="author" content="Andrew Burdyug" />
     <meta name="description" content="Describe your website">
     <link rel="shortcut icon" type="image/x-icon" href="http://andrewburdyug.github.io/img/favicon.ico">
-    <title>Andrew&#39;s Blog</title>
+    <title>Docker Tips and Tricks</title>
     <meta name="generator" content="Hugo 0.48" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="http://andrewburdyug.github.io/css/main.css" />
@@ -24,9 +24,11 @@
     
   </head>
 
-<body>
-  <div id="wrap">
-    <nav class="navbar navbar-default">
+  <body>
+    <div id="wrap">
+
+      
+      <nav class="navbar navbar-default">
   <div class="container">
     <div class="navbar-header">
       <a class="navbar-brand" href="http://andrewburdyug.github.io/"><i class="fa fa-home"></i></a>
@@ -52,52 +54,92 @@
   </div>
 </nav>
 
-    <section id="about">
+      
       <div class="container">
-        <div class="avatar">
-          <img class="img-circle img-responsive" src="http://andrewburdyug.github.io/img/profile.jpeg" alt="Responsive image">
+        <div class="blog-post">
+          <h3>
+            <strong><a href="http://andrewburdyug.github.io/blog/posts/docker-tips-and-tricks/">Docker Tips and Tricks</a></strong>
+          </h3>
         </div>
-        <h1>Andrew Burdyug</h1>
-        <h2>Full-stack python developer / team lead / devops / sys admin</h2>
-        <hr>
-        <h4>
-          Hello, I am Software Engineer with proficiency in Python (Django, Flask, Sanic etc),
-          JS (Vue.JS), Docker, RDBMS (MySQL, PostgreSQL), NoSQL (MongoDb, ElasticSearch, Redis), Linux servers administration (system configuration and perfomance tuning, health monitoring with Nagios, Grafana, MRTG) full list of my proficiencies is <a href="/resume/">here</a>.
-        </h4>
-        <div class="social">
-  <ul class="social-links">
-    
-    <li><a href="https://github.com/AndrewBurdyug"><i class="fa fa-github"></i></a></li>
-    
+        <div class="blog-title">
+          <h4>
+          April 29, 2016
+            &nbsp;&nbsp;
+            
+            <span class="label label-success">docker</span>
+            
+          </h4>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="blogpost">
+              
 
-    
-    <li><a href="https://gitlab.com/buran83"><i class="fa fa-gitlab"></i></a></li>
-    
+<h2 id="manage-container-etc-hosts">Manage container /etc/hosts</h2>
 
-    
-    <li><a href="skype:buran.py?chat"><i class="fa fa-skype"></i></a></li>
-    
+<p>See section <a href="https://docs.docker.com/engine/reference/run/#managing-etchosts">Managing /etc/hosts</a></p>
 
-    
-    <li><a href="mailto:buran83@gmail.com"><i class="fa fa-envelope"></i></a></li>
-    
+<p>Example:</p>
 
-    
+<pre><code>$ docker run -it --add-host db-static:86.75.30.9 ubuntu cat /etc/hosts
+127.0.0.1   localhost
+::1 localhost ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+86.75.30.9  db-static
+172.17.0.2  f0ab12b0b544
+</code></pre>
 
-    
+              <hr>
+              <div class="related-posts">
+                <h5>Related Posts</h5>
+                
+                  <div class="row">
+                    <div class="col-sm-4 col-md-4 col-lg-4">
+                      <h6 style="text-align: right">
+                        April 28, 2016
+                      </h6>
+                    </div>
+                    <div class="col-sm-8 col-md-8 col-lg-8">
+                      <h6 style="text-align: left">
+                        <strong><a href="/blog/posts/docker-user-defined-networks/">Docker User Defined Networks</a></strong>
+                      </h6>
+                    </div>
+                  </div>
+                
+              </div>
+            </div>
+          </div>
+          <hr>
+        <div class="disqus">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
 
-    
+    (function() {
+      
+      
+      if (window.location.hostname == "localhost")
+        return;
 
-    
-
-    
-  </ul>
+      var disqus_shortname = 'andrewburdyugblog';
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 </div>
 
+        </div>
       </div>
-    </section>
-  </div>
-  <footer>
+      
+    </div>
+
+    
+    <footer>
   <div id="footer">
     <div class="container">
       <p class="text-muted">&copy; All rights reserved. Powered by <a href="https://gohugo.io/">Hugo</a> and
@@ -117,5 +159,6 @@
 <script src="http://andrewburdyug.github.io/js/ie10-viewport-bug-workaround.js"></script>
 
 
-</body>
+    
+  </body>
 </html>

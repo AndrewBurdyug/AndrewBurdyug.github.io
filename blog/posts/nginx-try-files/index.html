@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Andrew Burdyug" />
+    <meta name="description" content="Describe your website">
+    <link rel="shortcut icon" type="image/x-icon" href="http://andrewburdyug.github.io/img/favicon.ico">
+    <title>Nginx Try Files</title>
+    <meta name="generator" content="Hugo 0.48" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="http://andrewburdyug.github.io/css/main.css" />
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,200bold,400old" />
+    
+    <link rel="stylesheet" href="http://andrewburdyug.github.io/css/custom.css">
+    
+    <!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+    
+  </head>
+
+  <body>
+    <div id="wrap">
+
+      
+      <nav class="navbar navbar-default">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="http://andrewburdyug.github.io/"><i class="fa fa-home"></i></a>
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="navbar-collapse collapse" id="navbar">
+      <ul class="nav navbar-nav navbar-right">
+      
+        
+        <li><a href="/blog/">BLOG</a></li>
+        
+        <li><a href="/projects/">PROJECTS</a></li>
+        
+        <li><a href="/resume/">RESUME</a></li>
+        
+      
+      </ul>
+    </div>
+  </div>
+</nav>
+
+      
+      <div class="container">
+        <div class="blog-post">
+          <h3>
+            <strong><a href="http://andrewburdyug.github.io/blog/posts/nginx-try-files/">Nginx Try Files</a></strong>
+          </h3>
+        </div>
+        <div class="blog-title">
+          <h4>
+          March 15, 2016
+            &nbsp;&nbsp;
+            
+            <span class="label label-success">nginx</span>
+            
+          </h4>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="blogpost">
+              
+
+<h1 id="idea">Idea</h1>
+
+<p>Let&rsquo;s assume we want to get a content from two different places:
+<strong>default</strong> and <strong>custom</strong>. By default nginx will look at the <strong>default</strong> folder
+and get the content from there because we don&rsquo;t have a <strong>custom</strong> folder,
+but if we have a <strong>custom</strong> folder, it&rsquo;s content will override the default content.</p>
+
+<p>Why this needed?</p>
+
+<p>For example we have a project which will be distributed with the default web theme,
+but we want also have a possibility for applying a custom web theme,
+changing everything of <strong>css</strong> and <strong>js</strong> things or even <strong>html</strong> pages.</p>
+
+<p>This should work in this way, e.g. we have two folders <code>/path/to/default</code> and
+<code>/path/to/custom</code>, then when we will request a file(e.g. <code>style.css</code>):</p>
+
+<pre><code>GET /style.css HTTP/1.1
+HTTP/1.1 200 OK
+</code></pre>
+
+<p>server should return content of <code>style.css</code> if this file exists in <code>/path/to/custom</code>
+(override default content of style.css), otherwise it will return content of <code>/path/to/default/style.css</code>.
+Likewise, this should work for .js, .html and other types of files, except requests to API endpoints.</p>
+
+<h1 id="implementation">Implementation</h1>
+
+<p>Here is an example of such nginx configuration(we used
+<a href="http://nginx.org/ru/docs/http/ngx_http_core_module.html#try_files">try_files</a>):</p>
+
+<pre><code class="language-nginx">server {
+    listen 80;
+    server_name example.org;
+
+    location @default_content {
+        try_files $uri $uri/index.html $uri.html =404;
+        root /usr/share/nginx/html/example.org/default;
+        internal;
+    }
+
+    location / {
+        try_files $uri $uri/index.html $uri.html @default_content;
+        root /usr/share/nginx/html/example.org/custom;
+    }
+
+    location /api {
+        proxy_redirect off;
+        proxy_pass http://localhost:8000/api;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_http_version 1.1;
+        proxy_intercept_errors on;
+    }
+}
+</code></pre>
+
+              <hr>
+              <div class="related-posts">
+                <h5>Related Posts</h5>
+                
+                  <div class="row">
+                    <div class="col-sm-4 col-md-4 col-lg-4">
+                      <h6 style="text-align: right">
+                        May 4, 2016
+                      </h6>
+                    </div>
+                    <div class="col-sm-8 col-md-8 col-lg-8">
+                      <h6 style="text-align: left">
+                        <strong><a href="/blog/posts/archlinux-build-custom-nginx/">Archlinux Build Custom Nginx</a></strong>
+                      </h6>
+                    </div>
+                  </div>
+                
+                  <div class="row">
+                    <div class="col-sm-4 col-md-4 col-lg-4">
+                      <h6 style="text-align: right">
+                        February 17, 2014
+                      </h6>
+                    </div>
+                    <div class="col-sm-8 col-md-8 col-lg-8">
+                      <h6 style="text-align: left">
+                        <strong><a href="/blog/posts/nginx-custom-build/">Nginx Custom Build</a></strong>
+                      </h6>
+                    </div>
+                  </div>
+                
+              </div>
+            </div>
+          </div>
+          <hr>
+        <div class="disqus">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+
+    (function() {
+      
+      
+      if (window.location.hostname == "localhost")
+        return;
+
+      var disqus_shortname = 'andrewburdyugblog';
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+        </div>
+      </div>
+      
+    </div>
+
+    
+    <footer>
+  <div id="footer">
+    <div class="container">
+      <p class="text-muted">&copy; All rights reserved. Powered by <a href="https://gohugo.io/">Hugo</a> and
+      <a href="http://www.github.com/nurlansu/hugo-sustain/">sustain</a> with ♥</p>
+    </div>
+  </div>
+</footer>
+<div class="footer"></div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="http://andrewburdyug.github.io/js/docs.min.js"></script>
+<script src="http://andrewburdyug.github.io/js/main.js"></script>
+
+<script src="http://andrewburdyug.github.io/js/ie10-viewport-bug-workaround.js"></script>
+
+
+    
+  </body>
+</html>

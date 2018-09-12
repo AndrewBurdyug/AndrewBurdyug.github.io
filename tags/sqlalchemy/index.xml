@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Sqlalchemy on Andrew&#39;s Blog</title>
+    <link>http://andrewburdyug.github.io/tags/sqlalchemy/</link>
+    <description>Recent content in Sqlalchemy on Andrew&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 10 Sep 2018 18:26:32 +0300</lastBuildDate>
+    
+	<atom:link href="http://andrewburdyug.github.io/tags/sqlalchemy/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Sqlalchemy Tips and Trics</title>
+      <link>http://andrewburdyug.github.io/blog/posts/sqlalchemy-tips-and-trics/</link>
+      <pubDate>Mon, 10 Sep 2018 18:26:32 +0300</pubDate>
+      
+      <guid>http://andrewburdyug.github.io/blog/posts/sqlalchemy-tips-and-trics/</guid>
+      <description>SQLAlchemy tips and tricks Here is collection of some unobvious SQLAlchemy tips and tricks.
+Split the database read/write operations over master/slave instances Let&amp;rsquo;s assume thta we have the master -&amp;gt; slave replications and want to split the database operations between master and slave: reading from slave, writing to master.
+The section Custom Vertical Partitioning of sqlalchemy docs will help us:
+from sqlalchemy import create_engine engines = { &#39;master&#39;: create_engine(&#39;postgresql://user:pass@master-host:5432/db&#39;), &#39;slave&#39;: create_engine(&#39;postgresql://user:pass@slave-host:5432/db&#39;) } class DistributedSession(Session): def get_bind(self, mapper=None, clause=None): if self.</description>
+    </item>
+    
+  </channel>
+</rss>

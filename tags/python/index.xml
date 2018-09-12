@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Python on Andrew&#39;s Blog</title>
+    <link>http://andrewburdyug.github.io/tags/python/</link>
+    <description>Recent content in Python on Andrew&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 05 Sep 2018 18:40:12 +0300</lastBuildDate>
+    
+	<atom:link href="http://andrewburdyug.github.io/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Adding attribute to python module programmatically</title>
+      <link>http://andrewburdyug.github.io/blog/posts/python-dynamic-set-module-attribute/</link>
+      <pubDate>Wed, 05 Sep 2018 18:40:12 +0300</pubDate>
+      
+      <guid>http://andrewburdyug.github.io/blog/posts/python-dynamic-set-module-attribute/</guid>
+      <description>Problem Time to time appears the need to add extra module&amp;rsquo;s attributes programmatically during the initialization of module.
+Let&amp;rsquo;s consider the something like loading raw SQL queries from some folder in project where we want just keep all raw SQL queries.
+So usally we would write in raw_sql_queries/__init__.py something like this:
+import sys import logging import os.path def load_raw_sql_query(query_name): try: file_name = os.path.join(os.path.dirname(__file__), query_name + &#39;.sql&#39;) return open(file_name).read().strip() except OSError as er: logger.</description>
+    </item>
+    
+  </channel>
+</rss>

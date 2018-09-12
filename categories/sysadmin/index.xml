@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Sysadmin on Andrew&#39;s Blog</title>
+    <link>http://andrewburdyug.github.io/categories/sysadmin/</link>
+    <description>Recent content in Sysadmin on Andrew&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 04 May 2016 12:25:20 +0300</lastBuildDate>
+    
+	<atom:link href="http://andrewburdyug.github.io/categories/sysadmin/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Archlinux Build Custom Nginx</title>
+      <link>http://andrewburdyug.github.io/blog/posts/archlinux-build-custom-nginx/</link>
+      <pubDate>Wed, 04 May 2016 12:25:20 +0300</pubDate>
+      
+      <guid>http://andrewburdyug.github.io/blog/posts/archlinux-build-custom-nginx/</guid>
+      <description>Preparation Install abs:
+[root@localhost:~]# pacman -S abs  Add non superuser account for building the arch linux package e.g. src:
+[root@localhost:~]# mkdir /var/abs/local [root@localhost:~]# useradd -d /var/abs/local -s /bin/bash src  Building the package Sync nginx abs files:
+[root@localhost:~]# abs sync extra/nginx ==&amp;gt; Starting ABS sync... receiving file list ... done ./ extra/ extra/nginx/ extra/nginx/PKGBUILD extra/nginx/logrotate extra/nginx/nginx.install extra/nginx/service sent 225 bytes received 3,098 bytes 2,215.33 bytes/sec total size is 4,874 speedup is 1.</description>
+    </item>
+    
+    <item>
+      <title>Nginx Custom Build</title>
+      <link>http://andrewburdyug.github.io/blog/posts/nginx-custom-build/</link>
+      <pubDate>Mon, 17 Feb 2014 16:37:05 +0300</pubDate>
+      
+      <guid>http://andrewburdyug.github.io/blog/posts/nginx-custom-build/</guid>
+      <description>Go to http://nginx.org/ru/linux_packages.html and, following by the Igot Sysoev instructions, add the official nginx repo e.g. for Ubuntu 14.04 you should create the file /etc/apt/sources.list.d/nginx.sources.list with such content:
+deb http://nginx.org/packages/ubuntu/ trusty nginx deb-src http://nginx.org/packages/ubuntu/ trusty nginx  Then you should import nginx signing key into apt:
+wget http://nginx.org/keys/nginx_signing.key apt-key add nginx_signing.key  Update apt cache:
+apt-get update  Install required packages:
+apt-get install -y dpkg-dev devscripts build-essential fakeroot debhelper libssl-dev libpcre3-dev zlib1g-dev  Get the nginx sources:</description>
+    </item>
+    
+  </channel>
+</rss>

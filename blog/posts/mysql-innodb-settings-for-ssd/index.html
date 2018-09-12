@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Andrew Burdyug" />
+    <meta name="description" content="Describe your website">
+    <link rel="shortcut icon" type="image/x-icon" href="http://andrewburdyug.github.io/img/favicon.ico">
+    <title>MySQL Innodb Settings for SSD</title>
+    <meta name="generator" content="Hugo 0.48" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="http://andrewburdyug.github.io/css/main.css" />
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,200bold,400old" />
+    
+    <link rel="stylesheet" href="http://andrewburdyug.github.io/css/custom.css">
+    
+    <!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+    
+  </head>
+
+  <body>
+    <div id="wrap">
+
+      
+      <nav class="navbar navbar-default">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="http://andrewburdyug.github.io/"><i class="fa fa-home"></i></a>
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="navbar-collapse collapse" id="navbar">
+      <ul class="nav navbar-nav navbar-right">
+      
+        
+        <li><a href="/blog/">BLOG</a></li>
+        
+        <li><a href="/projects/">PROJECTS</a></li>
+        
+        <li><a href="/resume/">RESUME</a></li>
+        
+      
+      </ul>
+    </div>
+  </div>
+</nav>
+
+      
+      <div class="container">
+        <div class="blog-post">
+          <h3>
+            <strong><a href="http://andrewburdyug.github.io/blog/posts/mysql-innodb-settings-for-ssd/">MySQL Innodb Settings for SSD</a></strong>
+          </h3>
+        </div>
+        <div class="blog-title">
+          <h4>
+          September 28, 2014
+            &nbsp;&nbsp;
+            
+            <span class="label label-success">MySQL</span>
+            
+            <span class="label label-success">InnoDB</span>
+            
+            <span class="label label-success">SSD</span>
+            
+          </h4>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="blogpost">
+              <p>If you have server with SSD hard, you can face the fact that the MySQL very slowly writes,
+help these settings adjustment:</p>
+
+<pre><code class="language-ini">[mysqld]
+innodb_buffer_pool_instances    = 8
+innodb_read_io_threads          = 8
+innodb_write_io_threads         = 8
+innodb_buffer_pool_size         = 64M
+innodb_io_capacity              = 1000
+; innodb_file_per_table
+</code></pre>
+
+<p>save this into <code>/etc/mysql/conf.d/tuning.cnf</code> and restart MySQL server. The most
+important of these settings is <strong>innodb_io_capacity</strong>, here is what mysql docs says
+about:</p>
+
+<blockquote>
+<p>The innodb_io_capacity parameter sets an upper limit on the I/O activity performed by the InnoDB background tasks, such as flushing pages from the buffer pool and merging data from the change buffer. The default value is 200. For busy systems capable of higher I/O rates, you can set a higher value at server startup, to help the server handle the background maintenance work associated with a high rate of row changes.</p>
+
+<p>The innodb_io_capacity limit is a total limit for all buffer pool instances. When dirty pages are flushed, the innodb_io_capacity limit is divided equally among buffer pool instances.</p>
+
+<p>As of MySQL 5.7.2, the innodb_io_capacity setting is also used to limit the number of buffer pool load operations per second when there is other I/O activity being performed by InnoDB background tasks.</p>
+
+<p>For systems with individual 5400 RPM or 7200 RPM drives, you might lower the value to the former default of 100.</p>
+</blockquote>
+
+<p>These parameter values were tested on Linode VM with SSD and 4Gb of RAM. Linode ssd
+servers have a very good performance, here is the output of <code>atop -s 1</code>
+during the converting big database(180 millions of rows) to InnoDb (take a look at
+the writes count and busy percent):</p>
+
+<pre><code>DSK |          xvda  | busy     21%  |  read      31  |  write   4306 |  KiB/w     33  |  MBr/s   1.25  |  MBw/s 139.93 |  avio 0.05 ms  |
+</code></pre>
+
+<div class="alert alert-info" role="alert">
+  <p>NOTE: To convert a non-InnoDB table to InnoDB, use <code>ALTER TABLE</code>:</p>
+
+<pre><code class="language-sql">ALTER TABLE table_name ENGINE=InnoDB;
+</code></pre>
+
+</div>
+
+
+              <hr>
+              <div class="related-posts">
+                <h5>Related Posts</h5>
+                
+                  <div class="row">
+                    <div class="col-sm-4 col-md-4 col-lg-4">
+                      <h6 style="text-align: right">
+                        September 25, 2013
+                      </h6>
+                    </div>
+                    <div class="col-sm-8 col-md-8 col-lg-8">
+                      <h6 style="text-align: left">
+                        <strong><a href="/blog/posts/mysql-charset/">MySQL Charset</a></strong>
+                      </h6>
+                    </div>
+                  </div>
+                
+              </div>
+            </div>
+          </div>
+          <hr>
+        <div class="disqus">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+
+    (function() {
+      
+      
+      if (window.location.hostname == "localhost")
+        return;
+
+      var disqus_shortname = 'andrewburdyugblog';
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+        </div>
+      </div>
+      
+    </div>
+
+    
+    <footer>
+  <div id="footer">
+    <div class="container">
+      <p class="text-muted">&copy; All rights reserved. Powered by <a href="https://gohugo.io/">Hugo</a> and
+      <a href="http://www.github.com/nurlansu/hugo-sustain/">sustain</a> with ♥</p>
+    </div>
+  </div>
+</footer>
+<div class="footer"></div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="http://andrewburdyug.github.io/js/docs.min.js"></script>
+<script src="http://andrewburdyug.github.io/js/main.js"></script>
+
+<script src="http://andrewburdyug.github.io/js/ie10-viewport-bug-workaround.js"></script>
+
+
+    
+  </body>
+</html>
