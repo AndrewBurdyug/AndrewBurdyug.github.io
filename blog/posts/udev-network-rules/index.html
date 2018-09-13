@@ -24,11 +24,11 @@
     
   </head>
 
-  <body>
-    <div id="wrap">
+<body>
+  <div id="wrap">
 
-      
-      <nav class="navbar navbar-default">
+    
+    <nav class="navbar navbar-default">
   <div class="container">
     <div class="navbar-header">
       <a class="navbar-brand" href="http://andrewburdyug.github.io/"><i class="fa fa-home"></i></a>
@@ -54,26 +54,26 @@
   </div>
 </nav>
 
-      
-      <div class="container">
-        <div class="blog-post">
-          <h3>
-            <strong><a href="http://andrewburdyug.github.io/blog/posts/udev-network-rules/">Udev Network Rules</a></strong>
-          </h3>
-        </div>
-        <div class="blog-title">
-          <h4>
+    
+    <div class="container">
+      <div class="blog-post">
+        <h3>
+          <strong><a href="http://andrewburdyug.github.io/blog/posts/udev-network-rules/">Udev Network Rules</a></strong>
+        </h3>
+      </div>
+      <div class="blog-title">
+        <h4>
           October 4, 2013
-            &nbsp;&nbsp;
+          &nbsp;&nbsp;
+          
+          <span class="label label-success">udev</span>
+          
+        </h4>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="blogpost">
             
-            <span class="label label-success">udev</span>
-            
-          </h4>
-        </div>
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <div class="blogpost">
-              
 
 <h1 id="problem">Problem</h1>
 
@@ -129,14 +129,16 @@ world: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
 <pre><code>-A POSTROUTING -s 192.168.1.0/24 ! -d 192.168.1.0/24 -o world -j SNAT --to-source 178.32.218.104
 </code></pre>
 
-              <hr>
-              <div class="related-posts">
-                <h5>Related Posts</h5>
-                
-              </div>
+            
+            <hr>
+            <div class="related-posts">
+              <h5>Related Posts</h5>
+              
             </div>
+            
           </div>
-          <hr>
+        </div>
+        <hr>
         
 <div class="disqus">
   <div id="disqus_thread"></div>
@@ -158,13 +160,13 @@ world: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
 </div>
 
 
-        </div>
       </div>
-      
     </div>
-
     
-    <footer>
+  </div>
+
+  
+  <footer>
   <div id="footer">
     <div class="container">
       <p class="text-muted">&copy; All rights reserved. Powered by <a href="https://gohugo.io/">Hugo</a> and
@@ -184,6 +186,6 @@ world: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
 <script src="http://andrewburdyug.github.io/js/ie10-viewport-bug-workaround.js"></script>
 
 
-    
-  </body>
+
+</body>
 </html>
