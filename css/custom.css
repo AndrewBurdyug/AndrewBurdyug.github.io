@@ -11,3 +11,7 @@ ul > li.extra-padding-top {
     -webkit-box-shadow: none !important;
     box-shadow: none !important;
 }
+
+html, body {
+  height: 98.8% !important;
+}
