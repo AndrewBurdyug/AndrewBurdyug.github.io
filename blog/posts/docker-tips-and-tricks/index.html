@@ -99,6 +99,29 @@ ff02::2 ip6-allrouters
 172.17.0.2  f0ab12b0b544
 </code></pre>
 
+<h2 id="connect-offline-docker-container-to-network">Connect offline docker container to network</h2>
+
+<p>If you used weave, sometimes you may face to such errors:</p>
+
+<pre><code>Sep 27 16:36:04 server02.cm-telekom.dk docker[21483]: Error response from daemon: network 5d003f4577873af43afbcead7cd1496bbcccb3473465dd01ccee8ef3b49a0045 not found
+</code></pre>
+
+<p>this means that weave was upgraded and changed its network ID,
+for resolving this issue you may instead of re-created every container,
+just connect the container to the new weave network. e.g.:</p>
+
+<pre><code>docker network connect --ip 10.10.10.180 weave mysql
+</code></pre>
+
+<h2 id="erase-all-docker-container-logs">Erase all docker container logs</h2>
+
+<p>You can truncate logs of all docker containers in this way:</p>
+
+<pre><code>for i in `docker ps -q`;  \
+   do :&gt;$(docker inspect --format='{{.LogPath}}' $i); \
+done
+</code></pre>
+
             
             <div class="related-posts">
               <hr>

@@ -22,7 +22,7 @@ git push &amp;lt;remote-name&amp;gt; &amp;lt;local-branch-name&amp;gt;:&amp;lt;r
 git push origin --delete branch_name  Pull &amp;amp; fetch Delete local stale git branches which were alreay deleted on the remote server:
 git fetch -p  Fetch the new git branch and checkout into it:
 git fetch origin &amp;lt;remote-branch-name&amp;gt;:&amp;lt;local-branch-name&amp;gt; git checkout &amp;lt;local-branch-name&amp;gt;  or the shortest variant:
-git checkout -b local_branch_name origin/remote_branch_name  Config Custom format for CHANGELOG:</description>
+git checkout -b local_branch_name origin/remote_branch_name  Add sub module:</description>
     </item>
     
   </channel>

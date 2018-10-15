@@ -53,9 +53,10 @@ import sys import logging import os.path def load_raw_sql_query(query_name): try
       <pubDate>Fri, 29 Apr 2016 12:21:33 +0300</pubDate>
       
       <guid>http://andrewburdyug.github.io/blog/posts/docker-tips-and-tricks/</guid>
-      <description> Manage container /etc/hosts See section Managing /etc/hosts
+      <description>Manage container /etc/hosts See section Managing /etc/hosts
 Example:
-$ docker run -it --add-host db-static:86.75.30.9 ubuntu cat /etc/hosts 127.0.0.1 localhost ::1 localhost ip6-localhost ip6-loopback fe00::0 ip6-localnet ff00::0 ip6-mcastprefix ff02::1 ip6-allnodes ff02::2 ip6-allrouters 86.75.30.9 db-static 172.17.0.2 f0ab12b0b544  </description>
+$ docker run -it --add-host db-static:86.75.30.9 ubuntu cat /etc/hosts 127.0.0.1 localhost ::1 localhost ip6-localhost ip6-loopback fe00::0 ip6-localnet ff00::0 ip6-mcastprefix ff02::1 ip6-allnodes ff02::2 ip6-allrouters 86.75.30.9 db-static 172.17.0.2 f0ab12b0b544  Connect offline docker container to network If you used weave, sometimes you may face to such errors:
+Sep 27 16:36:04 server02.cm-telekom.dk docker[21483]: Error response from daemon: network 5d003f4577873af43afbcead7cd1496bbcccb3473465dd01ccee8ef3b49a0045 not found  this means that weave was upgraded and changed its network ID, for resolving this issue you may instead of re-created every container, just connect the container to the new weave network.</description>
     </item>
     
     <item>
@@ -137,7 +138,7 @@ git push &amp;lt;remote-name&amp;gt; &amp;lt;local-branch-name&amp;gt;:&amp;lt;r
 git push origin --delete branch_name  Pull &amp;amp; fetch Delete local stale git branches which were alreay deleted on the remote server:
 git fetch -p  Fetch the new git branch and checkout into it:
 git fetch origin &amp;lt;remote-branch-name&amp;gt;:&amp;lt;local-branch-name&amp;gt; git checkout &amp;lt;local-branch-name&amp;gt;  or the shortest variant:
-git checkout -b local_branch_name origin/remote_branch_name  Config Custom format for CHANGELOG:</description>
+git checkout -b local_branch_name origin/remote_branch_name  Add sub module:</description>
     </item>
     
   </channel>

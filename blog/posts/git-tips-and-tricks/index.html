@@ -112,6 +112,11 @@ git checkout &lt;local-branch-name&gt;
 <pre><code>git checkout -b local_branch_name origin/remote_branch_name
 </code></pre>
 
+<p>Add sub module:</p>
+
+<pre><code>git submodule add -b branch_name git@gitlab.com:repo_group/repo_name.git project_folder/folder_name
+</code></pre>
+
 <h2 id="config">Config</h2>
 
 <p>Custom format for CHANGELOG:</p>
@@ -144,6 +149,18 @@ git checkout &lt;local-branch-name&gt;
 <p>Changing the repo URL to a new one:</p>
 
 <pre><code>git remote set-url origin git://new.url.here
+</code></pre>
+
+<p>Added git submodules:</p>
+
+<pre><code>git submodule add -b master git@gitlab.com:vehicle/wheel.git vehicle/wheel
+</code></pre>
+
+<h2 id="search">Search</h2>
+
+<p>Search for a string/regex across all branches:</p>
+
+<pre><code>git grep &quot;string/regexp&quot; $(git rev-list --all)
 </code></pre>
 
             
