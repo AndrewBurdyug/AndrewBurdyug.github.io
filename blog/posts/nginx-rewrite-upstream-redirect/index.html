@@ -7,7 +7,7 @@
     <meta name="author" content="Andrew Burdyug" />
     <meta name="description" content="Describe your website">
     <link rel="shortcut icon" type="image/x-icon" href="http://andrewburdyug.github.io/img/favicon.ico">
-    <title>Nginx Custom Build</title>
+    <title>Nginx Rewrite Upstream Redirect</title>
     <meta name="generator" content="Hugo 0.48" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="http://andrewburdyug.github.io/css/main.css" />
@@ -61,108 +61,74 @@
       <div class="blog-post">
         <h3>
           <strong>
-            <a href="http://andrewburdyug.github.io/blog/posts/nginx-custom-build/">Nginx Custom Build</a>
+            <a href="http://andrewburdyug.github.io/blog/posts/nginx-rewrite-upstream-redirect/">Nginx Rewrite Upstream Redirect</a>
           </strong>
         </h3>
       </div>
       <div class="blog-title">
         <h4>
-          February 17, 2014
+          November 15, 2018
           &nbsp;&nbsp;
         </h4>
         <small>
           
-          <a href="/categories/sysadmin" class="text-capitalize">sysadmin</a>
-          
           
           <a href="/tags/nginx">nginx</a>
-          
-          <a href="/tags/build">build</a>
           
         </small>
       </div>
       <div class="panel panel-default">
         <div class="panel-body">
           <div class="blogpost">
-            <p>Go to <a href="http://nginx.org/ru/linux_packages.html">http://nginx.org/ru/linux_packages.html</a>
-and, following by the Igot Sysoev instructions, add the official nginx repo e.g.
-for Ubuntu 14.04 you should create the file <code>/etc/apt/sources.list.d/nginx.sources.list</code>
-with such content:</p>
+            
 
-<pre><code>deb http://nginx.org/packages/ubuntu/ trusty nginx
-deb-src http://nginx.org/packages/ubuntu/ trusty nginx
+<h1 id="problem">Problem</h1>
+
+<p>Let&rsquo;s assume that you have some URL which receive the secret token and respond by redirect
+to another page, url of which may contains sensitive data like user session token.</p>
+
+<p>And you want to request this URL under the hood by using JS AJAX request and
+display the result as link on some html page.</p>
+
+<p>The problem is: when the browser get the <code>301</code>, <code>302</code> and another redirect codes,
+it will follow new location even if you do not want that.</p>
+
+<div class="alert alert-info" role="alert">
+  <p>One more case to do that is to hiding the private token and do not sent it over your
+non trusted network, only server will know you token.</p>
+
+</div>
+
+
+<h1 id="solution">Solution</h1>
+
+<p>The solution is: put this URL under the nginx, get the new location from redirect
+response and return back to client as simple plain text message with status <code>HTTP 200 OK</code>.</p>
+
+<p>Here is the example how to do that:</p>
+
+<pre><code>server {
+    listen       443;
+    server_name  domain.com;
+    ... ... ...
+    location @handle_redirects {
+        return 200 $upstream_http_location;
+    }
+
+    location /get-new-location {
+        error_page 301 302 307 = @handle_redirects;
+        proxy_pass https://other.domain.com/?param1=value1&amp;token=sdfsdfhsdf34f3434f34f34f43f&amp;param2=value2&amp;para....;
+        proxy_intercept_errors on;
+    }
 </code></pre>
 
-<p>Then you should import nginx signing key into apt:</p>
-
-<pre><code>wget http://nginx.org/keys/nginx_signing.key
-apt-key add nginx_signing.key
-</code></pre>
-
-<p>Update apt cache:</p>
-
-<pre><code>apt-get update
-</code></pre>
-
-<p>Install required packages:</p>
-
-<pre><code>apt-get install -y dpkg-dev devscripts build-essential fakeroot debhelper libssl-dev libpcre3-dev zlib1g-dev
-</code></pre>
-
-<p>Get the nginx sources:</p>
-
-<pre><code>cd /usr/src/ &amp;&amp; apt-get source nginx
-</code></pre>
-
-<p>Go to the directory of nginx sources:</p>
-
-<pre><code>cd nginx-1.6.1/
-</code></pre>
-
-<p>Edit <code>debian/rules</code>: add whatever you need, remove what you no needed e.g. support of ipv6,
-streaming etc.</p>
-
-<p>Build the package:</p>
-
-<pre><code>debuild -us -uc
-</code></pre>
-
-<p>Go to the parent directory and install the package:</p>
-
-<pre><code>cd ..
-dpkg -i nginx_1.6.1-1~trusty_amd64.deb
-</code></pre>
+<p>The genial idea is to make the nginx treats redirect codes as errors,
+intercept and proccess them =). The original idea was found here: <a href="https://stackoverflow.com/questions/20254456/intercepting-backend-301-302-redirects-proxy-pass-and-rewriting-to-another-loc?rq=1">https://stackoverflow.com/questions/20254456/intercepting-backend-301-302-redirects-proxy-pass-and-rewriting-to-another-loc?rq=1</a></p>
 
             
             <div class="related-posts">
               <hr>
               <h5>Related Posts</h5>
-              
-              <div class="row">
-                <div class="col-sm-4 col-md-4 col-lg-4 col-xs-5">
-                  <h6 style="text-align: right">
-                    November 15, 2018
-                  </h6>
-                </div>
-                <div class="col-sm-8 col-md-8 col-lg-8 col-xs-6">
-                  <h6 style="text-align: left">
-                    <strong><a href="/blog/posts/nginx-rewrite-upstream-redirect/">Nginx Rewrite Upstream Redirect</a></strong>
-                  </h6>
-                </div>
-              </div>
-              
-              <div class="row">
-                <div class="col-sm-4 col-md-4 col-lg-4 col-xs-5">
-                  <h6 style="text-align: right">
-                    November 14, 2018
-                  </h6>
-                </div>
-                <div class="col-sm-8 col-md-8 col-lg-8 col-xs-6">
-                  <h6 style="text-align: left">
-                    <strong><a href="/blog/posts/build-python-3.7-on-ubuntu-16.04/">Build Python 3.7 on Ubuntu 16</a></strong>
-                  </h6>
-                </div>
-              </div>
               
               <div class="row">
                 <div class="col-sm-4 col-md-4 col-lg-4 col-xs-5">
@@ -173,6 +139,32 @@ dpkg -i nginx_1.6.1-1~trusty_amd64.deb
                 <div class="col-sm-8 col-md-8 col-lg-8 col-xs-6">
                   <h6 style="text-align: left">
                     <strong><a href="/blog/posts/archlinux-build-custom-nginx/">Archlinux Build Custom Nginx</a></strong>
+                  </h6>
+                </div>
+              </div>
+              
+              <div class="row">
+                <div class="col-sm-4 col-md-4 col-lg-4 col-xs-5">
+                  <h6 style="text-align: right">
+                    March 15, 2016
+                  </h6>
+                </div>
+                <div class="col-sm-8 col-md-8 col-lg-8 col-xs-6">
+                  <h6 style="text-align: left">
+                    <strong><a href="/blog/posts/nginx-try-files/">Nginx Try Files</a></strong>
+                  </h6>
+                </div>
+              </div>
+              
+              <div class="row">
+                <div class="col-sm-4 col-md-4 col-lg-4 col-xs-5">
+                  <h6 style="text-align: right">
+                    February 17, 2014
+                  </h6>
+                </div>
+                <div class="col-sm-8 col-md-8 col-lg-8 col-xs-6">
+                  <h6 style="text-align: left">
+                    <strong><a href="/blog/posts/nginx-custom-build/">Nginx Custom Build</a></strong>
                   </h6>
                 </div>
               </div>

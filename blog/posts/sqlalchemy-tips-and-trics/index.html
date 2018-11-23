@@ -113,7 +113,28 @@ DBSession = sessionmaker()
 
 <p>See also <a href="https://docs.sqlalchemy.org/en/rel_1_1/orm/persistence_techniques.html">Additional Persistence Techniques</a></p>
 
-<p>to be continue&hellip;</p>
+<h2 id="show-sql-code-of-migration">Show SQL code of migration</h2>
+
+<p>For seeing changes between <code>4a1d61b2251d</code> and <code>1b3b383f8de7</code> sqlalchemy commits, run:</p>
+
+<pre><code class="language-shell">$ alembic -c config.ini --name=app:development upgrade 4a1d61b2251d:1b3b383f8de7 --sql
+
+-- Running upgrade 4a1d61b2251d -&gt; 1b3b383f8de7
+
+ALTER TABLE reports ADD COLUMN is_archived BOOLEAN DEFAULT 'FALSE' NOT NULL;
+
+ALTER TABLE user_groups ALTER COLUMN role_type DROP NOT NULL;
+
+ALTER TABLE user_groups DROP CONSTRAINT user_groups_group_name_key;
+
+CREATE INDEX ix_reports_owner_group_id ON reports (owner_group_id);
+
+CREATE INDEX ix_reports_owner_user_id ON reports (owner_user_id);
+
+UPDATE alembic_version SET version_num='1b3b383f8de7' WHERE alembic_version.version_num = '4a1d61b2251d';
+
+COMMIT;
+</code></pre>
 
             
             <div class="related-posts">
