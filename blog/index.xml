@@ -6,10 +6,32 @@
     <description>Recent content in Blogs on Andrew&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 10 Sep 2018 18:26:32 +0300</lastBuildDate>
+    <lastBuildDate>Thu, 15 Nov 2018 11:29:24 +0300</lastBuildDate>
     
 	<atom:link href="http://andrewburdyug.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Nginx Rewrite Upstream Redirect</title>
+      <link>http://andrewburdyug.github.io/blog/posts/nginx-rewrite-upstream-redirect/</link>
+      <pubDate>Thu, 15 Nov 2018 11:29:24 +0300</pubDate>
+      
+      <guid>http://andrewburdyug.github.io/blog/posts/nginx-rewrite-upstream-redirect/</guid>
+      <description>Problem Let&amp;rsquo;s assume that you have some URL which receive the secret token and respond by redirect to another page, url of which may contains sensitive data like user session token.
+And you want to request this URL under the hood by using JS AJAX request and display the result as link on some html page.
+The problem is: when the browser get the 301, 302 and another redirect codes, it will follow new location even if you do not want that.</description>
+    </item>
+    
+    <item>
+      <title>Build Python 3.7 on Ubuntu 16</title>
+      <link>http://andrewburdyug.github.io/blog/posts/build-python-3.7-on-ubuntu-16.04/</link>
+      <pubDate>Wed, 14 Nov 2018 14:59:34 +0300</pubDate>
+      
+      <guid>http://andrewburdyug.github.io/blog/posts/build-python-3.7-on-ubuntu-16.04/</guid>
+      <description>Guide Install the build system packages, run:
+apt-get install -y build-essential checkinstall libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev zlib1g-dev openssl libffi-dev wget  Download latest python:
+root@J-RGS-DEV:~# export PY_VER=3.7.1 root@J-RGS-DEV:~# wget https://www.python.org/ftp/python/3.7.1/Python-${PY_VER}.tar.xz --2018-11-14 11:57:30-- https://www.python.org/ftp/python/3.7.1/Python-3.7.1.tar.xz Resolving www.python.org (www.python.org)... 151.101.112.223, 2a04:4e42:1b::223 Connecting to www.python.org (www.python.org)|151.101.112.223|:443... connected. HTTP request sent, awaiting response... 200 OK Length: 16960060 (16M) [application/octet-stream] Saving to: ‘Python-3.7.1.tar.xz’ Python-3.7.1.tar.xz 100%[======================================================================================================&amp;gt;] 16.17M --.-KB/s in 0.1s 2018-11-14 11:57:30 (133 MB/s) - ‘Python-3.</description>
+    </item>
     
     <item>
       <title>Sqlalchemy Tips and Trics</title>
@@ -56,7 +78,7 @@ import sys import logging import os.path def load_raw_sql_query(query_name): try
       <description>Manage container /etc/hosts See section Managing /etc/hosts
 Example:
 $ docker run -it --add-host db-static:86.75.30.9 ubuntu cat /etc/hosts 127.0.0.1 localhost ::1 localhost ip6-localhost ip6-loopback fe00::0 ip6-localnet ff00::0 ip6-mcastprefix ff02::1 ip6-allnodes ff02::2 ip6-allrouters 86.75.30.9 db-static 172.17.0.2 f0ab12b0b544  Connect offline docker container to network If you used weave, sometimes you may face to such errors:
-Sep 27 16:36:04 server02.cm-telekom.dk docker[21483]: Error response from daemon: network 5d003f4577873af43afbcead7cd1496bbcccb3473465dd01ccee8ef3b49a0045 not found  this means that weave was upgraded and changed its network ID, for resolving this issue you may instead of re-created every container, just connect the container to the new weave network.</description>
+Sep 27 16:36:04 server01 docker[21483]: Error response from daemon: network 5d003f4577873af43afbcead7cd1496bbcccb3473465dd01ccee8ef3b49a0045 not found  this means that weave was upgraded and changed its network ID, for resolving this issue you may instead of re-created every container, just connect the container to the new weave network.</description>
     </item>
     
     <item>
