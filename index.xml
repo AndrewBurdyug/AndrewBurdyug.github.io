@@ -6,10 +6,19 @@
     <description>Recent content on Andrew&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 15 Nov 2018 11:29:24 +0300</lastBuildDate>
+    <lastBuildDate>Thu, 24 Jan 2019 11:47:52 +0300</lastBuildDate>
     
 	<atom:link href="http://andrewburdyug.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Rescue</title>
+      <link>http://andrewburdyug.github.io/blog/posts/rescue/</link>
+      <pubDate>Thu, 24 Jan 2019 11:47:52 +0300</pubDate>
+      
+      <guid>http://andrewburdyug.github.io/blog/posts/rescue/</guid>
+      <description>Chroot manjaro # mount /dev/nvmen0p1 /mnt ## mount /dev/nvmen0p1 /mnt/boot/efi # optional - in case you are running in UEFI mode, again, replace with the correct device name # mount -t proc proc /mnt/proc # mount --rbind /dev /mnt/dev # mount --rbind /sys /mnt/sys # mount --rbind /run /mnt/run # mount --rbind /etc/resolv.conf /mnt/etc/resolv.conf # chroot /mnt /bin/bash  Original hints were published here: https://forum.manjaro.org/t/manjaro-stuck-on-boot-screen-libidn2-so-4-missing/72999/6</description>
+    </item>
     
     <item>
       <title>Nginx Rewrite Upstream Redirect</title>
@@ -30,7 +39,7 @@ The problem is: when the browser get the 301, 302 and another redirect codes, it
       <guid>http://andrewburdyug.github.io/blog/posts/build-python-3.7-on-ubuntu-16.04/</guid>
       <description>Guide Install the build system packages, run:
 apt-get install -y build-essential checkinstall libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev zlib1g-dev openssl libffi-dev wget  Download latest python:
-root@J-RGS-DEV:~# export PY_VER=3.7.1 root@J-RGS-DEV:~# wget https://www.python.org/ftp/python/3.7.1/Python-${PY_VER}.tar.xz --2018-11-14 11:57:30-- https://www.python.org/ftp/python/3.7.1/Python-3.7.1.tar.xz Resolving www.python.org (www.python.org)... 151.101.112.223, 2a04:4e42:1b::223 Connecting to www.python.org (www.python.org)|151.101.112.223|:443... connected. HTTP request sent, awaiting response... 200 OK Length: 16960060 (16M) [application/octet-stream] Saving to: ‘Python-3.7.1.tar.xz’ Python-3.7.1.tar.xz 100%[======================================================================================================&amp;gt;] 16.17M --.-KB/s in 0.1s 2018-11-14 11:57:30 (133 MB/s) - ‘Python-3.</description>
+root@J-RGS-DEV:~# export PY_VER=3.7.1 root@J-RGS-DEV:~# wget https://www.python.org/ftp/python/${PY_VER}/Python-${PY_VER}.tar.xz --2018-11-14 11:57:30-- https://www.python.org/ftp/python/3.7.1/Python-3.7.1.tar.xz Resolving www.python.org (www.python.org)... 151.101.112.223, 2a04:4e42:1b::223 Connecting to www.python.org (www.python.org)|151.101.112.223|:443... connected. HTTP request sent, awaiting response... 200 OK Length: 16960060 (16M) [application/octet-stream] Saving to: ‘Python-3.7.1.tar.xz’ Python-3.7.1.tar.xz 100%[======================================================================================================&amp;gt;] 16.17M --.-KB/s in 0.1s 2018-11-14 11:57:30 (133 MB/s) - ‘Python-3.</description>
     </item>
     
     <item>
@@ -63,7 +72,7 @@ import sys import logging import os.path def load_raw_sql_query(query_name): try
       <pubDate>Mon, 27 Aug 2018 15:06:12 +0300</pubDate>
       
       <guid>http://andrewburdyug.github.io/resume/</guid>
-      <description>Short legal info Name Andrew Burdyug Year of birth 1983 IT experience Since 2006 Education 2000-2005 Taurida National V.I.Vernadsky University, Simferopol, masters degree of applied physics E-mail buran83@gmail.com  GitHub/GitLab profiles GitHub https://github.com/AndrewBurdyug GitLab https://gitlab.com/buran83  Proficiencies Server administration  system configuration(server setup &amp; perfomance tuning), health monitoring(Nagios, Icinga, Collectd, RrrdTool, MRTG, Grafana), backups(Bacula, BackupPC, borg), shell scripting  Programming Python(expert), JS(good knowledge), Perl(currently not used), bash/shell scripting(very experienced) Working area Seniour python developer, team leader/mentor, devops/sysadmin, manager  Control Version Systems CSV Git, svn, bzr Other stuff magit, gitlab/github merge request system, CI, gitlab pipelines  Core of any projects RDBMS PostgreSQL, MySQL, Sqlite 3 NoSQL MongoDB, ElasticSearch, OrangoDB, Redis, Memcached Docker docker-compose, docker SWARM, docker registry, Weave Queue Celery, RabbitMQ Web servers Nginx, Apache App servers uWSGI, gunicorn  Python Web frameworks Django, Django REST Framework, Flask, Bottle, Sanic(async Flask-like framework), Falcon(REST applications), Pyramid ORM SQLAlchemy, PeweeORM, PonyORM, MongoEngine Other stuff Celery, click, gevent, fabric, pika(RabbitMQ client), pytest  JavaScript JS frameworks Vue.</description>
+      <description>Short legal info Name Andrew Burdyug Year of birth 1983 IT experience Since 2006 Education 2000-2005 Taurida National V.I.Vernadsky University, Simferopol, masters degree of applied physics E-mail buran83@gmail.com  GitHub/GitLab profiles GitHub https://github.com/AndrewBurdyug GitLab https://gitlab.com/buran83  Proficiencies Server administration  system configuration(server setup &amp; perfomance tuning), health monitoring(Nagios, Icinga, Collectd, RrrdTool, MRTG, Grafana), backups(Bacula, BackupPC, borg), Ansible, shell scripting  Programming Python(expert), JS(good knowledge), Perl(currently not used), bash/shell scripting(very experienced) Working area Seniour python developer, team leader/mentor, devops/sysadmin, manager  Control Version Systems CSV Git, svn, bzr Other stuff magit, gitlab/github merge request system, CI, gitlab pipelines  Core of any projects RDBMS PostgreSQL, MySQL, Sqlite 3 NoSQL MongoDB, ElasticSearch, OrangoDB, Redis, Memcached Docker docker-compose, docker SWARM, docker registry, Weave Queue Celery, RabbitMQ Web servers Nginx, Apache App servers uWSGI, gunicorn  Python Web frameworks Django, Django REST Framework, Flask, Bottle, Sanic(async Flask-like framework), Falcon(REST applications), Pyramid ORM SQLAlchemy, PeweeORM, PonyORM, MongoEngine Other stuff Celery, click, gevent, fabric, pika(RabbitMQ client), pytest  JavaScript JS frameworks Vue.</description>
     </item>
     
     <item>

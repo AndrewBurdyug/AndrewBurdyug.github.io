@@ -7,7 +7,7 @@
     <meta name="author" content="Andrew Burdyug" />
     <meta name="description" content="Describe your website">
     <link rel="shortcut icon" type="image/x-icon" href="http://andrewburdyug.github.io/img/favicon.ico">
-    <title>Nginx Custom Build</title>
+    <title>Rescue</title>
     <meta name="generator" content="Hugo 0.54.0" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="http://andrewburdyug.github.io/css/main.css" />
@@ -61,121 +61,43 @@
       <div class="blog-post">
         <h3>
           <strong>
-            <a href="http://andrewburdyug.github.io/blog/posts/nginx-custom-build/">Nginx Custom Build</a>
+            <a href="http://andrewburdyug.github.io/blog/posts/rescue/">Rescue</a>
           </strong>
         </h3>
       </div>
       <div class="blog-title">
         <h4>
-          February 17, 2014
+          January 24, 2019
           &nbsp;&nbsp;
         </h4>
         <small>
           
-          <a href="/categories/sysadmin" class="text-capitalize">sysadmin</a>
-          
-          
-          <a href="/tags/nginx">nginx</a>
-          
-          <a href="/tags/build">build</a>
           
         </small>
       </div>
       <div class="panel panel-default">
         <div class="panel-body">
           <div class="blogpost">
-            <p>Go to <a href="http://nginx.org/ru/linux_packages.html">http://nginx.org/ru/linux_packages.html</a>
-and, following by the Igot Sysoev instructions, add the official nginx repo e.g.
-for Ubuntu 14.04 you should create the file <code>/etc/apt/sources.list.d/nginx.sources.list</code>
-with such content:</p>
+            
 
-<pre><code>deb http://nginx.org/packages/ubuntu/ trusty nginx
-deb-src http://nginx.org/packages/ubuntu/ trusty nginx
+<h1 id="chroot-manjaro">Chroot manjaro</h1>
+
+<pre><code># mount /dev/nvmen0p1 /mnt
+## mount /dev/nvmen0p1 /mnt/boot/efi  # optional - in case you are running in UEFI mode, again, replace with the correct device name
+# mount -t proc proc /mnt/proc
+# mount --rbind /dev /mnt/dev
+# mount --rbind /sys /mnt/sys
+# mount --rbind /run /mnt/run
+# mount --rbind /etc/resolv.conf /mnt/etc/resolv.conf
+# chroot /mnt /bin/bash
 </code></pre>
 
-<p>Then you should import nginx signing key into apt:</p>
-
-<pre><code>wget http://nginx.org/keys/nginx_signing.key
-apt-key add nginx_signing.key
-</code></pre>
-
-<p>Update apt cache:</p>
-
-<pre><code>apt-get update
-</code></pre>
-
-<p>Install required packages:</p>
-
-<pre><code>apt-get install -y dpkg-dev devscripts build-essential fakeroot debhelper libssl-dev libpcre3-dev zlib1g-dev
-</code></pre>
-
-<p>Get the nginx sources:</p>
-
-<pre><code>cd /usr/src/ &amp;&amp; apt-get source nginx
-</code></pre>
-
-<p>Go to the directory of nginx sources:</p>
-
-<pre><code>cd nginx-1.6.1/
-</code></pre>
-
-<p>Edit <code>debian/rules</code>: add whatever you need, remove what you no needed e.g. support of ipv6,
-streaming etc.</p>
-
-<p>Build the package:</p>
-
-<pre><code>debuild -us -uc
-</code></pre>
-
-<p>Go to the parent directory and install the package:</p>
-
-<pre><code>cd ..
-dpkg -i nginx_1.6.1-1~trusty_amd64.deb
-</code></pre>
+<p>Original hints were published here: <a href="https://forum.manjaro.org/t/manjaro-stuck-on-boot-screen-libidn2-so-4-missing/72999/6">https://forum.manjaro.org/t/manjaro-stuck-on-boot-screen-libidn2-so-4-missing/72999/6</a></p>
 
             
             <div class="related-posts">
               <hr>
               <h5>Related Posts</h5>
-              
-              <div class="row">
-                <div class="col-sm-4 col-md-4 col-lg-4 col-xs-5">
-                  <h6 style="text-align: right">
-                    November 15, 2018
-                  </h6>
-                </div>
-                <div class="col-sm-8 col-md-8 col-lg-8 col-xs-6">
-                  <h6 style="text-align: left">
-                    <strong><a href="/blog/posts/nginx-rewrite-upstream-redirect/">Nginx Rewrite Upstream Redirect</a></strong>
-                  </h6>
-                </div>
-              </div>
-              
-              <div class="row">
-                <div class="col-sm-4 col-md-4 col-lg-4 col-xs-5">
-                  <h6 style="text-align: right">
-                    November 14, 2018
-                  </h6>
-                </div>
-                <div class="col-sm-8 col-md-8 col-lg-8 col-xs-6">
-                  <h6 style="text-align: left">
-                    <strong><a href="/blog/posts/build-python-3.7-on-ubuntu-16.04/">Build Python 3.7 on Ubuntu 16</a></strong>
-                  </h6>
-                </div>
-              </div>
-              
-              <div class="row">
-                <div class="col-sm-4 col-md-4 col-lg-4 col-xs-5">
-                  <h6 style="text-align: right">
-                    May 4, 2016
-                  </h6>
-                </div>
-                <div class="col-sm-8 col-md-8 col-lg-8 col-xs-6">
-                  <h6 style="text-align: left">
-                    <strong><a href="/blog/posts/archlinux-build-custom-nginx/">Archlinux Build Custom Nginx</a></strong>
-                  </h6>
-                </div>
-              </div>
               
             </div>
             
