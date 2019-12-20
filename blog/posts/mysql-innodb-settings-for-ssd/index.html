@@ -113,10 +113,10 @@ servers have a very good performance, here is the output of <code>atop -s 1</cod
 during the converting big database(180 millions of rows) to InnoDb (take a look at
 the writes count and busy percent):</p>
 <pre><code>DSK |          xvda  | busy     21%  |  read      31  |  write   4306 |  KiB/w     33  |  MBr/s   1.25  |  MBw/s 139.93 |  avio 0.05 ms  |
-</code></pre><!-- raw HTML omitted -->
+</code></pre><div class="alert alert-info" role="alert">
 <p>NOTE: To convert a non-InnoDB table to InnoDB, use <code>ALTER TABLE</code>:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">TABLE</span> <span style="color:#66d9ef">table_name</span> ENGINE<span style="color:#f92672">=</span>InnoDB;
-</code></pre></div><!-- raw HTML omitted -->
+</code></pre></div></div>
 
             
             <div class="related-posts">

@@ -87,10 +87,10 @@ to another page, url of which may contains sensitive data like user session toke
 display the result as link on some html page.</p>
 <p>The problem is: when the browser get the <code>301</code>, <code>302</code> and another redirect codes,
 it will follow new location even if you do not want that.</p>
-<!-- raw HTML omitted -->
+<div class="alert alert-info" role="alert">
 <p>One more case to do that is to hiding the private token and do not sent it over your
 non trusted network, only server will know you token.</p>
-<!-- raw HTML omitted -->
+</div>
 <h1 id="solution">Solution</h1>
 <p>The solution is: put this URL under the nginx, get the new location from redirect
 response and return back to client as simple plain text message with status <code>HTTP 200 OK</code>.</p>

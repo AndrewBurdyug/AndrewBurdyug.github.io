@@ -284,12 +284,12 @@ configure arguments: --prefix=/etc/nginx --conf-path=/etc/nginx/nginx.conf --sbi
 [root@localhost:~]# nginx -t
 nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
 nginx: configuration file /etc/nginx/nginx.conf test is successful
-</code></pre><!-- raw HTML omitted -->
+</code></pre><div class="alert alert-warning" role="alert">
 <p>WARNING: If you already have installed nginx I strongly recommended to check
 its build option before build and install the new one, because you may used
 special nginx modules which will not enabled by default and after installing the new version
 your sites will be broken!</p>
-<!-- raw HTML omitted -->
+</div>
 <p>Restart the service:</p>
 <pre><code>[root@localhost:~]# systemctl daemon-reload
 [root@localhost:~]# systemctl restart nginx
