@@ -8,7 +8,7 @@
     <meta name="description" content="Describe your website">
     <link rel="shortcut icon" type="image/x-icon" href="http://andrewburdyug.github.io/img/favicon.ico">
     <title>Nginx Custom Build</title>
-    <meta name="generator" content="Hugo 0.59.1" />
+    <meta name="generator" content="Hugo 0.60.1" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="http://andrewburdyug.github.io/css/main.css" />
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
@@ -84,55 +84,31 @@
       <div class="panel panel-default">
         <div class="panel-body">
           <div class="blogpost">
-            <p>Go to <a href="http://nginx.org/ru/linux_packages.html">http://nginx.org/ru/linux_packages.html</a>
+            <p>Go to <a href="http://nginx.org/ru/linux_packages.html"><a href="http://nginx.org/ru/linux_packages.html">http://nginx.org/ru/linux_packages.html</a></a>
 and, following by the Igot Sysoev instructions, add the official nginx repo e.g.
 for Ubuntu 14.04 you should create the file <code>/etc/apt/sources.list.d/nginx.sources.list</code>
 with such content:</p>
-
 <pre><code>deb http://nginx.org/packages/ubuntu/ trusty nginx
 deb-src http://nginx.org/packages/ubuntu/ trusty nginx
-</code></pre>
-
-<p>Then you should import nginx signing key into apt:</p>
-
+</code></pre><p>Then you should import nginx signing key into apt:</p>
 <pre><code>wget http://nginx.org/keys/nginx_signing.key
 apt-key add nginx_signing.key
-</code></pre>
-
-<p>Update apt cache:</p>
-
+</code></pre><p>Update apt cache:</p>
 <pre><code>apt-get update
-</code></pre>
-
-<p>Install required packages:</p>
-
+</code></pre><p>Install required packages:</p>
 <pre><code>apt-get install -y dpkg-dev devscripts build-essential fakeroot debhelper libssl-dev libpcre3-dev zlib1g-dev
-</code></pre>
-
-<p>Get the nginx sources:</p>
-
+</code></pre><p>Get the nginx sources:</p>
 <pre><code>cd /usr/src/ &amp;&amp; apt-get source nginx
-</code></pre>
-
-<p>Go to the directory of nginx sources:</p>
-
+</code></pre><p>Go to the directory of nginx sources:</p>
 <pre><code>cd nginx-1.6.1/
-</code></pre>
-
-<p>Edit <code>debian/rules</code>: add whatever you need, remove what you no needed e.g. support of ipv6,
+</code></pre><p>Edit <code>debian/rules</code>: add whatever you need, remove what you no needed e.g. support of ipv6,
 streaming etc.</p>
-
 <p>Build the package:</p>
-
 <pre><code>debuild -us -uc
-</code></pre>
-
-<p>Go to the parent directory and install the package:</p>
-
+</code></pre><p>Go to the parent directory and install the package:</p>
 <pre><code>cd ..
 dpkg -i nginx_1.6.1-1~trusty_amd64.deb
 </code></pre>
-
             
             <div class="related-posts">
               <hr>

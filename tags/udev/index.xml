@@ -19,7 +19,7 @@
       <guid>http://andrewburdyug.github.io/blog/posts/udev-network-rules/</guid>
       <description>Problem Sometimes after reboot ethernet adapters get the wrong network settings because they changed their names. The udev system will help to prevent this collisions.
 Solution The udev approach is to create a new rule (file /etc/udev/rules.d/10-network.rules):
-SUBSYSTEM==&amp;quot;net&amp;quot;, ACTION==&amp;quot;add&amp;quot;, ATTR{address}==&amp;quot;00:11:1b:87:07:01&amp;quot;, NAME=&amp;quot;eth0 SUBSYSTEM==&amp;quot;net&amp;quot;, ACTION==&amp;quot;add&amp;quot;, ATTR{address}==&amp;quot;00:e0:1c:fe:01:09&amp;quot;, NAME=&amp;quot;eth1  where 30:85:a9:ae:f2:03 is the mac address of eth0 and 30:85:a2:ae:00:03 is the mac address of your second ethernet adapter. Now your network adapters will not change their names anymore.</description>
+SUBSYSTEM==&amp;quot;net&amp;quot;, ACTION==&amp;quot;add&amp;quot;, ATTR{address}==&amp;quot;00:11:1b:87:07:01&amp;quot;, NAME=&amp;quot;eth0 SUBSYSTEM==&amp;quot;net&amp;quot;, ACTION==&amp;quot;add&amp;quot;, ATTR{address}==&amp;quot;00:e0:1c:fe:01:09&amp;quot;, NAME=&amp;quot;eth1 where 30:85:a9:ae:f2:03 is the mac address of eth0 and 30:85:a2:ae:00:03 is the mac address of your second ethernet adapter. Now your network adapters will not change their names anymore.</description>
     </item>
     
   </channel>

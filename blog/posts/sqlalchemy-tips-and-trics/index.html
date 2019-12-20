@@ -8,7 +8,7 @@
     <meta name="description" content="Describe your website">
     <link rel="shortcut icon" type="image/x-icon" href="http://andrewburdyug.github.io/img/favicon.ico">
     <title>Sqlalchemy Tips and Trics</title>
-    <meta name="generator" content="Hugo 0.59.1" />
+    <meta name="generator" content="Hugo 0.60.1" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="http://andrewburdyug.github.io/css/main.css" />
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
@@ -80,62 +80,49 @@
       <div class="panel panel-default">
         <div class="panel-body">
           <div class="blogpost">
-            
-
-<h1 id="sqlalchemy-tips-and-tricks">SQLAlchemy tips and tricks</h1>
-
+            <h1 id="sqlalchemy-tips-and-tricks">SQLAlchemy tips and tricks</h1>
 <p>Here is collection of some unobvious SQLAlchemy tips and tricks.</p>
-
-<h2 id="split-the-database-read-write-operations-over-master-slave-instances">Split the database read/write operations over master/slave instances</h2>
-
-<p>Let&rsquo;s assume thta we have the <code>master -&gt; slave</code> replications and want to split
+<h2 id="split-the-database-readwrite-operations-over-masterslave-instances">Split the database read/write operations over master/slave instances</h2>
+<p>Let's assume thta we have the <code>master -&gt; slave</code> replications and want to split
 the database operations between master and slave: reading from slave,
 writing to master.</p>
-
 <p>The section <a href="http://docs.sqlalchemy.org/en/latest/orm/persistence_techniques.html#custom-vertical-partitioning">Custom Vertical Partitioning</a> of sqlalchemy docs will help us:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> sqlalchemy <span style="color:#f92672">import</span> create_engine
 
-<pre><code class="language-python">from sqlalchemy import create_engine
-
-engines = {
-    'master': create_engine('postgresql://user:pass@master-host:5432/db'),
-    'slave': create_engine('postgresql://user:pass@slave-host:5432/db')
+engines <span style="color:#f92672">=</span> {
+    <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">master</span><span style="color:#e6db74">&#39;</span>: create_engine(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">postgresql://user:pass@master-host:5432/db</span><span style="color:#e6db74">&#39;</span>),
+    <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">slave</span><span style="color:#e6db74">&#39;</span>: create_engine(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">postgresql://user:pass@slave-host:5432/db</span><span style="color:#e6db74">&#39;</span>)
 }
 
-class DistributedSession(Session):
-    def get_bind(self, mapper=None, clause=None):
-        if self._flushing:
-            return engines['master']
-        return engines['slave']
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DistributedSession</span>(Session):
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_bind</span>(self, mapper<span style="color:#f92672">=</span>None, clause<span style="color:#f92672">=</span>None):
+        <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>_flushing:
+            <span style="color:#66d9ef">return</span> engines[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">master</span><span style="color:#e6db74">&#39;</span>]
+        <span style="color:#66d9ef">return</span> engines[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">slave</span><span style="color:#e6db74">&#39;</span>]
 
-Base = declarative_base(metadata=metadata)
-DBSession = sessionmaker()
-</code></pre>
-
-<p>See also <a href="https://docs.sqlalchemy.org/en/rel_1_1/orm/persistence_techniques.html">Additional Persistence Techniques</a></p>
-
+Base <span style="color:#f92672">=</span> declarative_base(metadata<span style="color:#f92672">=</span>metadata)
+DBSession <span style="color:#f92672">=</span> sessionmaker()
+</code></pre></div><p>See also <a href="https://docs.sqlalchemy.org/en/rel_1_1/orm/persistence_techniques.html">Additional Persistence Techniques</a></p>
 <h2 id="show-sql-code-of-migration">Show SQL code of migration</h2>
-
 <p>For seeing changes between <code>4a1d61b2251d</code> and <code>1b3b383f8de7</code> sqlalchemy commits, run:</p>
-
-<pre><code class="language-shell">$ alembic -c config.ini --name=app:development upgrade 4a1d61b2251d:1b3b383f8de7 --sql
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ alembic -c config.ini --name<span style="color:#f92672">=</span>app:development upgrade 4a1d61b2251d:1b3b383f8de7 --sql
 
 -- Running upgrade 4a1d61b2251d -&gt; 1b3b383f8de7
 
-ALTER TABLE reports ADD COLUMN is_archived BOOLEAN DEFAULT 'FALSE' NOT NULL;
+ALTER TABLE reports ADD COLUMN is_archived BOOLEAN DEFAULT <span style="color:#e6db74">&#39;FALSE&#39;</span> NOT NULL;
 
 ALTER TABLE user_groups ALTER COLUMN role_type DROP NOT NULL;
 
 ALTER TABLE user_groups DROP CONSTRAINT user_groups_group_name_key;
 
-CREATE INDEX ix_reports_owner_group_id ON reports (owner_group_id);
+CREATE INDEX ix_reports_owner_group_id ON reports <span style="color:#f92672">(</span>owner_group_id<span style="color:#f92672">)</span>;
 
-CREATE INDEX ix_reports_owner_user_id ON reports (owner_user_id);
+CREATE INDEX ix_reports_owner_user_id ON reports <span style="color:#f92672">(</span>owner_user_id<span style="color:#f92672">)</span>;
 
-UPDATE alembic_version SET version_num='1b3b383f8de7' WHERE alembic_version.version_num = '4a1d61b2251d';
+UPDATE alembic_version SET version_num<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;1b3b383f8de7&#39;</span> WHERE alembic_version.version_num <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;4a1d61b2251d&#39;</span>;
 
 COMMIT;
-</code></pre>
-
+</code></pre></div>
             
             <div class="related-posts">
               <hr>

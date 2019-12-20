@@ -19,8 +19,8 @@
       <guid>http://andrewburdyug.github.io/blog/posts/docker-tips-and-tricks/</guid>
       <description>Manage container /etc/hosts See section Managing /etc/hosts
 Example:
-$ docker run -it --add-host db-static:86.75.30.9 ubuntu cat /etc/hosts 127.0.0.1 localhost ::1 localhost ip6-localhost ip6-loopback fe00::0 ip6-localnet ff00::0 ip6-mcastprefix ff02::1 ip6-allnodes ff02::2 ip6-allrouters 86.75.30.9 db-static 172.17.0.2 f0ab12b0b544  Connect offline docker container to network If you used weave, sometimes you may face to such errors:
-Sep 27 16:36:04 server01 docker[21483]: Error response from daemon: network 5d003f4577873af43afbcead7cd1496bbcccb3473465dd01ccee8ef3b49a0045 not found  this means that weave was upgraded and changed its network ID, for resolving this issue you may instead of re-created every container, just connect the container to the new weave network.</description>
+$ docker run -it --add-host db-static:86.75.30.9 ubuntu cat /etc/hosts 127.0.0.1 localhost ::1 localhost ip6-localhost ip6-loopback fe00::0 ip6-localnet ff00::0 ip6-mcastprefix ff02::1 ip6-allnodes ff02::2 ip6-allrouters 86.75.30.9 db-static 172.17.0.2 f0ab12b0b544 Connect offline docker container to network If you used weave, sometimes you may face to such errors:
+Sep 27 16:36:04 server01 docker[21483]: Error response from daemon: network 5d003f4577873af43afbcead7cd1496bbcccb3473465dd01ccee8ef3b49a0045 not found this means that weave was upgraded and changed its network ID, for resolving this issue you may instead of re-created every container, just connect the container to the new weave network.</description>
     </item>
     
     <item>
@@ -29,7 +29,7 @@ Sep 27 16:36:04 server01 docker[21483]: Error response from daemon: network 5d00
       <pubDate>Thu, 28 Apr 2016 10:47:00 +0300</pubDate>
       
       <guid>http://andrewburdyug.github.io/blog/posts/docker-user-defined-networks/</guid>
-      <description>Problem Docker use DHCP by default so your containers may changed their IP addresses adfter reboot, in fact, in old docker version it was after every reboot. It&amp;rsquo;s very annoying. Of course you can use docker-compose which will manage these things and links between containers will not be broken, but if you do not want to use docker-compose this may come a big problem.
+      <description>Problem Docker use DHCP by default so your containers may changed their IP addresses adfter reboot, in fact, in old docker version it was after every reboot. It&#39;s very annoying. Of course you can use docker-compose which will manage these things and links between containers will not be broken, but if you do not want to use docker-compose this may come a big problem.
 Solution Use the user defined networks.</description>
     </item>
     

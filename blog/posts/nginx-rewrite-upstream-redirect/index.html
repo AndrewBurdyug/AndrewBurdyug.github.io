@@ -8,7 +8,7 @@
     <meta name="description" content="Describe your website">
     <link rel="shortcut icon" type="image/x-icon" href="http://andrewburdyug.github.io/img/favicon.ico">
     <title>Nginx Rewrite Upstream Redirect</title>
-    <meta name="generator" content="Hugo 0.59.1" />
+    <meta name="generator" content="Hugo 0.60.1" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="http://andrewburdyug.github.io/css/main.css" />
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
@@ -80,33 +80,21 @@
       <div class="panel panel-default">
         <div class="panel-body">
           <div class="blogpost">
-            
-
-<h1 id="problem">Problem</h1>
-
-<p>Let&rsquo;s assume that you have some URL which receive the secret token and respond by redirect
+            <h1 id="problem">Problem</h1>
+<p>Let's assume that you have some URL which receive the secret token and respond by redirect
 to another page, url of which may contains sensitive data like user session token.</p>
-
 <p>And you want to request this URL under the hood by using JS AJAX request and
 display the result as link on some html page.</p>
-
 <p>The problem is: when the browser get the <code>301</code>, <code>302</code> and another redirect codes,
 it will follow new location even if you do not want that.</p>
-
-<div class="alert alert-info" role="alert">
-  
-One more case to do that is to hiding the private token and do not sent it over your
-non trusted network, only server will know you token.
-
-</div>
-
+<!-- raw HTML omitted -->
+<p>One more case to do that is to hiding the private token and do not sent it over your
+non trusted network, only server will know you token.</p>
+<!-- raw HTML omitted -->
 <h1 id="solution">Solution</h1>
-
 <p>The solution is: put this URL under the nginx, get the new location from redirect
 response and return back to client as simple plain text message with status <code>HTTP 200 OK</code>.</p>
-
 <p>Here is the example how to do that:</p>
-
 <pre><code>server {
     listen       443;
     server_name  domain.com;
@@ -120,9 +108,7 @@ response and return back to client as simple plain text message with status <cod
         proxy_pass https://other.domain.com/?param1=value1&amp;token=sdfsdfhsdf34f3434f34f34f43f&amp;param2=value2&amp;para....;
         proxy_intercept_errors on;
     }
-</code></pre>
-
-<p>The genial idea is to make the nginx treats redirect codes as errors,
+</code></pre><p>The genial idea is to make the nginx treats redirect codes as errors,
 intercept and proccess them =). The original idea was found here: <a href="https://stackoverflow.com/questions/20254456/intercepting-backend-301-302-redirects-proxy-pass-and-rewriting-to-another-loc?rq=1">https://stackoverflow.com/questions/20254456/intercepting-backend-301-302-redirects-proxy-pass-and-rewriting-to-another-loc?rq=1</a></p>
 
             

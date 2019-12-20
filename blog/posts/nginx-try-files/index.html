@@ -8,7 +8,7 @@
     <meta name="description" content="Describe your website">
     <link rel="shortcut icon" type="image/x-icon" href="http://andrewburdyug.github.io/img/favicon.ico">
     <title>Nginx Try Files</title>
-    <meta name="generator" content="Hugo 0.59.1" />
+    <meta name="generator" content="Hugo 0.60.1" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="http://andrewburdyug.github.io/css/main.css" />
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
@@ -80,64 +80,51 @@
       <div class="panel panel-default">
         <div class="panel-body">
           <div class="blogpost">
-            
-
-<h1 id="idea">Idea</h1>
-
-<p>Let&rsquo;s assume we want to get a content from two different places:
+            <h1 id="idea">Idea</h1>
+<p>Let's assume we want to get a content from two different places:
 <strong>default</strong> and <strong>custom</strong>. By default nginx will look at the <strong>default</strong> folder
-and get the content from there because we don&rsquo;t have a <strong>custom</strong> folder,
-but if we have a <strong>custom</strong> folder, it&rsquo;s content will override the default content.</p>
-
+and get the content from there because we don't have a <strong>custom</strong> folder,
+but if we have a <strong>custom</strong> folder, it's content will override the default content.</p>
 <p>Why this needed?</p>
-
 <p>For example we have a project which will be distributed with the default web theme,
 but we want also have a possibility for applying a custom web theme,
 changing everything of <strong>css</strong> and <strong>js</strong> things or even <strong>html</strong> pages.</p>
-
 <p>This should work in this way, e.g. we have two folders <code>/path/to/default</code> and
 <code>/path/to/custom</code>, then when we will request a file(e.g. <code>style.css</code>):</p>
-
 <pre><code>GET /style.css HTTP/1.1
 HTTP/1.1 200 OK
-</code></pre>
-
-<p>server should return content of <code>style.css</code> if this file exists in <code>/path/to/custom</code>
+</code></pre><p>server should return content of <code>style.css</code> if this file exists in <code>/path/to/custom</code>
 (override default content of style.css), otherwise it will return content of <code>/path/to/default/style.css</code>.
 Likewise, this should work for .js, .html and other types of files, except requests to API endpoints.</p>
-
 <h1 id="implementation">Implementation</h1>
-
 <p>Here is an example of such nginx configuration(we used
 <a href="http://nginx.org/ru/docs/http/ngx_http_core_module.html#try_files">try_files</a>):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nginx" data-lang="nginx"><span style="color:#66d9ef">server</span> {
+    <span style="color:#f92672">listen</span> <span style="color:#ae81ff">80</span>;
+    <span style="color:#f92672">server_name</span> <span style="color:#e6db74">example.org</span>;
 
-<pre><code class="language-nginx">server {
-    listen 80;
-    server_name example.org;
-
-    location @default_content {
-        try_files $uri $uri/index.html $uri.html =404;
-        root /usr/share/nginx/html/example.org/default;
-        internal;
+    <span style="color:#f92672">location</span> <span style="color:#e6db74">@default_content</span> {
+        <span style="color:#f92672">try_files</span> $uri $uri/index.html $uri.html =<span style="color:#ae81ff">404</span>;
+        <span style="color:#f92672">root</span> <span style="color:#e6db74">/usr/share/nginx/html/example.org/default</span>;
+        <span style="color:#f92672">internal</span>;
     }
 
-    location / {
-        try_files $uri $uri/index.html $uri.html @default_content;
-        root /usr/share/nginx/html/example.org/custom;
+    <span style="color:#f92672">location</span> <span style="color:#e6db74">/</span> {
+        <span style="color:#f92672">try_files</span> $uri $uri/index.html $uri.html <span style="color:#e6db74">@default_content</span>;
+        <span style="color:#f92672">root</span> <span style="color:#e6db74">/usr/share/nginx/html/example.org/custom</span>;
     }
 
-    location /api {
-        proxy_redirect off;
-        proxy_pass http://localhost:8000/api;
-        proxy_set_header Host $host;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_http_version 1.1;
-        proxy_intercept_errors on;
+    <span style="color:#f92672">location</span> <span style="color:#e6db74">/api</span> {
+        <span style="color:#f92672">proxy_redirect</span> <span style="color:#66d9ef">off</span>;
+        <span style="color:#f92672">proxy_pass</span> <span style="color:#e6db74">http://localhost:8000/api</span>;
+        <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">Host</span> $host;
+        <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">X-Forwarded-For</span> $proxy_add_x_forwarded_for;
+        <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">X-Forwarded-Proto</span> $scheme;
+        <span style="color:#f92672">proxy_http_version</span> <span style="color:#ae81ff">1</span><span style="color:#e6db74">.1</span>;
+        <span style="color:#f92672">proxy_intercept_errors</span> <span style="color:#66d9ef">on</span>;
     }
 }
-</code></pre>
-
+</code></pre></div>
             
             <div class="related-posts">
               <hr>

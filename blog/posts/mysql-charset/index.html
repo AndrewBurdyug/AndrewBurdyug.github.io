@@ -8,7 +8,7 @@
     <meta name="description" content="Describe your website">
     <link rel="shortcut icon" type="image/x-icon" href="http://andrewburdyug.github.io/img/favicon.ico">
     <title>MySQL Charset</title>
-    <meta name="generator" content="Hugo 0.59.1" />
+    <meta name="generator" content="Hugo 0.60.1" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="http://andrewburdyug.github.io/css/main.css" />
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
@@ -82,38 +82,26 @@
       <div class="panel panel-default">
         <div class="panel-body">
           <div class="blogpost">
-            
-
-<h2 id="changing-charset-in-mysql">Changing charset in MySQL</h2>
-
+            <h2 id="changing-charset-in-mysql">Changing charset in MySQL</h2>
 <p>For changing charset on <strong>utf-8</strong> you should create a file <code>charset.cnf</code> inside
 <code>/etc/mysql/conf.d/</code>and put this into it:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#66d9ef">[client]</span>
+<span style="color:#a6e22e">default-character-set</span>   <span style="color:#f92672">=</span> <span style="color:#e6db74">utf8</span>
 
-<pre><code class="language-ini">[client]
-default-character-set   = utf8
+<span style="color:#66d9ef">[mysqld]</span>
+<span style="color:#a6e22e">collation-server</span>        <span style="color:#f92672">=</span> <span style="color:#e6db74">utf8_general_ci</span>
+<span style="color:#a6e22e">init-connect</span>            <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;SET NAMES utf8&#39;</span>
+<span style="color:#a6e22e">character-set-server</span>    <span style="color:#f92672">=</span> <span style="color:#e6db74">utf8</span>
 
-[mysqld]
-collation-server        = utf8_general_ci
-init-connect            = 'SET NAMES utf8'
-character-set-server    = utf8
-
-[mysql]
-default-character-set   = utf8
-</code></pre>
-
-<h2 id="check-and-change-table-charsets">Check and change table charsets</h2>
-
+<span style="color:#66d9ef">[mysql]</span>
+<span style="color:#a6e22e">default-character-set</span>   <span style="color:#f92672">=</span> <span style="color:#e6db74">utf8</span>
+</code></pre></div><h2 id="check-and-change-table-charsets">Check and change table charsets</h2>
 <p>Checking the current table charset:</p>
-
-<pre><code class="language-sql">SHOW TABLE STATUS from databasename WHERE Collation!='utf8_general_ci';
-</code></pre>
-
-<p>Changing table charset:</p>
-
-<pre><code class="language-sql">ALTER DATABASE databasename CHARACTER SET utf8 COLLATE utf8_general_ci;
-ALTER TABLE tablename CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SHOW</span> <span style="color:#66d9ef">TABLE</span> STATUS <span style="color:#66d9ef">from</span> databasename <span style="color:#66d9ef">WHERE</span> <span style="color:#66d9ef">Collation</span><span style="color:#f92672">!</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">utf8_general_ci</span><span style="color:#e6db74">&#39;</span>;
+</code></pre></div><p>Changing table charset:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">DATABASE</span> databasename CHARACTER <span style="color:#66d9ef">SET</span> utf8 <span style="color:#66d9ef">COLLATE</span> utf8_general_ci;
+<span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">TABLE</span> tablename <span style="color:#66d9ef">CONVERT</span> <span style="color:#66d9ef">TO</span> CHARACTER <span style="color:#66d9ef">SET</span> utf8 <span style="color:#66d9ef">COLLATE</span> utf8_general_ci;
+</code></pre></div>
             
             <div class="related-posts">
               <hr>

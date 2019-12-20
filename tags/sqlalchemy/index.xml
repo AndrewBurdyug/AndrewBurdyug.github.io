@@ -18,9 +18,9 @@
       
       <guid>http://andrewburdyug.github.io/blog/posts/sqlalchemy-tips-and-trics/</guid>
       <description>SQLAlchemy tips and tricks Here is collection of some unobvious SQLAlchemy tips and tricks.
-Split the database read/write operations over master/slave instances Let&amp;rsquo;s assume thta we have the master -&amp;gt; slave replications and want to split the database operations between master and slave: reading from slave, writing to master.
+Split the database read/write operations over master/slave instances Let&#39;s assume thta we have the master -&amp;gt; slave replications and want to split the database operations between master and slave: reading from slave, writing to master.
 The section Custom Vertical Partitioning of sqlalchemy docs will help us:
-from sqlalchemy import create_engine engines = { &#39;master&#39;: create_engine(&#39;postgresql://user:pass@master-host:5432/db&#39;), &#39;slave&#39;: create_engine(&#39;postgresql://user:pass@slave-host:5432/db&#39;) } class DistributedSession(Session): def get_bind(self, mapper=None, clause=None): if self.</description>
+from sqlalchemy import create_engine engines = { &amp;#39;master&amp;#39;: create_engine(&amp;#39;postgresql://user:pass@master-host:5432/db&amp;#39;), &amp;#39;slave&amp;#39;: create_engine(&amp;#39;postgresql://user:pass@slave-host:5432/db&amp;#39;) } class DistributedSession(Session): def get_bind(self, mapper=None, clause=None): if self.</description>
     </item>
     
   </channel>

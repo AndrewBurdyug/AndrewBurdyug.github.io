@@ -17,10 +17,10 @@
       <pubDate>Wed, 25 Sep 2013 14:55:46 +0300</pubDate>
       
       <guid>http://andrewburdyug.github.io/blog/posts/mysql-charset/</guid>
-      <description> Changing charset in MySQL For changing charset on utf-8 you should create a file charset.cnf inside /etc/mysql/conf.d/and put this into it:
-[client] default-character-set = utf8 [mysqld] collation-server = utf8_general_ci init-connect = &#39;SET NAMES utf8&#39; character-set-server = utf8 [mysql] default-character-set = utf8  Check and change table charsets Checking the current table charset:
-SHOW TABLE STATUS from databasename WHERE Collation!=&#39;utf8_general_ci&#39;;  Changing table charset:
-ALTER DATABASE databasename CHARACTER SET utf8 COLLATE utf8_general_ci; ALTER TABLE tablename CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;  </description>
+      <description>Changing charset in MySQL For changing charset on utf-8 you should create a file charset.cnf inside /etc/mysql/conf.d/and put this into it:
+[client] default-character-set = utf8 [mysqld] collation-server = utf8_general_ci init-connect = &amp;#39;SET NAMES utf8&amp;#39; character-set-server = utf8 [mysql] default-character-set = utf8 Check and change table charsets Checking the current table charset:
+SHOW TABLE STATUS from databasename WHERE Collation!=&amp;#39;utf8_general_ci&amp;#39;; Changing table charset:
+ALTER DATABASE databasename CHARACTER SET utf8 COLLATE utf8_general_ci; ALTER TABLE tablename CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci; </description>
     </item>
     
   </channel>

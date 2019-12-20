@@ -17,7 +17,7 @@
       <pubDate>Thu, 24 Jan 2019 11:47:52 +0300</pubDate>
       
       <guid>http://andrewburdyug.github.io/blog/posts/rescue/</guid>
-      <description>Chroot manjaro # mount /dev/nvmen0p1 /mnt ## mount /dev/nvmen0p1 /mnt/boot/efi # optional - in case you are running in UEFI mode, again, replace with the correct device name # mount -t proc proc /mnt/proc # mount --rbind /dev /mnt/dev # mount --rbind /sys /mnt/sys # mount --rbind /run /mnt/run # mount --rbind /etc/resolv.conf /mnt/etc/resolv.conf # chroot /mnt /bin/bash  Original hints were published here: https://forum.manjaro.org/t/manjaro-stuck-on-boot-screen-libidn2-so-4-missing/72999/6</description>
+      <description>Chroot manjaro # mount /dev/nvmen0p1 /mnt ## mount /dev/nvmen0p1 /mnt/boot/efi # optional - in case you are running in UEFI mode, again, replace with the correct device name # mount -t proc proc /mnt/proc # mount --rbind /dev /mnt/dev # mount --rbind /sys /mnt/sys # mount --rbind /run /mnt/run # mount --rbind /etc/resolv.conf /mnt/etc/resolv.conf # chroot /mnt /bin/bash Original hints were published here: https://forum.manjaro.org/t/manjaro-stuck-on-boot-screen-libidn2-so-4-missing/72999/6</description>
     </item>
     
     <item>
@@ -26,7 +26,7 @@
       <pubDate>Thu, 15 Nov 2018 11:29:24 +0300</pubDate>
       
       <guid>http://andrewburdyug.github.io/blog/posts/nginx-rewrite-upstream-redirect/</guid>
-      <description>Problem Let&amp;rsquo;s assume that you have some URL which receive the secret token and respond by redirect to another page, url of which may contains sensitive data like user session token.
+      <description>Problem Let&#39;s assume that you have some URL which receive the secret token and respond by redirect to another page, url of which may contains sensitive data like user session token.
 And you want to request this URL under the hood by using JS AJAX request and display the result as link on some html page.
 The problem is: when the browser get the 301, 302 and another redirect codes, it will follow new location even if you do not want that.</description>
     </item>
@@ -38,7 +38,7 @@ The problem is: when the browser get the 301, 302 and another redirect codes, it
       
       <guid>http://andrewburdyug.github.io/blog/posts/build-python-3.7-on-ubuntu-16.04/</guid>
       <description>Guide Install the build system packages, run:
-apt-get install -y build-essential checkinstall libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev zlib1g-dev openssl libffi-dev wget  Download latest python:
+apt-get install -y build-essential checkinstall libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev zlib1g-dev openssl libffi-dev wget Download latest python:
 root@J-RGS-DEV:~# export PY_VER=3.7.1 root@J-RGS-DEV:~# wget https://www.python.org/ftp/python/${PY_VER}/Python-${PY_VER}.tar.xz --2018-11-14 11:57:30-- https://www.python.org/ftp/python/3.7.1/Python-3.7.1.tar.xz Resolving www.python.org (www.python.org)... 151.101.112.223, 2a04:4e42:1b::223 Connecting to www.python.org (www.python.org)|151.101.112.223|:443... connected. HTTP request sent, awaiting response... 200 OK Length: 16960060 (16M) [application/octet-stream] Saving to: ‘Python-3.7.1.tar.xz’ Python-3.7.1.tar.xz 100%[======================================================================================================&amp;gt;] 16.17M --.-KB/s in 0.1s 2018-11-14 11:57:30 (133 MB/s) - ‘Python-3.</description>
     </item>
     
@@ -49,9 +49,9 @@ root@J-RGS-DEV:~# export PY_VER=3.7.1 root@J-RGS-DEV:~# wget https://www.python.
       
       <guid>http://andrewburdyug.github.io/blog/posts/sqlalchemy-tips-and-trics/</guid>
       <description>SQLAlchemy tips and tricks Here is collection of some unobvious SQLAlchemy tips and tricks.
-Split the database read/write operations over master/slave instances Let&amp;rsquo;s assume thta we have the master -&amp;gt; slave replications and want to split the database operations between master and slave: reading from slave, writing to master.
+Split the database read/write operations over master/slave instances Let&#39;s assume thta we have the master -&amp;gt; slave replications and want to split the database operations between master and slave: reading from slave, writing to master.
 The section Custom Vertical Partitioning of sqlalchemy docs will help us:
-from sqlalchemy import create_engine engines = { &#39;master&#39;: create_engine(&#39;postgresql://user:pass@master-host:5432/db&#39;), &#39;slave&#39;: create_engine(&#39;postgresql://user:pass@slave-host:5432/db&#39;) } class DistributedSession(Session): def get_bind(self, mapper=None, clause=None): if self.</description>
+from sqlalchemy import create_engine engines = { &amp;#39;master&amp;#39;: create_engine(&amp;#39;postgresql://user:pass@master-host:5432/db&amp;#39;), &amp;#39;slave&amp;#39;: create_engine(&amp;#39;postgresql://user:pass@slave-host:5432/db&amp;#39;) } class DistributedSession(Session): def get_bind(self, mapper=None, clause=None): if self.</description>
     </item>
     
     <item>
@@ -60,10 +60,10 @@ from sqlalchemy import create_engine engines = { &#39;master&#39;: create_engine
       <pubDate>Wed, 05 Sep 2018 18:40:12 +0300</pubDate>
       
       <guid>http://andrewburdyug.github.io/blog/posts/python-dynamic-set-module-attribute/</guid>
-      <description>Problem Time to time appears the need to add extra module&amp;rsquo;s attributes programmatically during the initialization of module.
-Let&amp;rsquo;s consider the something like loading raw SQL queries from some folder in project where we want just keep all raw SQL queries.
+      <description>Problem Time to time appears the need to add extra module&#39;s attributes programmatically during the initialization of module.
+Let&#39;s consider the something like loading raw SQL queries from some folder in project where we want just keep all raw SQL queries.
 So usally we would write in raw_sql_queries/__init__.py something like this:
-import sys import logging import os.path def load_raw_sql_query(query_name): try: file_name = os.path.join(os.path.dirname(__file__), query_name + &#39;.sql&#39;) return open(file_name).read().strip() except OSError as er: logger.</description>
+import sys import logging import os.path def load_raw_sql_query(query_name): try: file_name = os.path.join(os.path.dirname(__file__), query_name + &amp;#39;.sql&amp;#39;) return open(file_name).read().strip() except OSError as er: logger.</description>
     </item>
     
     <item>
@@ -72,7 +72,7 @@ import sys import logging import os.path def load_raw_sql_query(query_name): try
       <pubDate>Mon, 27 Aug 2018 15:06:12 +0300</pubDate>
       
       <guid>http://andrewburdyug.github.io/resume/</guid>
-      <description>Short legal info Name Andrew Burdyug Year of birth 1983 IT experience Since 2006 Education 2000-2005 Taurida National V.I.Vernadsky University, Simferopol, masters degree of applied physics E-mail buran83@gmail.com  GitHub/GitLab profiles GitHub https://github.com/AndrewBurdyug GitLab https://gitlab.com/buran83  Proficiencies Server administration  system configuration(server setup &amp; perfomance tuning), health monitoring(Nagios, Icinga, Collectd, RrrdTool, MRTG, Grafana), backups(Bacula, BackupPC, borg), Ansible, shell scripting  Programming Python(expert), JS(good knowledge), Perl(currently not used), bash/shell scripting(very experienced) Working area Seniour python developer, team leader/mentor, devops/sysadmin, manager  Control Version Systems CSV Git, svn, bzr Other stuff magit, gitlab/github merge request system, CI, gitlab pipelines  Core of any projects RDBMS PostgreSQL, MySQL, Sqlite 3 NoSQL MongoDB, ElasticSearch, OrangoDB, Redis, Memcached Docker docker-compose, docker SWARM, docker registry, Weave Queue Celery, RabbitMQ Web servers Nginx, Apache App servers uWSGI, gunicorn  Python Web frameworks Django, Django REST Framework, Flask, Bottle, Sanic(async Flask-like framework), Falcon(REST applications), Pyramid ORM SQLAlchemy, PeweeORM, PonyORM, MongoEngine Other stuff Celery, click, gevent, fabric, pika(RabbitMQ client), pytest  JavaScript JS frameworks Vue.</description>
+      <description>Short legal info GitHub/GitLab profiles Proficiencies Control Version Systems Core of any projects Python JavaScript CSS </description>
     </item>
     
     <item>
@@ -82,8 +82,8 @@ import sys import logging import os.path def load_raw_sql_query(query_name): try
       
       <guid>http://andrewburdyug.github.io/blog/posts/archlinux-build-custom-nginx/</guid>
       <description>Preparation Install abs:
-[root@localhost:~]# pacman -S abs  Add non superuser account for building the arch linux package e.g. src:
-[root@localhost:~]# mkdir /var/abs/local [root@localhost:~]# useradd -d /var/abs/local -s /bin/bash src  Building the package Sync nginx abs files:
+[root@localhost:~]# pacman -S abs Add non superuser account for building the arch linux package e.g. src:
+[root@localhost:~]# mkdir /var/abs/local [root@localhost:~]# useradd -d /var/abs/local -s /bin/bash src Building the package Sync nginx abs files:
 [root@localhost:~]# abs sync extra/nginx ==&amp;gt; Starting ABS sync... receiving file list ... done ./ extra/ extra/nginx/ extra/nginx/PKGBUILD extra/nginx/logrotate extra/nginx/nginx.install extra/nginx/service sent 225 bytes received 3,098 bytes 2,215.33 bytes/sec total size is 4,874 speedup is 1.</description>
     </item>
     
@@ -95,8 +95,8 @@ import sys import logging import os.path def load_raw_sql_query(query_name): try
       <guid>http://andrewburdyug.github.io/blog/posts/docker-tips-and-tricks/</guid>
       <description>Manage container /etc/hosts See section Managing /etc/hosts
 Example:
-$ docker run -it --add-host db-static:86.75.30.9 ubuntu cat /etc/hosts 127.0.0.1 localhost ::1 localhost ip6-localhost ip6-loopback fe00::0 ip6-localnet ff00::0 ip6-mcastprefix ff02::1 ip6-allnodes ff02::2 ip6-allrouters 86.75.30.9 db-static 172.17.0.2 f0ab12b0b544  Connect offline docker container to network If you used weave, sometimes you may face to such errors:
-Sep 27 16:36:04 server01 docker[21483]: Error response from daemon: network 5d003f4577873af43afbcead7cd1496bbcccb3473465dd01ccee8ef3b49a0045 not found  this means that weave was upgraded and changed its network ID, for resolving this issue you may instead of re-created every container, just connect the container to the new weave network.</description>
+$ docker run -it --add-host db-static:86.75.30.9 ubuntu cat /etc/hosts 127.0.0.1 localhost ::1 localhost ip6-localhost ip6-loopback fe00::0 ip6-localnet ff00::0 ip6-mcastprefix ff02::1 ip6-allnodes ff02::2 ip6-allrouters 86.75.30.9 db-static 172.17.0.2 f0ab12b0b544 Connect offline docker container to network If you used weave, sometimes you may face to such errors:
+Sep 27 16:36:04 server01 docker[21483]: Error response from daemon: network 5d003f4577873af43afbcead7cd1496bbcccb3473465dd01ccee8ef3b49a0045 not found this means that weave was upgraded and changed its network ID, for resolving this issue you may instead of re-created every container, just connect the container to the new weave network.</description>
     </item>
     
     <item>
@@ -105,7 +105,7 @@ Sep 27 16:36:04 server01 docker[21483]: Error response from daemon: network 5d00
       <pubDate>Thu, 28 Apr 2016 10:47:00 +0300</pubDate>
       
       <guid>http://andrewburdyug.github.io/blog/posts/docker-user-defined-networks/</guid>
-      <description>Problem Docker use DHCP by default so your containers may changed their IP addresses adfter reboot, in fact, in old docker version it was after every reboot. It&amp;rsquo;s very annoying. Of course you can use docker-compose which will manage these things and links between containers will not be broken, but if you do not want to use docker-compose this may come a big problem.
+      <description>Problem Docker use DHCP by default so your containers may changed their IP addresses adfter reboot, in fact, in old docker version it was after every reboot. It&#39;s very annoying. Of course you can use docker-compose which will manage these things and links between containers will not be broken, but if you do not want to use docker-compose this may come a big problem.
 Solution Use the user defined networks.</description>
     </item>
     
@@ -115,7 +115,7 @@ Solution Use the user defined networks.</description>
       <pubDate>Tue, 15 Mar 2016 10:33:55 +0300</pubDate>
       
       <guid>http://andrewburdyug.github.io/blog/posts/nginx-try-files/</guid>
-      <description>Idea Let&amp;rsquo;s assume we want to get a content from two different places: default and custom. By default nginx will look at the default folder and get the content from there because we don&amp;rsquo;t have a custom folder, but if we have a custom folder, it&amp;rsquo;s content will override the default content.
+      <description>Idea Let&#39;s assume we want to get a content from two different places: default and custom. By default nginx will look at the default folder and get the content from there because we don&#39;t have a custom folder, but if we have a custom folder, it&#39;s content will override the default content.
 Why this needed?
 For example we have a project which will be distributed with the default web theme, but we want also have a possibility for applying a custom web theme, changing everything of css and js things or even html pages.</description>
     </item>
@@ -127,7 +127,7 @@ For example we have a project which will be distributed with the default web the
       
       <guid>http://andrewburdyug.github.io/blog/posts/mysql-innodb-settings-for-ssd/</guid>
       <description>If you have server with SSD hard, you can face the fact that the MySQL very slowly writes, help these settings adjustment:
-[mysqld] innodb_buffer_pool_instances = 8 innodb_read_io_threads = 8 innodb_write_io_threads = 8 innodb_buffer_pool_size = 64M innodb_io_capacity = 1000 ; innodb_file_per_table  save this into /etc/mysql/conf.d/tuning.cnf and restart MySQL server. The most important of these settings is innodb_io_capacity, here is what mysql docs says about:
+[mysqld] innodb_buffer_pool_instances = 8 innodb_read_io_threads = 8 innodb_write_io_threads = 8 innodb_buffer_pool_size = 64M innodb_io_capacity = 1000 ; innodb_file_per_table save this into /etc/mysql/conf.d/tuning.cnf and restart MySQL server. The most important of these settings is innodb_io_capacity, here is what mysql docs says about:
  The innodb_io_capacity parameter sets an upper limit on the I/O activity performed by the InnoDB background tasks, such as flushing pages from the buffer pool and merging data from the change buffer.</description>
     </item>
     
@@ -138,10 +138,10 @@ For example we have a project which will be distributed with the default web the
       
       <guid>http://andrewburdyug.github.io/blog/posts/nginx-custom-build/</guid>
       <description>Go to http://nginx.org/ru/linux_packages.html and, following by the Igot Sysoev instructions, add the official nginx repo e.g. for Ubuntu 14.04 you should create the file /etc/apt/sources.list.d/nginx.sources.list with such content:
-deb http://nginx.org/packages/ubuntu/ trusty nginx deb-src http://nginx.org/packages/ubuntu/ trusty nginx  Then you should import nginx signing key into apt:
-wget http://nginx.org/keys/nginx_signing.key apt-key add nginx_signing.key  Update apt cache:
-apt-get update  Install required packages:
-apt-get install -y dpkg-dev devscripts build-essential fakeroot debhelper libssl-dev libpcre3-dev zlib1g-dev  Get the nginx sources:</description>
+deb http://nginx.org/packages/ubuntu/ trusty nginx deb-src http://nginx.org/packages/ubuntu/ trusty nginx Then you should import nginx signing key into apt:
+wget http://nginx.org/keys/nginx_signing.key apt-key add nginx_signing.key Update apt cache:
+apt-get update Install required packages:
+apt-get install -y dpkg-dev devscripts build-essential fakeroot debhelper libssl-dev libpcre3-dev zlib1g-dev Get the nginx sources:</description>
     </item>
     
     <item>
@@ -152,7 +152,7 @@ apt-get install -y dpkg-dev devscripts build-essential fakeroot debhelper libssl
       <guid>http://andrewburdyug.github.io/blog/posts/udev-network-rules/</guid>
       <description>Problem Sometimes after reboot ethernet adapters get the wrong network settings because they changed their names. The udev system will help to prevent this collisions.
 Solution The udev approach is to create a new rule (file /etc/udev/rules.d/10-network.rules):
-SUBSYSTEM==&amp;quot;net&amp;quot;, ACTION==&amp;quot;add&amp;quot;, ATTR{address}==&amp;quot;00:11:1b:87:07:01&amp;quot;, NAME=&amp;quot;eth0 SUBSYSTEM==&amp;quot;net&amp;quot;, ACTION==&amp;quot;add&amp;quot;, ATTR{address}==&amp;quot;00:e0:1c:fe:01:09&amp;quot;, NAME=&amp;quot;eth1  where 30:85:a9:ae:f2:03 is the mac address of eth0 and 30:85:a2:ae:00:03 is the mac address of your second ethernet adapter. Now your network adapters will not change their names anymore.</description>
+SUBSYSTEM==&amp;quot;net&amp;quot;, ACTION==&amp;quot;add&amp;quot;, ATTR{address}==&amp;quot;00:11:1b:87:07:01&amp;quot;, NAME=&amp;quot;eth0 SUBSYSTEM==&amp;quot;net&amp;quot;, ACTION==&amp;quot;add&amp;quot;, ATTR{address}==&amp;quot;00:e0:1c:fe:01:09&amp;quot;, NAME=&amp;quot;eth1 where 30:85:a9:ae:f2:03 is the mac address of eth0 and 30:85:a2:ae:00:03 is the mac address of your second ethernet adapter. Now your network adapters will not change their names anymore.</description>
     </item>
     
     <item>
@@ -161,10 +161,10 @@ SUBSYSTEM==&amp;quot;net&amp;quot;, ACTION==&amp;quot;add&amp;quot;, ATTR{addres
       <pubDate>Wed, 25 Sep 2013 14:55:46 +0300</pubDate>
       
       <guid>http://andrewburdyug.github.io/blog/posts/mysql-charset/</guid>
-      <description> Changing charset in MySQL For changing charset on utf-8 you should create a file charset.cnf inside /etc/mysql/conf.d/and put this into it:
-[client] default-character-set = utf8 [mysqld] collation-server = utf8_general_ci init-connect = &#39;SET NAMES utf8&#39; character-set-server = utf8 [mysql] default-character-set = utf8  Check and change table charsets Checking the current table charset:
-SHOW TABLE STATUS from databasename WHERE Collation!=&#39;utf8_general_ci&#39;;  Changing table charset:
-ALTER DATABASE databasename CHARACTER SET utf8 COLLATE utf8_general_ci; ALTER TABLE tablename CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;  </description>
+      <description>Changing charset in MySQL For changing charset on utf-8 you should create a file charset.cnf inside /etc/mysql/conf.d/and put this into it:
+[client] default-character-set = utf8 [mysqld] collation-server = utf8_general_ci init-connect = &amp;#39;SET NAMES utf8&amp;#39; character-set-server = utf8 [mysql] default-character-set = utf8 Check and change table charsets Checking the current table charset:
+SHOW TABLE STATUS from databasename WHERE Collation!=&amp;#39;utf8_general_ci&amp;#39;; Changing table charset:
+ALTER DATABASE databasename CHARACTER SET utf8 COLLATE utf8_general_ci; ALTER TABLE tablename CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci; </description>
     </item>
     
     <item>
@@ -174,11 +174,11 @@ ALTER DATABASE databasename CHARACTER SET utf8 COLLATE utf8_general_ci; ALTER TA
       
       <guid>http://andrewburdyug.github.io/blog/posts/git-tips-and-tricks/</guid>
       <description>Push Push the local new branch into the new remote branch:
-git push &amp;lt;remote-name&amp;gt; &amp;lt;local-branch-name&amp;gt;:&amp;lt;remote-branch-name&amp;gt;  Delete remote git branch:
-git push origin --delete branch_name  Pull &amp;amp; fetch Delete local stale git branches which were alreay deleted on the remote server:
-git fetch -p  Fetch the new git branch and checkout into it:
-git fetch origin &amp;lt;remote-branch-name&amp;gt;:&amp;lt;local-branch-name&amp;gt; git checkout &amp;lt;local-branch-name&amp;gt;  or the shortest variant:
-git checkout -b local_branch_name origin/remote_branch_name  Add sub module:</description>
+git push &amp;lt;remote-name&amp;gt; &amp;lt;local-branch-name&amp;gt;:&amp;lt;remote-branch-name&amp;gt; Delete remote git branch:
+git push origin --delete branch_name Pull &amp;amp; fetch Delete local stale git branches which were alreay deleted on the remote server:
+git fetch -p Fetch the new git branch and checkout into it:
+git fetch origin &amp;lt;remote-branch-name&amp;gt;:&amp;lt;local-branch-name&amp;gt; git checkout &amp;lt;local-branch-name&amp;gt; or the shortest variant:
+git checkout -b local_branch_name origin/remote_branch_name Add sub module:</description>
     </item>
     
     <item>

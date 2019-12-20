@@ -17,7 +17,7 @@
       <pubDate>Thu, 15 Nov 2018 11:29:24 +0300</pubDate>
       
       <guid>http://andrewburdyug.github.io/blog/posts/nginx-rewrite-upstream-redirect/</guid>
-      <description>Problem Let&amp;rsquo;s assume that you have some URL which receive the secret token and respond by redirect to another page, url of which may contains sensitive data like user session token.
+      <description>Problem Let&#39;s assume that you have some URL which receive the secret token and respond by redirect to another page, url of which may contains sensitive data like user session token.
 And you want to request this URL under the hood by using JS AJAX request and display the result as link on some html page.
 The problem is: when the browser get the 301, 302 and another redirect codes, it will follow new location even if you do not want that.</description>
     </item>
@@ -29,8 +29,8 @@ The problem is: when the browser get the 301, 302 and another redirect codes, it
       
       <guid>http://andrewburdyug.github.io/blog/posts/archlinux-build-custom-nginx/</guid>
       <description>Preparation Install abs:
-[root@localhost:~]# pacman -S abs  Add non superuser account for building the arch linux package e.g. src:
-[root@localhost:~]# mkdir /var/abs/local [root@localhost:~]# useradd -d /var/abs/local -s /bin/bash src  Building the package Sync nginx abs files:
+[root@localhost:~]# pacman -S abs Add non superuser account for building the arch linux package e.g. src:
+[root@localhost:~]# mkdir /var/abs/local [root@localhost:~]# useradd -d /var/abs/local -s /bin/bash src Building the package Sync nginx abs files:
 [root@localhost:~]# abs sync extra/nginx ==&amp;gt; Starting ABS sync... receiving file list ... done ./ extra/ extra/nginx/ extra/nginx/PKGBUILD extra/nginx/logrotate extra/nginx/nginx.install extra/nginx/service sent 225 bytes received 3,098 bytes 2,215.33 bytes/sec total size is 4,874 speedup is 1.</description>
     </item>
     
@@ -40,7 +40,7 @@ The problem is: when the browser get the 301, 302 and another redirect codes, it
       <pubDate>Tue, 15 Mar 2016 10:33:55 +0300</pubDate>
       
       <guid>http://andrewburdyug.github.io/blog/posts/nginx-try-files/</guid>
-      <description>Idea Let&amp;rsquo;s assume we want to get a content from two different places: default and custom. By default nginx will look at the default folder and get the content from there because we don&amp;rsquo;t have a custom folder, but if we have a custom folder, it&amp;rsquo;s content will override the default content.
+      <description>Idea Let&#39;s assume we want to get a content from two different places: default and custom. By default nginx will look at the default folder and get the content from there because we don&#39;t have a custom folder, but if we have a custom folder, it&#39;s content will override the default content.
 Why this needed?
 For example we have a project which will be distributed with the default web theme, but we want also have a possibility for applying a custom web theme, changing everything of css and js things or even html pages.</description>
     </item>
@@ -52,10 +52,10 @@ For example we have a project which will be distributed with the default web the
       
       <guid>http://andrewburdyug.github.io/blog/posts/nginx-custom-build/</guid>
       <description>Go to http://nginx.org/ru/linux_packages.html and, following by the Igot Sysoev instructions, add the official nginx repo e.g. for Ubuntu 14.04 you should create the file /etc/apt/sources.list.d/nginx.sources.list with such content:
-deb http://nginx.org/packages/ubuntu/ trusty nginx deb-src http://nginx.org/packages/ubuntu/ trusty nginx  Then you should import nginx signing key into apt:
-wget http://nginx.org/keys/nginx_signing.key apt-key add nginx_signing.key  Update apt cache:
-apt-get update  Install required packages:
-apt-get install -y dpkg-dev devscripts build-essential fakeroot debhelper libssl-dev libpcre3-dev zlib1g-dev  Get the nginx sources:</description>
+deb http://nginx.org/packages/ubuntu/ trusty nginx deb-src http://nginx.org/packages/ubuntu/ trusty nginx Then you should import nginx signing key into apt:
+wget http://nginx.org/keys/nginx_signing.key apt-key add nginx_signing.key Update apt cache:
+apt-get update Install required packages:
+apt-get install -y dpkg-dev devscripts build-essential fakeroot debhelper libssl-dev libpcre3-dev zlib1g-dev Get the nginx sources:</description>
     </item>
     
   </channel>

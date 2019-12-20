@@ -8,7 +8,7 @@
     <meta name="description" content="Describe your website">
     <link rel="shortcut icon" type="image/x-icon" href="http://andrewburdyug.github.io/img/favicon.ico">
     <title>Adding attribute to python module programmatically</title>
-    <meta name="generator" content="Hugo 0.59.1" />
+    <meta name="generator" content="Hugo 0.60.1" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="http://andrewburdyug.github.io/css/main.css" />
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
@@ -80,81 +80,64 @@
       <div class="panel panel-default">
         <div class="panel-body">
           <div class="blogpost">
-            
-
-<h1 id="problem">Problem</h1>
-
-<p>Time to time appears the need to add extra module&rsquo;s attributes
+            <h1 id="problem">Problem</h1>
+<p>Time to time appears the need to add extra module's attributes
 programmatically during the initialization of module.</p>
-
-<p>Let&rsquo;s consider the something like loading raw SQL queries from
+<p>Let's consider the something like loading raw SQL queries from
 some folder in project where we want just keep all raw SQL
 queries.</p>
-
 <p>So usally we would write in <code>raw_sql_queries/__init__.py</code> something like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> sys
+<span style="color:#f92672">import</span> logging
+<span style="color:#f92672">import</span> os.path
 
-<pre><code class="language-python">import sys
-import logging
-import os.path
-
-def load_raw_sql_query(query_name):
-    try:
-        file_name = os.path.join(os.path.dirname(__file__),
-                                 query_name + '.sql')
-        return open(file_name).read().strip()
-    except OSError as er:
-        logger.error('can not load %s, error: %s', query_name, er)
-
-
-insert_person = load_raw_sql_query('insert_person')
-select_person_tasks = load_raw_sql_query('select_person_tasks')
-update_person_profile = load_raw_sql_query('update_person_profile')
-
-# and so on...
-</code></pre>
-
-<p>let&rsquo;s use our <code>raw_sql_queries</code> module:</p>
-
-<pre><code class="language-python">import asyncpg
-import raw_sql_queries
-
-async def update_person_profile(*args):
-    conn = await asyncpg.connect('postgresql://postgres@localhost/test')
-    await conn.execute(raw_sql_queries.update_person_profile, *args)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">load_raw_sql_query</span>(query_name):
+    <span style="color:#66d9ef">try</span>:
+        file_name <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>dirname(__file__),
+                                 query_name <span style="color:#f92672">+</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">.sql</span><span style="color:#e6db74">&#39;</span>)
+        <span style="color:#66d9ef">return</span> open(file_name)<span style="color:#f92672">.</span>read()<span style="color:#f92672">.</span>strip()
+    <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">OSError</span> <span style="color:#66d9ef">as</span> er:
+        logger<span style="color:#f92672">.</span>error(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">can not load </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">, error: </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#39;</span>, query_name, er)
 
 
-async def get_person_tasks(*args)
-    conn = await asyncpg.connect('postgresql://postgres@localhost/test')
-    return await conn.fetch(raw_sql_queries.select_person_tasks, *args)
+insert_person <span style="color:#f92672">=</span> load_raw_sql_query(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">insert_person</span><span style="color:#e6db74">&#39;</span>)
+select_person_tasks <span style="color:#f92672">=</span> load_raw_sql_query(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">select_person_tasks</span><span style="color:#e6db74">&#39;</span>)
+update_person_profile <span style="color:#f92672">=</span> load_raw_sql_query(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">update_person_profile</span><span style="color:#e6db74">&#39;</span>)
 
-# and so on...
-</code></pre>
+<span style="color:#75715e"># and so on...</span>
+</code></pre></div><p>let's use our <code>raw_sql_queries</code> module:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> asyncpg
+<span style="color:#f92672">import</span> raw_sql_queries
 
-<p>That&rsquo;s good, but what doing when we need more and more? Writing such
+async <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">update_person_profile</span>(<span style="color:#f92672">*</span>args):
+    conn <span style="color:#f92672">=</span> await asyncpg<span style="color:#f92672">.</span>connect(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">postgresql://postgres@localhost/test</span><span style="color:#e6db74">&#39;</span>)
+    await conn<span style="color:#f92672">.</span>execute(raw_sql_queries<span style="color:#f92672">.</span>update_person_profile, <span style="color:#f92672">*</span>args)
+
+
+async <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_person_tasks</span>(<span style="color:#f92672">*</span>args)
+    conn <span style="color:#f92672">=</span> await asyncpg<span style="color:#f92672">.</span>connect(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">postgresql://postgres@localhost/test</span><span style="color:#e6db74">&#39;</span>)
+    <span style="color:#66d9ef">return</span> await conn<span style="color:#f92672">.</span>fetch(raw_sql_queries<span style="color:#f92672">.</span>select_person_tasks, <span style="color:#f92672">*</span>args)
+
+<span style="color:#75715e"># and so on...</span>
+</code></pre></div><p>That's good, but what doing when we need more and more? Writing such
 boilerplate code become very tedious.
 Would be great if our <code>raw_sql_queries</code> module
 can find all <code>*.sql</code> files by self and load all availabale sql queries!</p>
-
 <h1 id="solution">Solution</h1>
-
 <p>As we know we can get the access to the module by the
 <code>sys.modules[module_name]</code> and we can set the attribute by the
 <code>setattr(object, attribute_name, attribute_value)</code>,
 but how to get access to the module inside the <code>__init__.py</code> file?
 The magic attribute <code>__name__</code> will help us!</p>
+<p>Let's concatenate all together and we will get (new version of <code>__init__.py</code>):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> glob
+<span style="color:#f92672">import</span> sys
+<span style="color:#f92672">import</span> os.path
 
-<p>Let&rsquo;s concatenate all together and we will get (new version of <code>__init__.py</code>):</p>
-
-<pre><code class="language-python">import glob
-import sys
-import os.path
-
-for file_name in glob.glob(os.path.dirname(__file__) + '/*.sql'):
-    query_name = os.path.splitext(os.path.basename(file_name))[0]
-    setattr(sys.modules[__name__], query_name, open(file_name).read().strip())
-</code></pre>
-
-<p>It&rsquo;s awesome: now we can easy add more SQL queries to project&rsquo;s folder
+<span style="color:#66d9ef">for</span> file_name <span style="color:#f92672">in</span> glob<span style="color:#f92672">.</span>glob(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>dirname(__file__) <span style="color:#f92672">+</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">/*.sql</span><span style="color:#e6db74">&#39;</span>):
+    query_name <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>splitext(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>basename(file_name))[<span style="color:#ae81ff">0</span>]
+    setattr(sys<span style="color:#f92672">.</span>modules[__name__], query_name, open(file_name)<span style="color:#f92672">.</span>read()<span style="color:#f92672">.</span>strip())
+</code></pre></div><p>It's awesome: now we can easy add more SQL queries to project's folder
 and module will has the appropriate attribute!</p>
 
             

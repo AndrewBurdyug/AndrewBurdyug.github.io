@@ -8,7 +8,7 @@
     <meta name="description" content="Describe your website">
     <link rel="shortcut icon" type="image/x-icon" href="http://andrewburdyug.github.io/img/favicon.ico">
     <title>MySQL Innodb Settings for SSD</title>
-    <meta name="generator" content="Hugo 0.59.1" />
+    <meta name="generator" content="Hugo 0.60.1" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="http://andrewburdyug.github.io/css/main.css" />
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
@@ -86,46 +86,37 @@
           <div class="blogpost">
             <p>If you have server with SSD hard, you can face the fact that the MySQL very slowly writes,
 help these settings adjustment:</p>
-
-<pre><code class="language-ini">[mysqld]
-innodb_buffer_pool_instances    = 8
-innodb_read_io_threads          = 8
-innodb_write_io_threads         = 8
-innodb_buffer_pool_size         = 64M
-innodb_io_capacity              = 1000
-; innodb_file_per_table
-</code></pre>
-
-<p>save this into <code>/etc/mysql/conf.d/tuning.cnf</code> and restart MySQL server. The most
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#66d9ef">[mysqld]</span>
+<span style="color:#a6e22e">innodb_buffer_pool_instances</span>    <span style="color:#f92672">=</span> <span style="color:#e6db74">8</span>
+<span style="color:#a6e22e">innodb_read_io_threads</span>          <span style="color:#f92672">=</span> <span style="color:#e6db74">8</span>
+<span style="color:#a6e22e">innodb_write_io_threads</span>         <span style="color:#f92672">=</span> <span style="color:#e6db74">8</span>
+<span style="color:#a6e22e">innodb_buffer_pool_size</span>         <span style="color:#f92672">=</span> <span style="color:#e6db74">64M</span>
+<span style="color:#a6e22e">innodb_io_capacity</span>              <span style="color:#f92672">=</span> <span style="color:#e6db74">1000</span>
+<span style="color:#75715e">; innodb_file_per_table</span>
+</code></pre></div><p>save this into <code>/etc/mysql/conf.d/tuning.cnf</code> and restart MySQL server. The most
 important of these settings is <strong>innodb_io_capacity</strong>, here is what mysql docs says
 about:</p>
-
 <blockquote>
 <p>The innodb_io_capacity parameter sets an upper limit on the I/O activity performed by the InnoDB background tasks, such as flushing pages from the buffer pool and merging data from the change buffer. The default value is 200. For busy systems capable of higher I/O rates, you can set a higher value at server startup, to help the server handle the background maintenance work associated with a high rate of row changes.</p>
-
+</blockquote>
+<blockquote>
 <p>The innodb_io_capacity limit is a total limit for all buffer pool instances. When dirty pages are flushed, the innodb_io_capacity limit is divided equally among buffer pool instances.</p>
-
+</blockquote>
+<blockquote>
 <p>As of MySQL 5.7.2, the innodb_io_capacity setting is also used to limit the number of buffer pool load operations per second when there is other I/O activity being performed by InnoDB background tasks.</p>
-
+</blockquote>
+<blockquote>
 <p>For systems with individual 5400 RPM or 7200 RPM drives, you might lower the value to the former default of 100.</p>
 </blockquote>
-
 <p>These parameter values were tested on Linode VM with SSD and 4Gb of RAM. Linode ssd
 servers have a very good performance, here is the output of <code>atop -s 1</code>
 during the converting big database(180 millions of rows) to InnoDb (take a look at
 the writes count and busy percent):</p>
-
 <pre><code>DSK |          xvda  | busy     21%  |  read      31  |  write   4306 |  KiB/w     33  |  MBr/s   1.25  |  MBw/s 139.93 |  avio 0.05 ms  |
-</code></pre>
-
-<div class="alert alert-info" role="alert">
-  
-NOTE: To convert a non-InnoDB table to InnoDB, use `ALTER TABLE`:
-```sql
-ALTER TABLE table_name ENGINE=InnoDB;
-```
-
-</div>
+</code></pre><!-- raw HTML omitted -->
+<p>NOTE: To convert a non-InnoDB table to InnoDB, use <code>ALTER TABLE</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">TABLE</span> <span style="color:#66d9ef">table_name</span> ENGINE<span style="color:#f92672">=</span>InnoDB;
+</code></pre></div><!-- raw HTML omitted -->
 
             
             <div class="related-posts">

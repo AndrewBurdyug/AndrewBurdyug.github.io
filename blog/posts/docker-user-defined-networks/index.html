@@ -8,7 +8,7 @@
     <meta name="description" content="Describe your website">
     <link rel="shortcut icon" type="image/x-icon" href="http://andrewburdyug.github.io/img/favicon.ico">
     <title>Docker User Defined Networks</title>
-    <meta name="generator" content="Hugo 0.59.1" />
+    <meta name="generator" content="Hugo 0.60.1" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="http://andrewburdyug.github.io/css/main.css" />
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
@@ -80,43 +80,28 @@
       <div class="panel panel-default">
         <div class="panel-body">
           <div class="blogpost">
-            
-
-<h1 id="problem">Problem</h1>
-
+            <h1 id="problem">Problem</h1>
 <p>Docker use DHCP by default so your containers may changed their IP addresses
 adfter reboot, in fact, in old docker version it was after every reboot.
-It&rsquo;s very annoying. Of course you can use <a href="https://docs.docker.com/compose/">docker-compose</a> which will
+It's very annoying. Of course you can use <a href="https://docs.docker.com/compose/">docker-compose</a> which will
 manage these things and links between containers will not be broken,
 but if you do not want to use <a href="https://docs.docker.com/compose/">docker-compose</a>
 this may come a big problem.</p>
-
 <h1 id="solution">Solution</h1>
-
 <p>Use the <a href="https://docs.docker.com/engine/userguide/networking/dockernetworks/#user-defined-networks">user defined networks</a>.</p>
-
-<p>Let&rsquo;s do it.</p>
-
+<p>Let's do it.</p>
 <h2 id="create-a-custom-docker-bridge">Create a custom docker bridge</h2>
-
 <p>At the first you should create a custom bridge:</p>
-
 <pre><code>$ docker network create -d bridge --subnet 172.31.0.0/16 isolated_nw
 6b598ba1534223a1595c27b0c49d42115ec7c5f3ebea6dce4e2b220f086a3dcc
-</code></pre>
-
-<p>check available docker networks:</p>
-
+</code></pre><p>check available docker networks:</p>
 <pre><code>$ docker network ls
 NETWORK ID          NAME                DRIVER
 ee9f284bd4b0        bridge              bridge
 ca48e2b967ba        host                host
 6b598ba15342        isolated_nw         bridge
 a69dfefe6cf9        none                null
-</code></pre>
-
-<p>You can inspect created <code>isolated_nw</code> bridge:</p>
-
+</code></pre><p>You can inspect created <code>isolated_nw</code> bridge:</p>
 <pre><code>$ docker network inspect isolated_nw
 [
     {
@@ -140,18 +125,11 @@ a69dfefe6cf9        none                null
         &quot;Labels&quot;: {}
     }
 ]
-</code></pre>
-
-<h2 id="create-container-with-static-ip-address">Create container with static IP address</h2>
-
+</code></pre><h2 id="create-container-with-static-ip-address">Create container with static IP address</h2>
 <p>Now you can create a new container with IP from our network:</p>
-
 <pre><code>$ docker run --net=isolated_nw --ip=172.31.1.1 -itd ubuntu bash
 e7fd3a525d804c5d08d8b5fdb2d971705c83877c2c4b420a140203766b6a0f2e
-</code></pre>
-
-<p>Inspect again our isolated_nw bridge:</p>
-
+</code></pre><p>Inspect again our isolated_nw bridge:</p>
 <pre><code>$ docker network inspect isolated_nw
 [
     {
@@ -183,9 +161,7 @@ e7fd3a525d804c5d08d8b5fdb2d971705c83877c2c4b420a140203766b6a0f2e
         &quot;Labels&quot;: {}
     }
 ]
-</code></pre>
-
-<p>That&rsquo;s all, now you have a docker container with static IP address.</p>
+</code></pre><p>That's all, now you have a docker container with static IP address.</p>
 
             
             <div class="related-posts">

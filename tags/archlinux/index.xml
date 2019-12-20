@@ -18,8 +18,8 @@
       
       <guid>http://andrewburdyug.github.io/blog/posts/archlinux-build-custom-nginx/</guid>
       <description>Preparation Install abs:
-[root@localhost:~]# pacman -S abs  Add non superuser account for building the arch linux package e.g. src:
-[root@localhost:~]# mkdir /var/abs/local [root@localhost:~]# useradd -d /var/abs/local -s /bin/bash src  Building the package Sync nginx abs files:
+[root@localhost:~]# pacman -S abs Add non superuser account for building the arch linux package e.g. src:
+[root@localhost:~]# mkdir /var/abs/local [root@localhost:~]# useradd -d /var/abs/local -s /bin/bash src Building the package Sync nginx abs files:
 [root@localhost:~]# abs sync extra/nginx ==&amp;gt; Starting ABS sync... receiving file list ... done ./ extra/ extra/nginx/ extra/nginx/PKGBUILD extra/nginx/logrotate extra/nginx/nginx.install extra/nginx/service sent 225 bytes received 3,098 bytes 2,215.33 bytes/sec total size is 4,874 speedup is 1.</description>
     </item>
     

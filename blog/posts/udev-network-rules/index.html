@@ -8,7 +8,7 @@
     <meta name="description" content="Describe your website">
     <link rel="shortcut icon" type="image/x-icon" href="http://andrewburdyug.github.io/img/favicon.ico">
     <title>Udev Network Rules</title>
-    <meta name="generator" content="Hugo 0.59.1" />
+    <meta name="generator" content="Hugo 0.60.1" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="http://andrewburdyug.github.io/css/main.css" />
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
@@ -80,38 +80,24 @@
       <div class="panel panel-default">
         <div class="panel-body">
           <div class="blogpost">
-            
-
-<h1 id="problem">Problem</h1>
-
+            <h1 id="problem">Problem</h1>
 <p>Sometimes after reboot ethernet adapters get the wrong network settings because
 they changed their names. The <a href="https://en.wikipedia.org/wiki/Udev">udev</a> system
 will help to prevent this collisions.</p>
-
 <h1 id="solution">Solution</h1>
-
 <p>The udev approach is to create a new rule (file
 <code>/etc/udev/rules.d/10-network.rules</code>):</p>
-
 <pre><code>SUBSYSTEM==&quot;net&quot;, ACTION==&quot;add&quot;, ATTR{address}==&quot;00:11:1b:87:07:01&quot;, NAME=&quot;eth0
 SUBSYSTEM==&quot;net&quot;, ACTION==&quot;add&quot;, ATTR{address}==&quot;00:e0:1c:fe:01:09&quot;, NAME=&quot;eth1
-</code></pre>
-
-<p>where <code>30:85:a9:ae:f2:03</code> is the mac address of <code>eth0</code> and
+</code></pre><p>where <code>30:85:a9:ae:f2:03</code> is the mac address of <code>eth0</code> and
 <code>30:85:a2:ae:00:03</code> is the mac address of your second ethernet adapter.
 Now your network adapters will not change their names anymore.</p>
-
 <p>Allright, but you can go ahead and do something like this:</p>
-
 <pre><code>SUBSYSTEM==&quot;net&quot;, ACTION==&quot;add&quot;, ATTR{address}==&quot;00:11:1b:87:07:01&quot;, NAME=&quot;world&quot;
 SUBSYSTEM==&quot;net&quot;, ACTION==&quot;add&quot;, ATTR{address}==&quot;00:e0:1c:fe:01:09&quot;, NAME=&quot;lan&quot;
-</code></pre>
-
-<p>to get funny network names which realy more convinent for using than ethN.</p>
-
+</code></pre><p>to get funny network names which realy more convinent for using than ethN.</p>
 <p>Now as we renamed both adapters to more meaningful names, we no needed to remember
 which of the adapters is looking out to world and which to lan:</p>
-
 <pre><code>[root@localhost:~]# ifconfig lan
 lan: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
         inet 192.168.1.1  netmask 255.255.255.0  broadcast 192.168.1.255
@@ -129,13 +115,9 @@ world: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
         RX errors 0  dropped 497  overruns 0  frame 0
         TX packets 299085  bytes 49491640 (47.1 MiB)
         TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
-</code></pre>
-
-<p>Also our <strong>iptables</strong> rules become to look very prettier:</p>
-
+</code></pre><p>Also our <strong>iptables</strong> rules become to look very prettier:</p>
 <pre><code>-A POSTROUTING -s 192.168.1.0/24 ! -d 192.168.1.0/24 -o world -j SNAT --to-source 178.32.218.104
 </code></pre>
-
             
             <div class="related-posts">
               <hr>

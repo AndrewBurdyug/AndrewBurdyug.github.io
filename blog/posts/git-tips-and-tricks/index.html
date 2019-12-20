@@ -8,7 +8,7 @@
     <meta name="description" content="Describe your website">
     <link rel="shortcut icon" type="image/x-icon" href="http://andrewburdyug.github.io/img/favicon.ico">
     <title>Git Tips and Tricks</title>
-    <meta name="generator" content="Hugo 0.59.1" />
+    <meta name="generator" content="Hugo 0.60.1" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="http://andrewburdyug.github.io/css/main.css" />
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
@@ -80,96 +80,48 @@
       <div class="panel panel-default">
         <div class="panel-body">
           <div class="blogpost">
-            
-
-<h2 id="push">Push</h2>
-
+            <h2 id="push">Push</h2>
 <p>Push the local new branch into the new remote branch:</p>
-
 <pre><code>git push &lt;remote-name&gt; &lt;local-branch-name&gt;:&lt;remote-branch-name&gt;
-</code></pre>
-
-<p>Delete remote git branch:</p>
-
+</code></pre><p>Delete remote git branch:</p>
 <pre><code>git push origin --delete branch_name
-</code></pre>
-
-<h2 id="pull-fetch">Pull &amp; fetch</h2>
-
+</code></pre><h2 id="pull--fetch">Pull &amp; fetch</h2>
 <p>Delete local stale git branches which were alreay deleted on the remote server:</p>
-
 <pre><code>git fetch -p
-</code></pre>
-
-<p>Fetch the new git branch and checkout into it:</p>
-
+</code></pre><p>Fetch the new git branch and checkout into it:</p>
 <pre><code>git fetch origin &lt;remote-branch-name&gt;:&lt;local-branch-name&gt;
 git checkout &lt;local-branch-name&gt;
-</code></pre>
-
-<p>or the shortest variant:</p>
-
+</code></pre><p>or the shortest variant:</p>
 <pre><code>git checkout -b local_branch_name origin/remote_branch_name
-</code></pre>
-
-<p>Add sub module:</p>
-
+</code></pre><p>Add sub module:</p>
 <pre><code>git submodule add -b branch_name git@gitlab.com:repo_group/repo_name.git project_folder/folder_name
-</code></pre>
-
-<h2 id="config">Config</h2>
-
+</code></pre><h2 id="config">Config</h2>
 <p>Custom format for CHANGELOG:</p>
-
 <pre><code>git log --format=&quot;%ad %h %s&quot; --date=&quot;short&quot;
-</code></pre>
-
-<p>printed data will looks like:</p>
-
+</code></pre><p>printed data will looks like:</p>
 <pre><code>2013-01-15 1ff347c Fix: export of data items (Bug #116)
 2013-01-15 104c3e6 Change: /user returns all timestamps in UTC (Task #17)
 2013-01-09 e6457ef Fix: systemd service is freeze after restart (Bug #14)
 2013-01-09 a1515b5 Update: docs (Task #2)
-</code></pre>
-
-<p>Custom colors in <code>diff</code> mode (add below parameters into your <code>~/.gitconfig</code>):</p>
-
+</code></pre><p>Custom colors in <code>diff</code> mode (add below parameters into your <code>~/.gitconfig</code>):</p>
 <pre><code>[color &quot;diff&quot;]
         meta = white bold
         frag = magenta bold
         old = red
         new = green
-</code></pre>
-
-<p>Resolve remote git branch name automatically:</p>
-
+</code></pre><p>Resolve remote git branch name automatically:</p>
 <pre><code>git config push.default current
-</code></pre>
-
-<p>Changing the repo URL to a new one:</p>
-
+</code></pre><p>Changing the repo URL to a new one:</p>
 <pre><code>git remote set-url origin git://new.url.here
-</code></pre>
-
-<p>Added git submodules:</p>
-
+</code></pre><p>Added git submodules:</p>
 <pre><code>git submodule add -b master git@gitlab.com:vehicle/wheel.git vehicle/wheel
-</code></pre>
-
-<h2 id="search">Search</h2>
-
+</code></pre><h2 id="search">Search</h2>
 <p>Search for a string/regex across all branches:</p>
-
 <pre><code>git grep &quot;string/regexp&quot; $(git rev-list --all)
-</code></pre>
-
-<h2 id="show-content">Show content</h2>
-
+</code></pre><h2 id="show-content">Show content</h2>
 <p>Show content of file:</p>
-
 <pre><code>git show 236df4728:foo/bar/file.txt
 </code></pre>
-
             
             <div class="related-posts">
               <hr>

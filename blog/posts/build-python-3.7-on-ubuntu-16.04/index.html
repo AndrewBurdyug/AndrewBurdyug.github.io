@@ -8,7 +8,7 @@
     <meta name="description" content="Describe your website">
     <link rel="shortcut icon" type="image/x-icon" href="http://andrewburdyug.github.io/img/favicon.ico">
     <title>Build Python 3.7 on Ubuntu 16</title>
-    <meta name="generator" content="Hugo 0.59.1" />
+    <meta name="generator" content="Hugo 0.60.1" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="http://andrewburdyug.github.io/css/main.css" />
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
@@ -84,17 +84,10 @@
       <div class="panel panel-default">
         <div class="panel-body">
           <div class="blogpost">
-            
-
-<h1 id="guide">Guide</h1>
-
+            <h1 id="guide">Guide</h1>
 <p>Install the build system packages, run:</p>
-
 <pre><code>apt-get install -y build-essential checkinstall libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev zlib1g-dev openssl libffi-dev wget
-</code></pre>
-
-<p>Download latest python:</p>
-
+</code></pre><p>Download latest python:</p>
 <pre><code>root@J-RGS-DEV:~# export PY_VER=3.7.1
 root@J-RGS-DEV:~# wget https://www.python.org/ftp/python/${PY_VER}/Python-${PY_VER}.tar.xz
 --2018-11-14 11:57:30--  https://www.python.org/ftp/python/3.7.1/Python-3.7.1.tar.xz
@@ -107,15 +100,9 @@ Saving to: ‘Python-3.7.1.tar.xz’
 Python-3.7.1.tar.xz                             100%[======================================================================================================&gt;]  16.17M  --.-KB/s    in 0.1s
 
 2018-11-14 11:57:30 (133 MB/s) - ‘Python-3.7.1.tar.xz’ saved [16960060/16960060]
-</code></pre>
-
-<p>Unpack:</p>
-
+</code></pre><p>Unpack:</p>
 <pre><code>root@J-RGS-DEV:~# tar xvf Python-${PY_VER}.tar.xz
-</code></pre>
-
-<p>Configure:</p>
-
+</code></pre><p>Configure:</p>
 <pre><code>root@J-RGS-DEV:~# cd Python-${PY_VER}
 root@J-RGS-DEV:~/Python-3.7.1# ./configure --enable-optimizations --prefix=/opt/python-${PY_VER}
 checking build system type... x86_64-pc-linux-gnu
@@ -131,10 +118,7 @@ config.status: creating pyconfig.h
 creating Modules/Setup
 creating Modules/Setup.local
 creating Makefile
-</code></pre>
-
-<p>Build:</p>
-
+</code></pre><p>Build:</p>
 <pre><code>root@J-RGS-DEV:~/Python-3.7.1# make
 Running code to generate profile data (this can take a while):
 # First, we need to create a clean build with profile generation
@@ -145,10 +129,7 @@ Building with support for profile generation:
 make build_all_generate_profile
 .... ....
 
-</code></pre>
-
-<p>Build a debian package:</p>
-
+</code></pre><p>Build a debian package:</p>
 <pre><code>root@J-RGS-DEV:~/Python-3.7.1# checkinstall
 
 checkinstall 1.6.2, Copyright 2009 Felipe Eduardo Sanchez Diaz Duran
@@ -198,7 +179,6 @@ Deleting temp dir...OK
 **********************************************************************
 
 </code></pre>
-
             
             <div class="related-posts">
               <hr>

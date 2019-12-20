@@ -8,7 +8,7 @@
     <meta name="description" content="Describe your website">
     <link rel="shortcut icon" type="image/x-icon" href="http://andrewburdyug.github.io/img/favicon.ico">
     <title>Rescue</title>
-    <meta name="generator" content="Hugo 0.59.1" />
+    <meta name="generator" content="Hugo 0.60.1" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="http://andrewburdyug.github.io/css/main.css" />
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
@@ -78,10 +78,7 @@
       <div class="panel panel-default">
         <div class="panel-body">
           <div class="blogpost">
-            
-
-<h1 id="chroot-manjaro">Chroot manjaro</h1>
-
+            <h1 id="chroot-manjaro">Chroot manjaro</h1>
 <pre><code># mount /dev/nvmen0p1 /mnt
 ## mount /dev/nvmen0p1 /mnt/boot/efi  # optional - in case you are running in UEFI mode, again, replace with the correct device name
 # mount -t proc proc /mnt/proc
@@ -90,9 +87,7 @@
 # mount --rbind /run /mnt/run
 # mount --rbind /etc/resolv.conf /mnt/etc/resolv.conf
 # chroot /mnt /bin/bash
-</code></pre>
-
-<p>Original hints were published here: <a href="https://forum.manjaro.org/t/manjaro-stuck-on-boot-screen-libidn2-so-4-missing/72999/6">https://forum.manjaro.org/t/manjaro-stuck-on-boot-screen-libidn2-so-4-missing/72999/6</a></p>
+</code></pre><p>Original hints were published here: <a href="https://forum.manjaro.org/t/manjaro-stuck-on-boot-screen-libidn2-so-4-missing/72999/6">https://forum.manjaro.org/t/manjaro-stuck-on-boot-screen-libidn2-so-4-missing/72999/6</a></p>
 
             
             <div class="related-posts">

@@ -8,7 +8,7 @@
     <meta name="description" content="Describe your website">
     <link rel="shortcut icon" type="image/x-icon" href="http://andrewburdyug.github.io/img/favicon.ico">
     <title>Docker Tips and Tricks</title>
-    <meta name="generator" content="Hugo 0.59.1" />
+    <meta name="generator" content="Hugo 0.60.1" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="http://andrewburdyug.github.io/css/main.css" />
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
@@ -80,14 +80,9 @@
       <div class="panel panel-default">
         <div class="panel-body">
           <div class="blogpost">
-            
-
-<h2 id="manage-container-etc-hosts">Manage container /etc/hosts</h2>
-
+            <h2 id="manage-container-etchosts">Manage container /etc/hosts</h2>
 <p>See section <a href="https://docs.docker.com/engine/reference/run/#managing-etchosts">Managing /etc/hosts</a></p>
-
 <p>Example:</p>
-
 <pre><code>$ docker run -it --add-host db-static:86.75.30.9 ubuntu cat /etc/hosts
 127.0.0.1   localhost
 ::1 localhost ip6-localhost ip6-loopback
@@ -97,31 +92,19 @@ ff02::1 ip6-allnodes
 ff02::2 ip6-allrouters
 86.75.30.9  db-static
 172.17.0.2  f0ab12b0b544
-</code></pre>
-
-<h2 id="connect-offline-docker-container-to-network">Connect offline docker container to network</h2>
-
+</code></pre><h2 id="connect-offline-docker-container-to-network">Connect offline docker container to network</h2>
 <p>If you used weave, sometimes you may face to such errors:</p>
-
 <pre><code>Sep 27 16:36:04 server01 docker[21483]: Error response from daemon: network 5d003f4577873af43afbcead7cd1496bbcccb3473465dd01ccee8ef3b49a0045 not found
-</code></pre>
-
-<p>this means that weave was upgraded and changed its network ID,
+</code></pre><p>this means that weave was upgraded and changed its network ID,
 for resolving this issue you may instead of re-created every container,
 just connect the container to the new weave network. e.g.:</p>
-
 <pre><code>docker network connect --ip 10.10.10.180 weave mysql
-</code></pre>
-
-<h2 id="erase-all-docker-container-logs">Erase all docker container logs</h2>
-
+</code></pre><h2 id="erase-all-docker-container-logs">Erase all docker container logs</h2>
 <p>You can truncate logs of all docker containers in this way:</p>
-
 <pre><code>for i in `docker ps -q`;  \
    do :&gt;$(docker inspect --format='{{.LogPath}}' $i); \
 done
 </code></pre>
-
             
             <div class="related-posts">
               <hr>
